@@ -1,0 +1,39 @@
+{
+  "all_claims_passed": true,
+  "arxiv": "2602.02406",
+  "claims": {
+    "C1_fol_framework": {
+      "cases": 96,
+      "correct_expression": 67.43699714517388,
+      "rejected_missing_plus_one": 17.081196416408098
+    },
+    "C2_training_loss": {
+      "finite_universal_cases": 189,
+      "sample_bound": 28.09278736274532
+    },
+    "C3_validation_loss": {
+      "finite_argmin_cases": 75,
+      "sample_bound": 103.8297779242879
+    },
+    "C4_rational_path": {
+      "Delta_total": 4,
+      "M_total": 30,
+      "piecewise_rational_cases": 300
+    },
+    "C5_weighted_group_lasso": {
+      "bound_form": "O(p^3*d + p^2*d^2)",
+      "kkt_cases": 15,
+      "rejected_negative_nu": -5.0
+    },
+    "C6_weighted_fused_lasso": {
+      "bound_form": "O(d^2)",
+      "kkt_path_cases": 153,
+      "rejected_wrong_threshold_difference": 1.5
+    }
+  },
+  "paper": "JnuwpwbZ8D",
+  "source_sha256": {
+    "icml2026.tex": "5c7260856bcaf8554196716d0dc1ebfc69ebab1684893207b938e93d601754ef",
+    "icml_appendix.tex": "3551432784412496e3f3ffac96272de1745b8b6e4c4a1afd0c79c606dc37068f"
+  }
+}

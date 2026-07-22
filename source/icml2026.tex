@@ -1,0 +1,636 @@
+%%%%%%%% ICML 2026 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2026} with \usepackage[nohyperref]{icml2026} above.
+\usepackage{hyperref}
+\newcommand{\TL}[1]{\textcolor{blue}{#1}}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+% \usepackage{icml2026}
+
+% For preprint, use
+\usepackage[accepted]{icml2026}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2026}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{atnguyen_icml}
+\usepackage{enumitem}
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\newtheorem{innercustomthm}{Theorem}
+\newenvironment{customthm}[1]
+  {\renewcommand\theinnercustomthm{\textbf{#1}}\innercustomthm}
+  {\endinnercustomthm}
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand*{\bPr}{\mathbb{P}}
+\newcommand*{\MM}{\mathbb{M}}
+\newcommand*{\RR}{\mathbb{R}}
+\newcommand*{\CC}{\mathbb{C}}
+\newcommand*{\FF}{\mathbb{F}}
+\newcommand*{\NN}{\mathbb{N}}
+\newcommand*{\rX}{\mathrm{X}}
+\newcommand*{\rF}{\mathrm{F}}
+\newcommand*{\rY}{\mathrm{Y}}
+\newcommand*{\rP}{\mathrm{P}}
+
+\newcommand*{\TT}{\mathrm{T}}
+\newcommand*{\GL}{\mathrm{GL}}
+\newcommand*{\SL}{\mathrm{SL}}
+\newcommand*{\II}{\mathrm{I}}
+\newcommand*{\indic}{\mathds{1}}
+\newcommand*{\LL}{\mathrm{L}}
+\newcommand*{\St}{\mathrm{S}}
+\newcommand*{\flatten}{\mathrm{flatten}}
+%
+\newcommand*{\bA}{\mathbf{A}}
+\newcommand*{\bB}{\mathbf{B}}
+\newcommand*{\bC}{\mathbf{C}}
+\newcommand*{\bD}{\mathbf{D}}
+\newcommand*{\bE}{\mathbf{E}}
+\newcommand*{\bF}{\mathbf{F}}
+\newcommand*{\bG}{\mathbf{G}}
+\newcommand*{\bH}{\mathbf{H}}
+\newcommand*{\bL}{\mathbf{L}}
+\newcommand*{\bI}{\mathbf{I}}
+\newcommand*{\bK}{\mathbf{K}}
+\newcommand*{\bN}{\mathbf{N}}
+\newcommand*{\bM}{\mathbf{M}}
+\newcommand*{\bP}{\mathbf{P}}
+\newcommand*{\bQ}{\mathbf{Q}}
+\newcommand*{\bR}{\mathbf{R}}
+\newcommand*{\bS}{\mathbf{S}}
+\newcommand*{\bT}{\mathbf{T}}
+\newcommand*{\bU}{\mathbf{U}}
+\newcommand*{\bV}{\mathbf{V}}
+\newcommand*{\bW}{\mathbf{W}}
+\newcommand*{\bX}{\mathbf{X}}
+\newcommand*{\bY}{\mathbf{Y}}
+\newcommand*{\bZ}{\mathbf{Z}}
+
+
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Provably Data-driven Multiple Hyper-parameter Tuning with Structured Loss Function}
+
+\newcommand{\viet}[1]{{\color{red}{(Viet says: #1)}}}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{Provably Data-driven Multiple Hyper-parameter Tuning \\ with Structured Loss Function}
+
+  % It is OKAY to include author information, even for blind submissions: the
+  % style file will automatically remove it for you unless you've provided
+  % the [accepted] option to the icml2026 package.
+
+  % List of affiliations: The first argument should be a (short) identifier you
+  % will use later to specify author affiliations Academic affiliations
+  % should list Department, University, City, Region, Country Industry
+  % affiliations should list Company, City, Region, Country
+
+  % You can specify symbols, otherwise they are numbered in order. Ideally, you
+  % should not use this facility. Affiliations will be numbered in order of
+  % appearance and this is the preferred way.
+  \icmlsetsymbol{alpha}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Tung Quoc Le}{grenoble}
+    \icmlauthor{Anh Tuan Nguyen}{cmu}
+    \icmlauthor{Viet Anh Nguyen}{cuhk}
+    % \icmlauthor{Firstname4 Lastname4}{sch}
+    % \icmlauthor{Firstname5 Lastname5}{yyy}
+    % \icmlauthor{Firstname6 Lastname6}{sch,yyy,comp}
+    % \icmlauthor{Firstname7 Lastname7}{comp}
+    % %\icmlauthor{}{sch}
+    % \icmlauthor{Firstname8 Lastname8}{sch}
+    % \icmlauthor{Firstname8 Lastname8}{yyy,comp}
+    %\icmlauthor{}{sch}
+    %\icmlauthor{}{sch}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{grenoble}{Université Grenoble Alpes, LJK, CNRS, Grenoble INP, 38000 Grenoble, France}
+  \icmlaffiliation{cmu}{Carnegie Mellon University, Machine Learning Department}
+  \icmlaffiliation{cuhk}{Chinese University of Hong Kong, Department of Systems Engineering and Engineering Management}
+
+  \icmlcorrespondingauthor{Anh Tuan Nguyen}{atnguyen@cs.cmu.edu}
+
+  % You may provide any keywords that you find helpful for describing your
+  % paper; these are used to populate the "keywords" metadata in the PDF but
+  % will not be shown in the document
+  \icmlkeywords{Machine Learning, ICML}
+
+  \vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column listing the
+% affiliations and the copyright notice. The command takes one argument, which
+% is text to display at the start of the footnote. The \icmlEqualContribution
+% command is standard text for equal contribution. Remove it (just {}) if you
+% do not need this facility.
+
+% Use ONE of the following lines. DO NOT remove the command.
+% If you have no special notice, KEEP empty braces:
+\printAffiliationsAndNotice{}  % no special notice (required even if empty)
+% Or, if applicable, use the standard equal contribution text:
+% \printAffiliationsAndNotice{\icmlEqualContribution}
+
+
+\begin{abstract}
+    Data-driven algorithm design automates hyperparameter tuning, but its statistical foundations remain limited because model performance can depend on hyperparameters in implicit and highly non-smooth ways. Existing guarantees focus on the simple case of a one-dimensional (scalar) hyperparameter. This leaves the practically important, multi-dimensional hyperparameter tuning setting unresolved. We address this open question by establishing the first general framework for establishing generalization guarantees for tuning multi-dimensional hyperparameters in data-driven settings. Our approach strengthens the generalization guarantee framework for semi-algebraic function classes by exploiting tools from real algebraic geometry, yielding sharper, more broadly applicable guarantees. For completeness, we also instantiate the first lower bound for this general setting. We further extend the analysis to hyperparameter tuning using the validation loss under minimal assumptions, and derive improved bounds when additional structure is available. Finally, we demonstrate the scope of the framework with new learnability results, including data-driven weighted group lasso and weighted fused lasso.
+\end{abstract}
+
+\section{Introduction}
+Hyperparameter tuning \citep{a2024hyperparameter} is a cornerstone of the modern machine learning paradigm, often determining a model's performance. Despite its critical role, this tuning process is often regarded more as an art than a rigorous scientific endeavor. In practice, the vast majority of practitioners rely on naive grid search, which discretizes continuous hyperparameter spaces and selects the candidate that yields the best empirical results. While straightforward, this exhaustive approach is theoretically unprincipled and offers no performance guarantees. 
+
+To automate this tedious task, recent literature has introduced computational techniques such as Bayesian optimization and random search. While empirically effective, these methods lack robust theoretical foundations or rely on restrictive assumptions. For instance, Bayesian optimization~\citep{bergstra2011algorithms, snoek2012practical} generally assumes that a model's performance can be approximated as a noisy evaluation of a smooth, expensive function. In reality, this assumption could fail due to the volatile loss landscapes of complex models. Furthermore, these methods introduce their own complexity, requiring the selection of meta-hyperparameters, such as the acquisition function, kernel type, and bandwidth. Similarly, other approaches, including random search and spectral methods~\citep{bergstra2012random, hazan2018hyperparameter}, often provide theoretical guarantees only for discrete, finite grids. Meanwhile, advanced resource-allocation strategies like Hyperband~\citep{li2018hyperband}, which are effective at accelerating search via early stopping, primarily optimize computational efficiency for a fixed problem instance over discrete search spaces. Consequently, they do not characterize the fundamental theoretical complexity of identifying optimal continuous parameters. This gap highlights the pressing need for a rigorous theoretical foundation for hyperparameter tuning.
+
+
+To address this gap, the \textit{data-driven algorithm design} framework models the hyperparameter tuning problem as a statistical learning problem over an unknown, application-specific distribution $\cD$ of problem instances~\citep{balcan2020data, gupta2020data}. From a finite set of training instances drawn from $\cD$, we seek to identify the hyperparameter configuration that is provably guaranteed to perform well on future, \emph{un}seen instances drawn from the same distribution. To this end, we define the loss function $\ell_\alpha(x)$ via a bi-level optimization structure: 
+\begin{equation}
+    \label{eq:hyper-parameters-tuning}
+    \begin{aligned}
+        &\ell_\alpha(x) = \inf_{\theta \in \cS(x, \alpha)} g(x, \alpha, \theta),\\
+        \textup{where \,\,} & \cS(x, \alpha) \triangleq \arg \min_{\theta \in \Theta} f(x, \alpha, \theta).
+    \end{aligned}
+\end{equation}
+Here, $f$ represents the \textit{training objective} (i.e, the optimization surrogate), while $g$ represents the \textit{validation objective} (i.e., the target metric). For instance, consider the linear regression problem in which we would like to tune the (one-dimensional) ridge regularization parameter. The problem instance can be represented as $x = (A, b, A', b')$ containing both the training set $(A, b)$ and the validation set $(A', b')$, which could be extracted from the available data. The training objective $f(x, \alpha, \theta)$ explicitly includes the regularization term $\|A\theta - b\|_2^2 + \alpha\|\theta\|_2^2$ to stabilize the solution, whereas the validation objective $g(x, \alpha, \theta) = \|A'\theta - b'\|_2^2$ evaluates performance with\emph{out} the penalization. In this context, the regularization parameter $\alpha$ shapes the optimization landscape of the training objective $f$, but affects the validation objective $g$ only \textit{implicitly} through the learned parameters. Analyzing this implicit dependency is the core challenge that we need to overcome. 
+
+
+
+The approach we take in this paper leverages statistical learning theory to bound the learning-theoretic complexity of the family of loss functions induced by the hyperparameters. Formally, it behooves us to analyze the learning-theoretic complexity (e.g., pseudo-dimension) of the function class $\cL = \{\ell_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$, where $\cA$ is the hyperparameter space and $H$ is a positive-valued bound of the loss functions. The analysis in \citet{balcan2025sample} leverages the observation that for many problems of interest, given the problem instance $x$, $f_x(\alpha, \theta) \triangleq f(x, \alpha, \theta)$ admits a \textit{piecewise polynomial structure} with respect to $\alpha$ and $\theta$ (see Definition \ref{def:piecewise-poly-def} and Figure \ref{fig:piecwise-poly-structure} for a simple illustration). This structural assumption is ubiquitous: it has been established for a wide range of applications in both classical learning theory~\citep{bartlett1998almost,montufar2014number,bartlett2019nearly} as well as data-driven algorithm design problems~\citep{balcan2021much,balcan2023new,nguyen2026provably,cheng2025generalization}. 
+
+On the downside, the result from~\citet{balcan2025sample} suffers from numerous limitations that hinder its general applicability. First, their analysis is strictly confined to one-dimensional hyperparameters (i.e., $\cA = \bbR$) based on ad hoc geometric arguments (e.g., oscillations, monotonic curves). In reality, many ML/AI pipelines rely on stacking multiple regularization terms to achieve the desired effects; the most popular is the elastic net, which combines L1 (lasso) and L2 (ridge) penalties with different hyperparameter weights. However, this geometric approach breaks down in this multi-dimensional setting ($\alpha \in \bbR^p$), where critical sets become high-dimensional manifolds rather than simple curves. Second, their results are limited to the simple setting where the training and evaluation objectives are identical (i.e., $f \equiv g$). For the ridge regression illustrated above, this requirement imposes that the training and validation sets are identical, i.e., $(A, b) = (A', b')$. This restriction violates the fundamental principles of model selection, which require the training and validation sets to be well separated to prevent overfitting and produce an unbiased estimate of the performance.
+Third, their approach requires strong regularity assumptions on the boundaries of the piecewise structure (e.g., ELICQ conditions in \citet[Assumption 1]{balcan2025sample}). Finally, there is no lower bound in the general setting presented in the prior work, which makes it hard to assess the tightness of the upper bound. These limitations motivate the development of the general model-theoretic framework we present in this paper.  
+
+
+\paragraph{Contributions.} In this work, we provide an affirmative answer to the open question posed by \citet{balcan2025sample} by establishing the concrete sample complexity for the function class $\cL = \{\ell_\alpha: \cX \rightarrow [-H, H] | \alpha \in \cA\}$, where $\cA \subset \mathbb{R}^p$ with $p \ge 1$. Our contributions are as follows:
+\begin{itemize}[leftmargin=*]
+    \item We establish in Theorem~\ref{thm:upper-bound-pdim} a general tool that connects the learning-theoretic complexity of a function class $\cL$ to the logical complexity of its functions $\ell_\alpha$. Specifically, we show that if the loss function can be described by a polynomial \textit{first-order logic}, its pseudo-dimension is bounded by the complexity of the quantifier elimination process \citep{basu2006algorithms}.
+    \item Second, we apply this framework to the training-loss setting (i.e., $f \equiv g$) studied by~\citet{balcan2025sample}. We show in Theorem~\ref{thm:pdim-tuning-training} that if the objective $f(x, \alpha, \theta)$ admits a piecewise polynomial structure for any given problem instance $x$, the induced loss $\ell_x(\alpha) = \min_{\theta \in \Theta}f(x, \alpha, \theta)$ is expressible as a polynomial FOL formula. This allows us to derive the first generalization guarantees for multi-dimensional hyperparameters ($\alpha \in \bbR^p$), effectively resolving the main open question in prior work.  Moreover, we also present the first pseudo-dimension lower-bound in Theorem \ref{thm:pdim-tuning-training-lower-bound}, showing that our upper-bound is tight in some scenarios.
+    \item Third, we extend our analysis to the general bi-level validation tuning setting ($f \neq g$). We prove in Theorem~\ref{thm:pdim-tuning-validation} that validation loss functions are definable in FOL, ensuring learnability under minimal assumptions. 
+    \item Forth, we show in Section~\ref{sec:refined-structure-improved-bound} how we can exploit the optimal solution path structure to improve the bounds. 
+    \item Finally, we
+    demonstrate in Section \ref{sec:applications} the versatility of our framework by establishing the first learnability guarantees for two new applications: data-driven tuning for weighted group LASSO and weighted fused LASSO, some of which go \emph{beyond the piecewise polynomial assumptions}.
+\end{itemize}
+
+\paragraph{Technical challenges.} The key challenge in our setting is that the loss function $\ell_\alpha(x)$ is defined implicitly via a bi-level optimization problem involving non-convex, non-smooth objectives. Consequently, the dependence of $\ell_\alpha(x)$ can be highly volatile, exhibiting discontinuities and potentially singularities. 
+
+
+To overcome these challenges, we adopt a \textit{model-theoretic} perspective, drawing on tools from real algebraic geometry. Instead of analyzing the local geometry of the solution paths (i.e., $\cS(x, \alpha) = \arg \min_{\theta \in \Theta}f(x, \alpha, \theta)$), we view the optimality conditions of the inner problem as a predicate in polynomial first-order logic (FOL). After that, we use \textit{quantifier-elimination} technique, transforming polynomial FOLs to a \textit{quantifier-free formula} (QFF), of which the computation can then be described as a Goldberg-Jerrum (GJ) algorithm \citep{goldberg1993bounding, bartlett2022generalization}. This allows us to use the GJ framework to establish the generalization guarantee for the function class of interest
+
+
+\paragraph{Notations.} We denote $\sign(t) = 0$ if $t = 0$, $1$ if $t > 0$, and $-1$ if $t < 0$. For $z \in \bbR^k$, we denote $\bbR[z]$ the polynomial ring in $z$ over $\bbR$, i.e., $P(z) \in \bbR[z]$ is a (multi-variate) polynomial of $z$. We denote $\textup{deg}(P)$ the degree of the polynomial $P$. For a multiple inputs functions $h(z_1, z_2)$, given a fixed component, says $z_1$, we denote $h_{z_1}(z_2) \triangleq h(z_1, z_2)$ is an induced function where we treat $z_1$ as fixed and $z_2$ as the only variables.  
+
+\subsection{Related Works}
+
+\textbf{Data-driven hyperparameter tuning}, initiated by \citep{balcan2020data, gupta2020data}, frames hyperparameter tuning as a multi-task learning problem. This data-driven perspective has demonstrated significant empirical success across diverse fields, including low-rank approximation \citep{li2023learning, indyk2019learning}, accelerated linear system solvers \citep{sakaue2024generalization, nguyen2026provably}, and branch-and-cut strategies for (mixed integer) linear programming \citep{balcan2021sample}, among others.  
+
+\paragraph{Theoretical analysis for data-driven hyperparameter tuning.} The practical success of data-driven hyperparameter tuning has motivated a line of theoretical work aimed at establishing rigorous generalization guarantees \citep{balcan2021much, balcan2021sample, bartlett2022generalization, balcan2023new, balcan2024algorithm}. Analyzing these problems is generally more challenging than standard statistical learning theory due to the volatile, non-smooth dependence of the loss $\ell_x(\alpha)$ on the hyperparameters $\alpha$. Most prior guarantees focus on settings where the algorithm's behavior is determined solely by $\alpha$, typically by exploiting the piecewise structure of $\ell_x(\alpha)$ w.r.t.~$\alpha$. Recently, \citet{balcan2025sample} provided the first \textit{general framework} for the harder case where $\ell_x(\alpha)$ involves an inner optimization over model parameter $\theta$. However, as discussed, their results are restricted to one-dimensional hyperparameters and single-level objectives ($f \equiv g$). Our work directly extends this line of inquiry. 
+
+  
+
+\section{Preliminaries}
+\subsection{Backgrounds on Learning Theory}
+We recall the notion of \textup{pseudo-dimension}, a learning-theoretic complexity for a real-valued function class. 
+
+\begin{definition}[Pseudo-dimension, \citealp{pollard1984convergence}] \label{def:pseudo-dimension}
+    Consider a real-valued function class $\cL = \{\ell_{\alpha}: \cX \rightarrow \bbR \mid \alpha \in \cA\}$ parameterized by $\alpha \in \cA$. Given a set of inputs $S = (x_1, \dots, x_N) \subset \cX$, we say that $S$ is shattered by $\cL$ if there exists a set of real-valued threshold $t_1, \dots, t_N \in \bbR$ such that $\abs{\{(\sign(\ell_{\alpha}(x_1) - t_1), \dots, \sign(\ell_{\alpha}(x_N) - t_N)) \mid \ell_{\alpha} \in \cL\}} = 2^N$. The pseudo-dimension of $\cL$, denoted $\Pdim(\cL)$, is the maximum size $N$ of an input set that $\cL$ can shatter.
+\end{definition}
+
+A standard result in learning theory states that a real-valued function class with bounded pseudo-dimension is Probably Approximately Correct (PAC)-learnable with empirical risk minimization (ERM). 
+
+\begin{theorem}[\citealp{pollard1984convergence}] \label{thm:pdim-to-generalization}
+    Consider a real-valued function class $\cL = \{\ell_{\alpha}: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$ parameterized by $\alpha \in \cA$. Assume that $\Pdim(\cL)$ is finite. Then given $\epsilon > 0$ and $\delta \in (0, 1)$, for any $N \geq N(\epsilon, \delta)$, where $N(\epsilon, \delta) = \cO\left(\frac{H^2}{\epsilon^2}(\Pdim(\cL) + \log(1/\delta))\right)$, with probability at least $1 - \delta$ over the draw of $S = (x_1, \dots, x_N) \sim \cD^N$, where $\cD$ is a distribution over $\cX$, we have 
+    $$
+        \bbE_{x \sim \cD}[\ell_{\hat{\alpha}}(x)] \leq \inf_{\alpha \in \cA} \bbE_{x \sim \cD}[\ell_{\alpha}(x)] + \epsilon.
+    $$
+    Here $\hat{\alpha} \in \arg \min_{\alpha \in \cA} \sum_{x \in S} \ell_{\alpha}(x)$ is the ERM minimizer w.r.t.~the set of instances $S$.
+\end{theorem}
+
+\subsection{First-order Formula and Quantifier Elimination}
+
+In this section, we present the background necessary for quantifier elimination, a key component of our analysis. First, we introduce the notions of \textit{first-order formula}.
+
+    
+\begin{definition}[First-order formula, quantified/free variables, and polynomial first-order logic \cite{renegar1992computational}] \label{def:first-order-formula}
+
+    A \textbf{first-order formula} (FOL) $\Phi(\alpha)$ admits the form:
+    \begin{equation} \label{eq:FOL}
+        (Q_1 \theta^{[1]} \in \bbR^{d_1}) \ldots (Q_K \theta^{[K]} \in \bbR^{d_K}) P(\alpha, \theta^{[1]}, \ldots, \theta^{[K]}),
+    \end{equation}
+    where
+    \begin{enumerate}[leftmargin=*]
+        \item Each $Q_k$ is one of the quantifiers $\exists$ or $\forall$. The sequence $\{Q_k\}_{k = 1}^K$ alternates between $\exists$ and $\forall$ and we denote $K$ as the number of quantifier alternations.
+        
+        \item $\theta^{[1]}, \theta^{[2]}, \ldots, \theta^{[K]}$ are called the quantified variables, while $\alpha \in \bbR^p$ is called the free variable.
+        
+        \item $P(\alpha, \theta^{[1]}, \theta^{[2]}, \ldots, \theta^{[K]})$ is a boolean combination of atomic predicates of the form:
+        \begin{equation*}
+            P_j(\alpha, \theta^{[1]}, \theta^{[2]}, \ldots, \theta^{[K]}) \, \chi_j \, 0,
+        \end{equation*}
+        where $\chi_j \in \{>, \geq, <, \leq, =, \neq\}$ is relational operator.
+    \end{enumerate}
+    A FOL $\Phi$ is a \emph{polynomial} FOL if each $P_j$ is a polynomial of $\alpha$ and $\theta^{[1]}, \dots, \theta^{[K]}$.
+\end{definition}
+
+Essentially, a polynomial FOL is a logical statement built from three simple components: polynomial (in)equalities, Boolean operators (e.g., AND and OR), and quantifiers (e.g., `there exists' $\exists$ and `for all' $\forall$). The variables linked internally with the quantifiers (in our application, the parameters $\theta$ we optimize over) are called \textit{quantified variables}, and the ones that are external inputs (in our application, the hyperparameters $\alpha$ we tune) are called \textit{free variables}. We now introduce the notion of \textit{quantifier-free formula}, which is an FOL that has no quantified variables. 
+
+\begin{definition}[Quantifier-free formula]
+    A polynomial FOL is a \textbf{quantifier-free formula} (QFF) if it has no quantified variables. In other words, it is a boolean combination of atomic predicates of the form $P_j(\alpha) \chi_j 0$, where $P_j$ is a polynomial of $\alpha \in \bbR^p$ and $\chi_j \in \{>, \geq, <, \leq, =, \neq\}$. 
+\end{definition}
+
+
+\begin{example}
+We provide two examples of polynomial FOL for illustration purposes. Let $\alpha \in \bbR^p$ and $\theta \in \bbR^d$, then:
+    \begin{itemize}[leftmargin=*]
+        \item The formula $\Phi(\alpha) = (\forall \theta \in \bbR^p) (\sum_{i = 1}^p \alpha_i^2 - \sum_{j = 1}^d \theta_j^2 \geq 0)$ is a polynomial FOL, where $\theta$ are quantified variables and $\alpha$ are free variables. In this case, there is only one quantifier alternation (e.g., $\forall \theta \in \bbR^n$), and therefore the number of quantifier alternations of $\Phi$ is $K = 1$. Furthermore, there is only one atomic predicate $P(\alpha, \theta) \geq 0$, where $P(\alpha, \theta) = \sum_{i = 1}^p \alpha_i^2 - \sum_{j = 1}^d \theta_j^2$ and since $P$ is a polynomial of $\alpha$ and $\theta$, $\Phi$ is a polynomial FOL.
+        
+        \item The formula $\Phi'(\alpha) = (\sum_{i = 1}^p \alpha_i^2 - 1 \geq 0)$ is a quantifier-free polynomial FOL.
+    \end{itemize}
+\end{example}
+
+
+Finally, the following result asserts that we can transform a polynomial FOL to a polynomial QFF with a bounded number of atomic predicates and a maximum polynomial degree of those atomic predicates. 
+    
+ \begin{theorem}[Quantifier elimination algorithm, {\citet[Algorithm~14.8]{basu2006algorithms}}]
+    \label{thm:quantifier-elimination}
+    Given a polynomial FOL $\Phi$ as in~\eqref{eq:FOL} with a fixed number of quantifier alternation $K$, there exists an equivalent polynomial QFF $\Psi$ consisting of (polynomial) atomic predicates in the free variables $\alpha \in \bbR^p$. Let $M$ be the number of atomic predicates in $\Phi$, and $\Delta$ be their maximum degree. Then the formula $\Psi(\alpha)$ satisfies the following structural complexities:
+    \begin{enumerate}[leftmargin=*]
+        \item Predicate complexity $I$: the number of distinct atomic polynomials appearing in $\Psi(\alpha)$ is at most 
+        \[
+            I \leq M^{\prod_{k = 1}^K (d_k + 1)} \cdot \Delta^{\cO(p) \cdot \prod_{k = 1}^K d_k}.
+        \]
+
+        \item Degree complexity $\Delta_{QE}$: the degree of these atomic polynomials is at most 
+        \[
+            \Delta_{QE} \leq \Delta^{\cO(\prod_{k = 1}^K d_k)}.
+        \]
+    \end{enumerate} 
+\end{theorem}
+
+Later, we will see that the computation of a polynomial QFF can be described by a GJ algorithm, which is the key idea of our analysis.
+
+\section{Problem Settings}
+
+We follow the setting from \citet{balcan2025sample} by considering a data-driven framework involving three fundamental spaces: (1) a problem instance space $\cX \subseteq \RR^q$, (2) a hyperparameter space $\cA \subseteq \bbR^p$, and (3) a model parameter space $\Theta \subseteq \bbR^d$. For simplicity, we assume $\cA = [\alpha_{\min}, \alpha_{\max}]^p$ and $\Theta = [\theta_{\min}, \theta_{\max}]^d$. For any problem instance $x \in \cX$, we evaluate the performance of a model parameterized by $\theta \in \Theta$ and hyperparameters $\alpha \in \cA$ using two distinct objective functions:
+\begin{itemize}[leftmargin=*]
+    \item \textit{Training objective} $f: \cX \times \cA \times \Theta \rightarrow [-H, H]$: the surrogate loss minimized by the algorithm, and
+    \item \textit{Validation objective} $g: \cX \times \cA \times \Theta \rightarrow [-H, H]$: the target metric used to evaluate the quality of the solution.
+\end{itemize}
+Here, $H$ is a threshold for boundedness. The induced loss $\ell_\alpha(x)$ measures the performance of the model on the problem instance $x$ given hyperparameters $\alpha$, defined via the bi-level structure in~\eqref{eq:hyper-parameters-tuning}. Notice that we adopt the \textit{optimistic bi-level optimization} formulation \citep{dempe2002foundations}, which is standard in the literature to ensure the validation is well-defined, then the lower-level set $\cS(x, \alpha)$ is not a singleton.
+
+\textbf{Objectives.} We assume there is an application-specific, unknown problem distribution $\cD$ over $\cX$. The goal of data-driven hyperparameter tuning is to find a value $\alpha^*$ that minimizes the expected loss 
+\[
+\alpha^* \in \arg \min_{\alpha \in \cA}\bbE_{x \sim \cD} [\ell_\alpha(x)].
+\]
+Since $\cD$ is unknown, we observe $N$ training instances $S = \{x_1, \dots, x_N\} \sim \cD^N$ and minimize the empirical risk 
+\[
+\hat{\alpha}(S) \in \arg \min_{\alpha \in \cA} \frac{1}{N} \sum_{i = 1}^N \ell_\alpha(x_i).
+\]
+Our primary theoretical goal is to establish sample complexity guarantees for this learning problem. Exploiting results Theorem~\ref{thm:pdim-to-generalization}, it suffices to study the induced function class $\cL = \{\ell_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$, and bound its pseudo-dimension $\Pdim(\cL)$. 
+
+\begin{figure}
+    \centering
+
+    \begin{tikzpicture}
+      % 1. Outside Region (Region -1)
+      \fill[red!10] (-3.5,-2.0) rectangle (4.0,2.5);
+      % Label for Outside
+      \node at (-2.5, 2) {$f_{(1)}(\boldsymbol{z})$};
+    
+      % 2. Inside Region (Region 1)
+      \fill[blue!20] (0,0) circle (1.5cm);
+      % Label for Inside
+      \node at (0,0) {$f_{(-1)}(\boldsymbol{z})$};
+    
+      % 3. The Boundary (Region 0)
+      \draw[line width=0.4mm] (0,0) circle (1.5cm);
+      
+      % Label for the Boundary (Arrow pointing to the edge)
+      \draw[<-, thick] (1.5, 0) -- (2.5, 0) node[right] {$f_{(0)}(\boldsymbol{z})$};
+    
+    \end{tikzpicture}
+    
+    \caption{
+        A simple illustration of the piecewise polynomial structure. Here, the set of boundary polynomials $\mathbb{H} = \{h_1\}$, where $h_1(z) = z_1^2 + z_2^2 - 4$. In the region $\{z \in \bbR^2 \mid h_1(z) > 0\}$ (i.e, the region outside the circle, the sign pattern $\boldsymbol{\sigma}(z) = (1) \in \{-1, 0, 1\}^1$), the function $f(z)$ admits the polynomial form $f_{(-1)}(z) = z_1 - z_2$. Similarly, in the region $\{z \in \bbR^2 \mid h_1(z) < 0\}$ inside the circle (i.e., the sign pattern $\boldsymbol{\sigma}(z) = (-1)$), we have $f(z) = f_{(-1)}(z) = z_1 + z_2$. Finally, in the region where $\{\boldsymbol{z} \in \bbR^2 \mid h_1(z) = 0\}$ (i.e., the boundary of the circle, $\boldsymbol{\sigma}(z) = (0)$), $f(z) = f_{(0)}(z) = z_1^3$. Note that all pieces are polynomials in $z$, and the complexity of the function $f(z)$ is $(1, 3, \Delta)$, where $\Delta = \max\{\textup{deg}(h_1), \textup{deg}(f_{(0)}), \textup{deg}(f_{(-1)}), \textup{deg}(f_{(1)})\} = 3$.
+    }
+    \label{fig:piecwise-poly-structure}
+\end{figure}  
+
+ 
+
+
+
+\textbf{Structural assumption.} We focus on the case where $f$ and $g$ admits \textit{piecewise polynomial structure}, formally defined as follows. 
+\begin{definition}[Piecewise polynomial function {\cite{balcan2025sample}}] 
+	\label{def:piecewise-poly-def}
+	A real-valued function $f$ admits a \textit{piecewise polynomial structure} with complexity $(M_f, T_f, \Delta_f)$ if there exists a set of boundary polynomials $\mathbb{H} = \{h_1, \dots, h_{M_f}\}$ and a set of value polynomials $\mathbb{F} = \{f_{\boldsymbol{\sigma}}\}_{\boldsymbol{\sigma} \in \Sigma_f} \subset \bbR[z]$, where $\Sigma_f \subseteq \{-1, 0, 1\}^{M_f}$ and $|\Sigma_f| \leq T_f$, both with polynomial degrees at most $\Delta$, such that for any $z$, we have $f(z) = f_{\boldsymbol{\sigma}(z)}(z)$, where $\boldsymbol{\sigma}(z) \in \Sigma_{f}$ is the sign pattern of $z$ with respect to the set of functions $\mathbb{H}$, i.e., $\boldsymbol{\sigma}(z)_j = \sign(h_{j}(z))$. The functions in $\mathbb{F}$ are called the \textit{piece functions} and the functions in $\mathbb{H}$ are called the \textit{boundary functions}.
+\end{definition}
+
+
+\begin{assumption}[Structural assumption] \label{asmp:structural}
+    Given any problem instance $x$, the dual parameter-dependent training objective $f_{x}(\alpha, \theta) \triangleq f(x, \alpha, \theta)$ and dual parameter-dependent validation objective $g_{x}(\alpha, \theta) \triangleq g(x, \alpha, \theta)$ admits piecewise polynomial structure (as functions of $\alpha$ and $\theta$) with complexity  $(M_f, T_f, \Delta_f)$ and $(M_g, T_g, \Delta_g)$ (independent of the problem instance $x$), respectively. {Moreover, the set $\cS(x,\alpha)$ of minimizes of $f(x,\alpha,\cdot)$ is non-empty, for all $(x,\alpha)$.}
+\end{assumption}
+
+\begin{remark}[Ubiquity of structure]
+    As noted by \citet{balcan2025sample}, this structural assumption is robust and ubiquitous. It has been established for a wide range of applications in both classical learning theory \citep{bartlett1998almost,montufar2014number,bartlett2019nearly} and data-driven algorithm design problems \citep{balcan2021much,balcan2023new,nguyen2026provably,cheng2025generalization}. 
+\end{remark}
+
+
+While \citet{balcan2025sample} initiated the formal study of this setting, their results are restricted to one-dimensional hyperparameter case ($\cA \subset \bbR$) and the single-level setting ($f \equiv g$). We now present our general results, which fully eliminate these two restrictions.
+
+
+\section{A General Learning-theoretic Complexity Framework via First-Order Logic} \label{sec:learning-framework-via-FOL}
+In this section, we present a general result that bounds the pseudo-dimension of a function class $\cF = \{f_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA \subseteq \bbR^p\}$. The next theorem serves as the engine of our analysis, converting logical definability into statistical learnability. Its proof is presented in Appendix~\ref{apx:learning-framework-via-FOL}.
+
+\begin{theorem}[Pseudo-dimension bound] \label{thm:upper-bound-pdim}
+	Consider a class of functions $\cF = \{f_\alpha: \cX \subseteq \bbR^q \to \bbR \mid \alpha \in \cA\}$, where $\cA = [\alpha_\textup{min}, \alpha_\textup{max}]^p \subset \bbR^p$. Suppose that for any fixed instance $x \in \cX$ and threshold $t \in \bbR$, the boolean value $\mathbb{I}(f_\alpha(x) \geq t)$ is equivalent to a polynomial FOL $\Phi_{x, t}(\alpha)$ (cf.~Definition \ref{def:first-order-formula}) with a fixed quantifier alternation $K \in \NN$. Assume that for any problem instance $x$ and threshold $t$: 
+    \begin{itemize}[leftmargin=*]
+        \item $\Phi_{x, t}$ involves $K$ blocks of quantifiers with variable dimensions $(d_1, \dots, d_K)$,
+        \item The number of polynomials appearing in $\Phi_{x,t}$ and their maximum degree are uniformly bounded by $M$ and $\Delta$,
+    \end{itemize}    
+    Then the pseudo-dimension $\Pdim(\cF)$ is upper-bounded by
+    \begin{equation*}
+		O\left( p\prod_{k = 1}^K (d_k + 1) \log M + p^2 \prod_{k = 1}^K d_k \log \Delta\right).
+	\end{equation*}
+\end{theorem}
+
+\paragraph{Comparison to existing works.} To the best of our knowledge, \citet{goldberg1993bounding} is the only work in the literature studying the pseudo-dimension of the polynomial FOLs. \citet{goldberg1993bounding} gave a bound \footnote{Comparing to original statement, the bound reported in \eqref{eq:existing-bounds} is missing a factor $2^{O(K)}$. This is because when $K$ is fixed, this constant is absorbed in the big O notation.}
+\begin{equation}
+    \label{eq:existing-bounds}
+    O\big(p(p + q) \prod_{k = 1}^K d_k \left(\log M + \log\Delta\right)\big),
+\end{equation}
+and our \Cref{thm:upper-bound-pdim} is finer than this bound.
+In particular, we remove the dependency on the data dimension $q$ and a factor $p$ in front of $\log M$. This improvement is significant, for example, when the function class contains piecewise polynomial functions with exponential pieces/boundaries, or when the data dimension is larger than the number of tuning parameters, $q \gg p$.
+
+\Cref{thm:upper-bound-pdim} applies to many practical learning situations. The only condition we need to verify is that the objective functions $f$ and $g$ can be described as polynomials and/or polynomial FOLs. The class of functions that admit description with polynomials is precisely the set of \emph{semi-algebraic} functions. We provide interested readers with more details about semi-algebraic functions in Appendix~\ref{appendix:semi-algebraic}. In fact, many functions used in the learning context are semi-algebraic because this class does not only contain piecewise polynomial functions (cf.~Definition~\ref{def:piecewise-poly-def}), but also many others such as $\|x\|_p, p \in \NN, p \geq 2$ or well-known sparse regularisations such as $\ell_2/\ell_1$ ratio, group LASSO, which are not instances of Definition~\ref{def:piecewise-poly-def} (also see Appendix~\ref{appendix:semi-algebraic} for more details). Therefore, the scope of \Cref{thm:upper-bound-pdim} can go up to the set of semi-algebraic functions. 
+
+In \Cref{sec:tuning-training} and \Cref{sec:tuning-validation}, we demonstrate applications of \Cref{thm:upper-bound-pdim} for $f$ and $g$ being piecewise polynomial functions and address an open question posed in \cite{balcan2025sample}.
+In addition, we also demonstrate an example of a learning problem whose functions are semi-algebraic but not covered by \Cref{sec:tuning-training} and \Cref{sec:tuning-validation}: hyper-parameter tuning for the weighted group LASSO in \Cref{sec:weighted-group-lasso}.
+
+
+\section{Data-driven Tuning via Training Objective} \label{sec:tuning-training}
+\subsection{Upper bound}
+In this section, we first analyze the setting where the hyperparameter $\alpha$ is tuned to minimize the training objective directly (i.e., the case where $f \equiv g$). In this scenario, for a fixed problem instance $x$ and hyperparameter $\alpha$, the loss $\ell_\alpha(x)$ is defined implicitly as the optimal value of the training problem:
+\[
+    \ell_\alpha(x) = \min_{\theta \in \Theta} f(x, \alpha, \theta).
+\]
+Recall that from Assumption \ref{asmp:structural}, for any given problem instance $x$, $f_x(\alpha, \theta) \triangleq f(x, \alpha, \theta)$ admits piecewise polynomial structure (Definition \ref{def:piecewise-poly-def}) with complexity $(M_f, T_f, \Delta_f)$. Under such an assumption, the following result establishes a pseudo-dimension upper-bound for the function class $\cL$ induced by $\ell_\alpha: \cX \rightarrow [-H, H]$ when varying $\alpha \in \cA = [\alpha_{\textup{min}}, \alpha_\textup{max}]^p \subset \bbR^p$.
+\begin{theorem}[Pseudo-dimension -- Training loss] \label{thm:pdim-tuning-training}
+    Let $\cA = [\alpha_\textup{min}, \alpha_\textup{max}]^p$ and $\Theta = [\theta_\textup{min}, \theta_\textup{max}]^d$. Suppose that for any instance $x$, the training objective $f_x(\alpha, \theta)\triangleq f(x, \alpha, \theta)$ for $(\alpha, \theta) \in \cA \times \Theta$ admits a piecewise polynomial structure (cf.~Definition \ref{def:piecewise-poly-def}) with complexity $(M_f, T_f, \Delta_f)$. Then, the pseudo-dimension of the function class $\cL = \{\ell_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$, where $\ell_\alpha(x) = \min_{\theta \in \Theta} f(x, \alpha, \theta)$, is bounded by
+    \[
+        \Pdim(\cL) = \cO(pd\log(M_f + T_f + d) + p^2 d \log \Delta_f).
+    \]
+\end{theorem}
+\begin{proof}
+    To apply Theorem \ref{thm:upper-bound-pdim}, given a problem instance $x$ and a real-valued threshold $t$, our goal is to construct a polynomial FOL formula $\Phi_{x, t}(\alpha)$ equivalent to $\mathbb{I}(\ell_\alpha(x) \geq t)$. Since $\ell_\alpha(x) = \min_{\theta \in \Theta} f_x(\alpha, \theta)$ is a minimization over $\Theta$, the condition $\ell_\alpha(x) \geq t$ is equivalent to stating that for all parameter $\theta \in \Theta$, the function value $f_x(\alpha, \theta)$ is greater or equal than $t$, and $\Phi_{x, t}(\alpha)$ is defined as
+    \begin{equation*}
+        \begin{aligned}
+            \Phi_{x, t}(\alpha) &\triangleq (\forall \theta \in \bbR^d)[(\theta \in \Theta) \Rightarrow f_x(\alpha, \theta) \geq t] \\
+            &= (\forall \theta \in \bbR^d)[\neg (\theta \in \Theta) \lor (f_x(\alpha, \theta) \geq t)].
+        \end{aligned}
+    \end{equation*}
+    Here, we use the logical identity $(A \Rightarrow B) =  (\neg A \lor B)$ (i.e., not $A$ or $B$). It is now sufficient to apply \Cref{thm:upper-bound-pdim}. Details are in Appendix~\ref{appendix:tuning-training}.
+\end{proof}
+
+
+Combining Theorem~\ref{thm:pdim-tuning-training} with Theorem~\ref{thm:pdim-to-generalization}, we could establish the sample complexity guarantee for multi-dimensional hyperparameter tuning using the training loss function. Our result generalizes the guarantees of \citet{balcan2025sample} from one-dimensional hyperparameters to the multi-dimensional case, where $p > 1$. Moreover, our logic-based analysis avoids the need for strong regularity assumptions on the boundary polynomials $\{h_{x, i}\}_{i = 1, \dots, M_f}$ (see e.g., \citet[Assumption 1]{balcan2025sample}), which were required by the geometric approach to prevent topological pathologies in the solution path. 
+
+
+    \subsection{Lower bound}
+    In this section, we will instantiate the \textit{first} general lower bound for the pseudo-dimension in such a setting. The proof idea originates from the \textit{bit-extraction technique} \citep{bartlett2019nearly}, but requires a \textit{novel stabilization argument} to handle the implicit optimization problem in the definition of the function class. 
+
+    \begin{theorem}[Pseudo-dimension lower bound - Training loss] \label{thm:pdim-tuning-training-lower-bound}
+        Let $\cA = \bbR^p$, $\Theta = \bbR^d$. Then for every sufficiently large $\Delta_f > 0$, there exists a function class $\mathcal{L} = \{\ell_\alpha: \cX \rightarrow \bbR \mid \alpha \in \cA\}$, where $\ell_\alpha(x) = \min_{\theta \in \Theta} f(x, \alpha, \theta)$, and $f(x, \alpha, \theta)$ is a degree at most $\Delta_f$ for any problem instance $x \in \cX$, such that $\Pdim(\cL) = \Omega(pd\log \Delta_f)$.
+    \end{theorem}
+
+    \proof 
+        It suffices to show that there exists $N = \Omega(pd\log \Delta_f)$ problem instances $x_1, \dots, x_N$ and $N$ real-valued thresholds $\tau_1, \dots, \tau_N \in \bbR$ such that for any bit vector $y \in \{0, 1\}^N$ there exists a hyperparameter $\alpha_y \in \cA$ such that $\bbI(\ell_{\alpha_y}(x_t) - \tau_t \geq 0) = y_t$ for any $t = 1, \dots, N$. We will construct the problem instances $x_t$ and the parameterized function class $\cL = \{\ell_{\alpha}: \cX \rightarrow \bbR \mid \alpha \in \cA\}$ as follows:
+        \begin{itemize}[leftmargin=*]
+            \item The construction of $x_t$: Let $K = \lfloor \Delta_f / 2 \rfloor$, $B = \lfloor \log_2 K\rfloor$. Let $N = p \cdot d \cdot B$, then it is obvious that $N = \Omega(pd \log \Delta_f)$. For the triplet $(j, i, b)$, where $j \in \{1, \dots, p\}$, $i \in \{1, \dots, d\}$, and $b \in \{1, \dots, B\}$, we define the problem instance $x^{(j, i, b)}$ as the tuple of one hot vectors $(u, v, w) \in \{0, 1\}^{p \times d \times B}$. Here $u_j = v_i = w_b = 1$, and all other entries are 0.  
+
+            \item The construction of $\ell_\alpha(x):$ Since $\ell_\alpha(x) = \min_{\theta \in \Theta} f(x, \alpha, \theta)$, it suffices to construct $f(x, \alpha, \theta)$, which is
+            \begin{equation*}
+                \begin{aligned}
+                     f(x, \alpha, \theta)  &= C \sum_{m=1}^d \prod_{k=0}^{K-1} (\theta_m - k)^2 \\
+                     &+ \left( \sum_{n=1}^p u_n \alpha_n - \sum_{m=1}^d \theta_m K^{m-1} \right)^2 \\
+                     &+ 0.5 \sum_{m=1}^d \sum_{c=1}^B v_m w_c E_c(\theta_m).
+                \end{aligned}
+            \end{equation*}
+            Here $E_c(t) =\sum_{j=0}^{K-1} \beta_{j, c} \left( \prod_{\substack{m=0 \\ m \neq j}}^{K-1} \frac{t - m}{j - m} \right)$ is the \textit{bit-extracting polynomial}, and $C$ is a sufficiently large constant that is independent on $y, j, i, b$.
+        \end{itemize}
+        Based on that construction, we can claim that:
+        \begin{enumerate}[leftmargin=*]
+            \item $\ell^{\cK}(\alpha_{y})(x^{(j, i, b)}) = \frac{y^{(j, i, b)}}{2}$ for any $y \in \{0, 1\}^{p \times d \times B}$, for some $\alpha_y \in \cA$ depending on $y$, and $\ell^{\cK}(\alpha)(x) = \min_{\theta \in \cK^d} f(x, \alpha, \theta)$, $\cK = \{0, 1, \dots, K - 1\}$. 
+
+            \item $\ell_{\alpha_y}(x^{(j, i, b)}) \in (\ell^{\cK}_{\alpha_y}(x^{(j, i, b)}) - 0.1, \ell^{\cK}_{\alpha_y}(x^{(j, i, b)})$.
+        \end{enumerate}
+        Finally, simply choose $\tau_t = 0.25$, and we have the final conclusion. The details are provided in Appendix \ref{apx:lower-bound-proof}.
+    \qed
+    
+
+\section{Data-driven Tuning via Validation Objective} \label{sec:tuning-validation}
+We now address the general data-driven setting in which the hyperparameter $\alpha$ is tuned to minimize a validation objective $g$ evaluated on the optimal training parameters. As noted earlier, this formulation is general and can capture standard practices in hyperparameter tuning (e.g., tuning a regularization coefficient to minimize validation loss in LASSO). In this scenario, for a fixed problem instance $x$ and hyperparameter $\alpha$, the loss $\ell_\alpha(x)$ is defined as $\ell_\alpha(x) = \inf_{\theta \in \cS(x, \alpha)} g_x(\alpha, \theta)$, where $\cS(x, \alpha) = \arg \min_{\theta \in \Theta}f_x(\alpha, \theta)$.
+
+Recall from Assumption \ref{asmp:structural} that for any fixed problem instance $x$, $f_x(\alpha, \theta)$ and $g_x(\alpha, \theta)$ admits piecewise polynomial structure with complexity $(M_f, T_f, \Delta_f)$ and $(M_g, T_g, \Delta_g)$, respectively. Under this assumption, we obtain the following result, establishing the learning guarantee for data-driven hyperparameter tuning with a validation objective. 
+
+\begin{theorem}[Pseudo-dimension -- Validation loss] \label{thm:pdim-tuning-validation}
+    Let $\cA = [\alpha_\textup{min}, \alpha_\textup{max}]^p$ and $\Theta = [\theta_\textup{min}, \theta_\textup{max}]^d$. Suppose that for any instance $x$, the training objective $f_x(\alpha, \theta)$ and the validation objective $g_x(\alpha, \theta)$, for $(\alpha, \theta) \in \cA \times \Theta$, admit piecewise polynomial structures (cf.~Definition~\ref{def:piecewise-poly-def}) with complexity $(M_f, T_f, \Delta_f)$ and $(M_g, T_g, \Delta_g)$, respectively. Then, the pseudo-dimension of the function class $\cL=  \{\ell_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$, where $\ell_\alpha(x) = \inf_{\theta \in \cS(x, \alpha)}g_x(\alpha, \theta)$ and $\cS(x, \alpha) = \arg \min_{\theta \in \Theta}f_x(\alpha, \theta)$, is bounded by
+    \[
+        \Pdim(\cL) = \cO(pd^2\log M_\textup{tot} + p^2d^2 \log \Delta_\textup{tot}),
+    \]
+    where $M_\textup{tot} = M_f + T_f + M_g + T_g + d$, and $\Delta_\textup{tot} = \max(\Delta_f, \Delta_g)$.
+\end{theorem}
+\begin{proof}
+    Similar to the proof of Theorem \ref{thm:pdim-tuning-training}, the idea is to use Theorem \ref{thm:upper-bound-pdim} by showing that: given a problem instance $x$ and a real-valued threshold $t$, there is a polynomial FOL $\Phi_{x, t}(\alpha)$ equivalent to $\mathbb{I}(\ell_x(\alpha) \geq t)$ with bounded complexities. Such a polynomial FOL can be defined as follows:
+    \begin{equation*}
+        \begin{aligned}
+            \Phi_{x,t}(\alpha) &\triangleq (\forall \theta \in \mathbb{R}^d) \left[ (\theta \in \mathcal{S}(x, \alpha)) \Rightarrow (g(x, \alpha, \theta) \ge t)\right] \\
+            &= (\forall \theta \in \mathbb{R}^d) \left[ \neg (\theta \in \mathcal{S}(x, \alpha)) \lor (g(x, \alpha, \theta) \ge t)\right].
+        \end{aligned}
+    \end{equation*}
+    Here, we again use the identity $(A \Rightarrow B) = (\neg A \lor B)$. We first expand the optimality constraints $\theta \in \cS(x, \alpha)$. Note that a parameter $\theta$ is not optimal (i.e., $\neg (\theta \in \cS(x, \alpha))$ if it is not in the region $\Theta$ or if there exists a better candidate $\theta'$ such that $f_x(\alpha, \theta') < f_x(\alpha, \theta)$. Therefore, $\neg (\theta \in \cS(x, \alpha))$ can be rewritten as
+    \[
+        (\theta \not \in \Theta) \lor \left[(\exists \theta' \in \bbR^d)[(\theta' \in \Theta) \land (f_x(\alpha, \theta') < f_x(\alpha, \theta))]\right].
+    \]
+    Let $L_1 = (\theta' \in \Theta) \land (f_x(\alpha, \theta') < f_x(\alpha, \theta))$, which is the logical sentence for \textit{optimality check}, we can then write $\Phi_{x, t}(\alpha)$ as 
+    \[
+        (\forall \theta \in \bbR^d)(\exists \theta' \in \bbR^d)\left[\underbrace{\theta \not \in \Theta}_{\textup{Domain check}} \lor \underbrace{(g_x(\alpha, \theta) \geq t)}_{\textup{Validation check}} \lor L_1\right].
+    \]
+\end{proof}
+
+Combining Theorem~\ref{thm:pdim-tuning-validation} with Theorem~\ref{thm:pdim-to-generalization}, we could establish the sample complexity guarantee for multi-dimensional hyperparameter tuning using the validation loss function. 
+
+    \subsection{Handling approximate lower-level optimization}
+    Definition of $\cS(x, \alpha) = \arg \min_{\theta \in \Theta}f_x(\alpha, \theta)$ involves in the \textit{exact minimization}, which might be too strict in practice. In this section, we demonstrate that our proposed framework can flexibly handle the case of \textit{inner approximate minimization}, where $\theta$ is in the $\epsilon$-approximate optimal set $S_\epsilon(x, \alpha) = \{\theta \in \Theta \mid f(x, \alpha, \theta) \leq \inf_{\theta' \in \Theta}f(x, \alpha, \theta') + \epsilon\}$. We define the loss as $\ell_{\alpha}^\epsilon(x) = \inf_{\theta \in \cS_\epsilon(x, \alpha)} g(x, \alpha, \theta)$. Under such notions, we can establish the pseudo-dimension upper-bound as follows.
+    \begin{proposition}
+        Under the same assumptions as Theorem \ref{thm:pdim-tuning-training}, for every fixed $\epsilon > 0$, define the function class $\cL_\epsilon = \{\ell^\epsilon_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \cA\}$. Then $\Pdim(\cL_\epsilon) = \cO(pd^2\log M_\textup{tot} + p^2d^2 \log \Delta_\textup{tot})$.
+    \end{proposition}
+    \proof
+        The key idea is that
+        \[
+            \ell^{\epsilon}_\alpha(x) \geq t \Leftrightarrow (\forall \theta \in S_{\epsilon}(x, \alpha))[g(x, \alpha, \theta) \geq t],
+        \]
+        or equivalently
+        \[
+            (\forall \theta \in \bbR^d) [\theta \in S_\epsilon(x, \alpha) \Rightarrow g(x, \alpha, \theta) \geq t].
+        \]
+        After expanding the approximate optimality, the threshold predicate can be written as
+        \begin{equation*}
+            \begin{aligned}
+                 &(\forall \theta \in \bbR^d)(\exists \theta' \in \bbR^d)\\
+                 &[(\theta \not \in \Theta) \lor (g(x, \alpha, \theta) \geq t) \\
+                 &\lor (\theta' \in \Theta \land f(x, \alpha, \theta) > f(x, \alpha, \theta') + \epsilon)].
+            \end{aligned}
+        \end{equation*}
+        Finally, applying Theorem \ref{thm:upper-bound-pdim}, we have the conclusion.
+    \qed
+
+\section{Refined Sample Complexity Bounds via Explicit Solution Paths} \label{sec:refined-structure-improved-bound}
+
+The general framework established in Sections \ref{sec:tuning-training} and \ref{sec:tuning-validation} provides general guarantees for implicitly defined loss functions. However, in many practical settings, such as LASSO and ridge regression \citep{tibshirani1996regression, hoerl1970ridge}, the inner optimization problem is not a black box. Instead, it admits an explicit analytical structure, typically as a unique \textit{solution path} $\theta^*(x, \alpha)$ that admits a piecewise structure to $\alpha$. In this section, we demonstrate that our model-theoretic perspective can exploit this additional structure to derive significantly tighter bounds. By directly analyzing the complexity of the solution path, we can bypass the quantifier elimination step, often removing the dependence on the parameter dimension $d$, and, in some scenarios, recover the sample complexity rate that matches known lower bounds. We formalize this structural assumption as follows.
+
+\begin{assumption} \label{asmp:explicit-solution-path}
+    Given a problem instance $x$, we assume that $\alpha \mapsto \theta^*(x, \alpha) = \arg\min_{{\theta \in \Theta}} f(x, \alpha, \theta)$ is a piecewise rational function with complexity $(M_\textup{path}, T_\textup{path}, \Delta_\textup{path})$. Specifically:
+    \begin{itemize}[leftmargin=*]
+        \item There exists a set of at most $M_\textup{path}$ boundary rational functions $\mathbf{H}_{x} = \{h_{x, 1}, \dots, h_{x, M_\textup{path}}\}$ of $\alpha$.
+
+        \item For any $\alpha \in \cA$, the set of minimizer $\arg \min_{\theta \in \Theta} f(x, \alpha, \theta) = \{\theta^*(x, \alpha)\}$ has an unique element. Moreover, the optimal parameter is given by $\theta^*(x, \alpha) = \theta_{\sigma(\alpha)}(\alpha)$, where $\sigma(\alpha) \in \Sigma_{{x}, \textup{path}} \subset \{-1, 0, 1\}^{M_\textup{path}}$ is the sign pattern of $\alpha$ with respect to the set of boundary $\mathbf{H}_{{x}, i}$, i.e., $\sigma(\alpha)_i = \sign(h_{{x}, i}(\alpha))$, and $\theta^*_{\sigma(\alpha)}(x, \alpha)$ is a rational function of $\alpha$. 
+
+        \item The set of sign pattern $\Sigma_{x, \textup{path}}$ has at most $T_\textup{path}$ elements, i.e., $\abs{\Sigma_{x, \textup{path}}} \leq T_\textup{path}$. Besides, all rational functions $h_{{x}, i}$ and $\theta_{\sigma(\alpha)}(\alpha)$ are of degree at most $\Delta_\textup{path}$. 
+    \end{itemize}
+\end{assumption}
+
+Assumption \ref{asmp:explicit-solution-path} implies the following: First, unlike the general setting where $\cS(x, \alpha)$ is implicitly defined via logical predicates, Assumption \ref{asmp:explicit-solution-path} guarantees an explicit function form $\theta^*(x, \alpha)$, allowing us to bypass the heavy machinery of quantifier elimination. 
+Second, under Assumption \ref{asmp:explicit-solution-path}, the distinction between the case $f \equiv g$ and $f \not \equiv g$ effectively vanishes. Since $\theta^*(x, \alpha)$ is explicit, the loss becomes $\ell_\alpha(x) = g(x, \alpha, \theta^*(x, \alpha))$. Both settings reduce to analyzing a single composite piecewise rational function, eliminating the extra quantifier block typically required for validation constraints. 
+
+Under a refined structure in Assumption \ref{asmp:explicit-solution-path}, we can establish improved generalization guarantees for learning the function classes $\cL$.
+
+\begin{theorem}[Improved guarantee] \label{thm:explicit-solution-path-guarantee}
+    Given a problem instance $x$, suppose Assumption \ref{asmp:explicit-solution-path} holds for the optimal parameters $\theta^*(\alpha, w)$, and the tuning objective $g_x(\alpha, \theta)$ (which is $f_x(\alpha, \theta)$ if $f \equiv g$ or $g_x(\alpha, \theta)$ if $f \not \equiv g$) admits a piecewise rational structure with complexity $(M_k, T_k, \Delta_k)$. Then $\Pdim(\cL) = \cO(p \log (M_\textup{total}\Delta_\textup{total}))$, where $M_\textup{total} = M_\textup{path} + T_\textup{path}\cdot (M_k + T_k)$ and $\Delta_\textup{total} = \Delta_k \cdot \Delta_\textup{path}$.
+\end{theorem}
+\noindent \textit{Proof sketch.}
+    In this scenario, we can apply the GJ framework directly without invoking quantifier elimination. Besides, since $\theta^*(x, \alpha)$ becomes a rational function of $\alpha$, we expect that the final bound should only depend on the dimensionality of $\alpha$ instead of $\theta$. Recall that, to give an upper-bound for the pseudo-dimension of $\cL$ using GJ framework, for any problem instance $x \in \cX$ and and any real-valued threshold $t \in \bbR$, we want that the computation of $\mathbb{I}(\ell_x(\alpha) \geq t)$, where $\ell_\alpha(x) = k_x(\alpha, \theta^*(x, \alpha))$, can be described by a GJ algorithm (cf.~Definition \ref{def:GJ-algorithm}) with bounded complexities. Finally, we describe such computation, using the piecewise rational structure of $\theta^*(x, \alpha)$ and $k_x(\alpha, \theta)$, which gives us the final guarantees. See Appendix \ref{apx:explicit-solution-path} for the detailed proof. 
+\qed
+
+
+We note that under Assumption \ref{asmp:explicit-solution-path}, the bound given by Theorem \ref{asmp:explicit-solution-path} is \textit{tight in some scenarios}. Concretely, there exists a problem (e.g., data-driven tuning of the elastic-net regularization hyperparameters~\citep{balcan2023new}) such that the upper-bound for the pseudo-dimension from Theorem~\ref{thm:explicit-solution-path-guarantee} matches the lower-bound presented in \citet{balcan2023new}. See Appendix \ref{apx:recovering-elastic-net} for a detailed discussion.
+
+\section{Applications in Learning Problems} \label{sec:applications}
+In this section, we demonstrate applications of \Cref{thm:upper-bound-pdim} in two hyperparameter tuning problems: Weight Group Lasso, which violates the piecewise polynomial assumption of Assumption~\ref{asmp:structural}, and Weighted Fused Lasso, which has a better pseudo-dimension estimation.
+
+\subsection{Data-driven Weighted Group Lasso - Beyond Piecewise Polynomial Assumptions}
+\label{sec:weighted-group-lasso}
+As discussed after \Cref{thm:upper-bound-pdim}, our machinery goes beyond piecewise polynomial structures. In this section, we demonstrate this with the weighted group Lasso sparse regularization \cite{yuan2006model}. In particular, we consider problem~\eqref{eq:hyper-parameters-tuning} with:
+\begin{equation}
+    \label{eq:group-lasso}
+	\begin{aligned}
+		f(x, \alpha, \theta) = & \|A\theta - b\|^2 + \overbrace{\sum_{i = 1}^p \alpha_i \|\theta_i\|_2}^{\text{weighted group LASSO}}, \\
+		g(x, \alpha, \theta) = & \|A'\theta - b'\|^2,
+	\end{aligned}
+\end{equation}
+where $x = (A, A', b, b')$, $\theta = (\theta_1, \ldots, \theta_p) \in \RR^d$ and $\alpha \in \RR^p$. No constraint is imposed on $\theta$, i.e., $\Theta = \RR^d$.
+
+It is noteworthy that the use of the weighted group LASSO regularizer makes $f$ no longer piecewise polynomial (see Appendix~\ref{appendix:semi-algebraic}), and previous results are unable to handle this case. Nevertheless, \Cref{thm:upper-bound-pdim} still leads to an upper bound for the pseudo-dimension. 
+\begin{theorem}[Pseudo-dimension for weighted group lasso]
+    \label{thm:group-lasso}
+	Consider the class of functions $\cL =\{\ell_\alpha\:\cX \to [-H,H] \mid \alpha \in \cA\}$ where $\ell_\alpha$ is defined as in \eqref{eq:hyper-parameters-tuning} and $f,g$ are defined as in \eqref{eq:group-lasso}. We have:
+	\begin{equation*}
+		\Pdim(\cL) = \cO(p^3d + p^2d^2).
+	\end{equation*}
+\end{theorem}
+\begin{proof}[Proof sketch]
+    To use \Cref{thm:upper-bound-pdim}, we can add additional variables to represent $f$ with polynomials. Indeed, with extra scalar variables $\nu_1, \ldots, \nu_p$, we have:
+    \begin{equation*}
+		f(x, \alpha, \theta) = \|A\theta - b\|^2 + (\alpha_1 \nu_1 + \ldots \alpha_p\nu_p), 
+	\end{equation*}
+	with polynomial constraints:
+	\begin{equation*}
+		\nu_i^2 = \sum_{j} [\theta_i]_j^2 \quad \text{and} \quad \nu_i \geq 0 \quad  \forall i = 1, \ldots, p.
+	\end{equation*}
+    The detailed proof is presented in Appendix~\ref{appendix:applications}.
+\end{proof}
+
+\subsection{Data-driven Weighted Fused Lasso}
+
+We consider the problem of signal denoising with structural change-point detection, commonly modeled using the \textit{Weighted Fused LASSO} \citep{tibshirani2005sparsity}. Given a noisy signal $b$, the goal is to recover an approximation $\theta \in \bbR^d$. While standard Fused LASSO uses simple scalar regularization parameters, practical applications often benefit from allowing spatially varying regularization weights $\alpha \in \bbR^{d - 1}$ to capture the heterogeneous noise levels or varying structural density across the signal. 
+
+In particular, we consider Problem~\eqref{eq:hyper-parameters-tuning} with:
+\begin{equation}
+    \label{eq:fused-lasso}
+    \begin{aligned}
+        f(x, \alpha, \theta) = & \frac{1}{2} \|b - A\theta\|_2^2 + \sum_{i = 1}^{d - 1}\alpha_i\abs{\theta_{i + 1} - \theta_i},\\
+		g(x, \alpha, \theta) = & \frac{1}{2}\|A'\theta - b'\|^2,
+    \end{aligned}
+\end{equation}
+where $x = (A, A', b, b'), \alpha \in \RR^{p}$ with $p = d-1, \theta \in \RR^d$. No constraint is imposed, i.e., $\Theta = \RR^d$. In particular, we assume that the data distribution of $x$ satisfies that the matrix $A$ always has full column rank. We have the next result.
+
+\begin{theorem}[Pseudo-dimension for weighted fused lasso]
+    \label{thm:fused-lasso}
+    Consider the class of functions $\cL =\{\ell_\alpha\:\cX \to [-H,H] \mid \alpha \in \cA\}$ where $\ell_\alpha$ is defined as in~\eqref{eq:hyper-parameters-tuning} and $f,g$ are defined as in~\eqref{eq:fused-lasso}. We have: 
+    $$\Pdim(\cL) = \cO(d^2).$$
+\end{theorem}
+The proof exploits \Cref{thm:explicit-solution-path-guarantee}; the details are in Appendix~\ref{appendix:applications}.
+
+\section{Conclusion and Future Works}
+Our paper established a general learning-theoretic framework for data-driven hyperparameter tuning with implicitly defined loss functions. By bridging statistical learning theory and model theory, we derived the first general sample-complexity guarantees for multi-dimensional hyperparameter tuning ($\alpha \in \mathbb{R}^p$), thereby resolving a key open question in the existing literature. Additionally, we establish the first lower bound construction for this general setting. Furthermore, we demonstrated that by leveraging additional algebraic structure and explicit solution paths, we can bypass the general worst-case analysis to achieve significantly tighter bounds. Finally, we illustrated the versatility of our framework through new applications in sparse learning and robust optimization.
+
+Our work opens two primary questions for future research. First, the fundamental lower bounds for the general bi-level setting remain unknown. Although we established matching lower bounds for specific cases with explicit solution paths (Section \ref{sec:refined-structure-improved-bound}), determining the minimax lower bound for the general implicitly defined setting is an important open problem. Second, our current framework relies on semi-algebraic geometry. A natural extension is to generalize this logic-based approach to \textit{o-minimal structures} \citep{van1998tame}, such as Pfaffian functions. This would extend our guarantees to a much broader class of machine learning objectives involving transcendental functions like $\exp$, $\log$, and $\tanh$, moving beyond the polynomial limitations of the current work.
+
+
+\section*{Acknowledgment}
+Research reported in this paper was partially supported through the French ANR through the MIAI Cluster (reference ANR-23-IACL-0006). Viet Anh Nguyen gratefully acknowledges the support from the CUHK’s Improvement on Competitiveness in Hiring New Faculties Funding Scheme, UGC ECS Grant 24210924, and UGC GRF Grant 14208625.
+
+
+\bibliography{references}
+\bibliographystyle{icml2026}
+
+\newpage
+\include{icml_appendix}
+
+
+\end{document}

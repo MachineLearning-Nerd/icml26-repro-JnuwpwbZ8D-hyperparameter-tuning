@@ -1,0 +1,474 @@
+\appendix
+
+\onecolumn
+
+
+\section{The Goldberg-Jerrum (GJ) Framework} \label{apx:gj-framework}
+The Goldberg-Jerrum (GJ) framework was originally proposed by \citet{goldberg1993bounding}, and later refined by \citet{bartlett2022generalization}. It establishes the pseudo-dimension upper-bound for parameterized function class $\cL$, of which the computation of each function $\ell_{\alpha}$ can be described by an \textit{GJ algorithm} using basic operators ($+, -, \times, \div$), conditional statements, and intermediate values which are typically rational functions (e.g., fractions of two polynomials) of $\alpha$. The formal definition of the GJ framework is as follows.
+
+\begin{definition}[GJ algorithm, \cite{bartlett2022generalization}]
+    \label{def:GJ-algorithm}
+     A GJ algorithm $\Gamma$ operates on real-valued inputs, and can perform two types of operations:
+    \begin{itemize}
+        \item Arithmetic operators of the form $v'' = v \odot v'$, where $\odot \in \{ +, -, \times, \div\}$, and
+        \item Conditional statements of the form ``if  $v \geq 0 \ldots$ else $\ldots$".
+    \end{itemize}
+    In both cases, $v$ and $v'$ are either inputs or values previously computed by the algorithm.
+\end{definition}
+
+The intermediate values $v, v', v''$ computed by the GJ algorithm $\Gamma$ can be considered as rational functions of its real-valued inputs $\alpha$. Based on its intermediate values, one can define the \textit{degree} and the \textit{predicate complexity}, which serve as complexity measures for the GJ algorithm.
+
+\begin{definition}[Complexities of GJ algorithm, \cite{bartlett2022generalization}]
+    \label{definition:gj-algorithm-complexities}
+     The degree of a GJ algorithm is the maximum degree of any rational function that it computes of the inputs. The predicate complexity of a GJ algorithm is the number of distinct rational functions that appear in its conditional statements. Here, the degree of rational function $f(\alpha) = \frac{g(\alpha)}{h(\alpha)}$, where $g$ and $h$ are two polynomials in $\alpha$, is $\deg(f) = \max\{\deg(g), \deg(h)\}$.
+\end{definition}
+
+For a parameterized function class $\cL$ of which each function can be described by a GJ algorithm with bounded complexities, the following result establishes a concrete upper-bound for the pseudo-dimension $\Pdim(\cL)$.
+
+\begin{theorem}[{\citet[Theorem~3.3]{bartlett2022generalization}}] \label{thm:gj}
+    Suppose that each function $\ell_{\alpha} \in \cL$ is specified by $p$ real parameters $\alpha \in \bbR^p$. Suppose that for every problem instance $x \in \cX$ and real-valued threshold $t \in \bbR$, there is a GJ algorithm $\Gamma_{x, t}$ that, given $\ell_{\alpha} \in \cL$, returns ``true'' if $\ell_{\alpha}(x) \geq t$ and ``false'' otherwise. Assume that $\Gamma_{x, t}$ has degree $\Delta$ and predicate complexity $\Lambda$. Then, $\Pdim(\cL) = \cO(p\log(\Delta\Lambda))$.
+\end{theorem}
+
+The GJ algorithm $\Gamma_{x, t}$ in Theorem~\ref{thm:gj} is determined for each specific problem instance $x$ and a real-valued threshold $t$. The input of $\Gamma_{x, t}$ is the hyperparameter $\alpha$ that parameterizes $\ell_{\alpha}$.
+
+
+\section{Proofs for Section \ref{sec:learning-framework-via-FOL}} \label{apx:learning-framework-via-FOL}
+In this section, we will present the formal proof for Theorem \ref{thm:upper-bound-pdim}. 
+
+\begin{proof}[Proof of \Cref{thm:upper-bound-pdim}]
+	By \Cref{thm:quantifier-elimination}, there exists an equivalent QFF $\Psi_{x, t}(\alpha)$ such that $\Phi_{x,t}(\alpha) \Leftrightarrow \Psi_{x, t}(\alpha)$. Moreover, $\Psi_{x, t}(\alpha)$ is a Boolean combination of $I$ atomic polynomial predicates in $\alpha$, with degree at most $\Delta_{QE}$, where
+	\begin{equation*}
+	    \begin{aligned}
+	        I &\leq M^{\prod_{k = 1}^M (d_k + 1)} \cdot \Delta_f^{\cO(p)\prod_{k = 1}^M d_k}, \\
+            \Delta_{QE} &\leq \Delta^{\cO(\prod_{k = 1}^M d_k)}.
+	    \end{aligned}
+	\end{equation*}
+	We can construct a GJ algorithm $\Gamma_{x, t}$ to evaluate the formula $\Psi_{x, t}(\alpha)$ as follows:
+	\begin{enumerate}[leftmargin=*]
+		\item For each polynomial $P_j(\alpha)$ appears in $\Psi_{x, t}(\alpha)$, the algorithm $\Gamma_{x, t}(\alpha)$ computes its intermediate value $v_j = P_j(\alpha)$ using standard operators ($+, -, \times$). Since $P_j$ are polynomials in $\alpha$, this step is valid.
+		
+		\item For each predicate $P_j(\alpha) \chi_j 0$, the algorithm checks the condition (e.g., ``if $v_j \geq 0$'') using a conditional statement. 
+		
+		\item Finally, the algorithm $\Gamma_{x, t}(\alpha)$ combines the Boolean results of these checks according to the AND/OR structure of $\Psi_{x, t}$ to return the final truth.
+	\end{enumerate}
+	The degree of $\Gamma_{x, t}$ is simply the maximum degree of the intermediate polynomials computed, which is at most $\Delta_{QE}$. The predicate complexity is the number of distinct polynomials in the conditional statements, which is at most $ I$. 
+	
+	Finally, applying \Cref{thm:gj}, the pseudo-dimension of $\cL$ is upper-bounded by:
+	\begin{equation*}
+		\begin{aligned}
+			\cO(p\log(I \cdot \Delta_{QE}))
+            = &\cO\left(p \log M^{\prod_{k = 1}^M (d_k + 1)} \cdot \Delta^{2\cO(p) \prod_{k = 1}^M d_k}\right)\\
+			= &O\left( p\prod_{k = 1}^M (d_k + 1) \log M + p^2 \prod_{k = 1}^M d_k \log \Delta\right)
+		\end{aligned}
+	\end{equation*}
+	as desired.
+\end{proof}
+
+\section{Semi-algebraic Functions and Their Properties}
+\label{appendix:semi-algebraic}
+We start with the notion of semi-algebraic functions and sets:
+
+\begin{definition}[Semi-algebraic sets and functions]
+	\label{def:semi-algebraic}
+	A subset $A$ of $\RR^n$ is called semi-algebraic if it can be described by a finite number of polynomial equalities and inequalities, i.e.,
+	\begin{equation*}
+		 A = \bigcup_{i \in \cI} \{x \mid P_i(x) = 0 \text{ and } Q_{i,j}(x) > 0, \forall j \in \cJ_i\},
+	\end{equation*}
+	where $\cI$ and $\cJ_i, i \in \cI$ are finite index sets. A function is semi-algebraic if and only if its graph is semi-algebraic.
+\end{definition}
+
+Semi-algebraic functions are stable under many operations.
+
+\begin{proposition}[Properties of semi-algebraic functions {\citep[Theorem 2.84 and 2.85]{basu2006algorithms}}]
+    The set of semi-algebraic functions is closed under composition, summation, and multiplication.
+\end{proposition}
+
+It is noteworthy that the set of piecewise polynomial functions (cf. Definition~\ref{def:piecewise-poly-def}) is a strict subset of the set of semi-algebraic functions. Indeed, to show that a piecewise polynomial function $g$ is semi-algebraic, it is sufficient to express its graph as:
+\begin{equation*}
+	\mathtt{graph} \,g = \bigcup_{\sigma \in \Sigma_{f_x}}\left\{(x,y) \mid \left(\bigcap_{k = 1}^{M_f}\sign(h(x)) = \sigma_k\right) \cap (y = f_{\sigma}(x))\right\}.
+\end{equation*}
+Other examples of semi-algebraic functions in the learning context that are not piecewise polynomial are:
+\begin{enumerate}[leftmargin=*]
+    \item Norm $\ell_p, p \in \NN$: because its graph is given by:
+    \begin{equation*}
+        \{(x,y) \mid y > 0, \left(\sum_{i = 1}^{d} x_i^p\right) - y^p = 0\} \cup \{(0,0)\} \subseteq \RR^{d + 1}.
+    \end{equation*}
+    Note that $\ell_p$ is not piecewise polynomial because it is equal to $(\sum_{i=1}^p x_i^p)^{\frac{1}{p}}$.
+    \item The $\ell_2/\ell_1$ ratio, i.e., $\|x\|_2/\|x\|_1$: Note that $f(x,y) = x/y$ is semi-algebraic since their graph is $\{(x,y) \mid xy = 1\}$. The $\ell_2/\ell_1$ ratio is, thus, also semi-algebraic because it is the composition of $g$ and $f$, where:
+    \begin{equation*}
+        g: \RR^d \to \RR^2, \qquad  x \mapsto \begin{pmatrix}
+            \|x\|_2 \\ \|x\|_1
+        \end{pmatrix}.
+    \end{equation*}
+    The $\ell_2/\ell_1$ ratio is not piecewise polynomial either because it is a rational function (and not polynomial).
+    \item Group LASSO: Let $(\theta_1, \ldots, \theta_p) \in \RR^{d_1} \times \ldots \times \RR^{d_p}$ be a decomposition of $\theta \in \RR^d$, then the group LASSO is given by:
+    \begin{equation*}
+        f(\theta) = \sum_{i = 1}^p \|\theta_p\|_2.
+    \end{equation*}
+    As seen previously, $\|\cdot\|_2$ is semi-algebraic, and semi-algebraic functions are stable under summation; group LASSO is also semi-algebraic. It is not piecewise polynomial either, since it equals the sum of $\ell_2$ norms.
+\end{enumerate}
+\section{Proofs of \Cref{sec:tuning-training}}
+
+\subsection{Upper bound}
+\label{appendix:tuning-training}
+\begin{proof}[Proof of \Cref{thm:pdim-tuning-training}]
+    To apply Theorem \ref{thm:upper-bound-pdim}, given a problem instance $x$ and a real-valued threshold $t$, our goal is to construct a polynomial FOL formula $\Phi_{x, t}(\alpha)$ equivalent to $\mathbb{I}(\ell_\alpha(x) \geq t)$. Since $\ell_\alpha(x) = \min_{\theta \in \Theta} f_x(\alpha, \theta)$ is a minimization over $\Theta$, the condition $\ell_\alpha(x) \geq t$ is equivalent to stating that for all parameter $\theta \in \Theta$, the function value $f_x(\alpha, \theta)$ is greater or equal than $t$, and $\Phi_{x, t}(\alpha)$ is defined as
+    \begin{equation*}
+        \begin{aligned}
+            \Phi_{x, t}(\alpha) &\triangleq (\forall \theta \in \bbR^d)[(\theta \in \Theta) \Rightarrow f_x(\alpha, \theta) \geq t] \\
+            &= (\forall \theta \in \bbR^d)[\neg (\theta \in \Theta) \lor (f_x(\alpha, \theta) \geq t)].
+        \end{aligned}
+    \end{equation*}
+    Here, we use the logical identity $(A \Rightarrow B) =  (\neg A \lor B)$ (i.e., not $A$ or $B$). The task now is to analyze the structural complexity of $\Phi_{x, t}(\alpha)$:
+    \begin{itemize}[leftmargin=*]
+        \item The formula involves exactly one block of quantifiers: $(\forall \theta \in \bbR^p)$. Thus, the number of quantifier alternations is $K = 1$, and the dimension of the quantified variables is $d_1 = d$.
+        \item The formula involves two types of predicates:
+        \begin{itemize}[leftmargin=*]
+            \item Domain constraints:  because $\Theta = [\theta_\textup{min}, \theta_\textup{max}]^d$ is a box in $\bbR^d$, cheking the condition $\theta \in \Theta$ requires evaluating $2d$ linear inequalities (i.e., $\theta_j \geq \theta_{\min}$ and $\theta_j \leq \theta_\textup{max}$, for $j = 1, \dots, d$).
+            \item Function structure: The condition $f_x(\alpha, \theta) \geq t$ relies on the piecewise polynomial structure of $f_x$ (cf.~Definition~\ref{def:piecewise-poly-def}). Formally, this condition holds if the pair $(\alpha, \theta)$ falls into a specific region indexed by a binary vector $\sigma = (\sigma_1, \dots, \sigma_{M_f}) \in \Sigma_{f_{x}}$, and the corresponding value polynomial $P_{x, \sigma}(\alpha, \theta)$ that $f_x$ admits in such region satisfies $P_{x, \sigma}(\alpha, \theta) \geq t$. We can express this logically as disjunctions over all valid sign patterns $\Sigma_f$:
+            \[
+                \bigvee_{\sigma \in \Sigma_f} \Big( \underbrace{\Big[ \bigwedge_{j=1}^{M_f} \text{sign}(h_{x, j}(\alpha, \theta)) = \sigma_j \Big]}_{\text{Region Check}} \land \underbrace{\left[ P_{x, \sigma}(\alpha, \theta) \ge t \right]}_{\text{Value Check}} \Big),
+            \]
+            where $h_{x, j}$ and $P_{x, \sigma}$ are boundary and piece polynomials in the piecewise polynomial structure of $f_x$.
+        \end{itemize}
+         Consequently, the set of atomic polynomials appearing in this formula consists of: (1) $M_f$ boundary polynomials $\{h_{x, 1}, \dots, h_{x, M_{f}}\}$, (2) at most $T_f$ polynomial $\{P_{x, \sigma} - t\}_{\sigma \in \Sigma_{f_x}}$. 
+    \end{itemize}
+    Therefore, the total number of distinct atomic predicates is bounded by $M_\textup{total} = M_f + T_f + 2d$, and the maximum degree is $\Delta_f$ (as linear constraints have degree 1). 
+\end{proof}
+
+\subsection{Lower-bound} \label{apx:lower-bound-proof}
+    In this section, we will show that the factor $pd\log\Delta_f$ $\Pdim(\cL) = \Omega(pd \log \Delta_f)$ is unavoidable. Consequently, in many cases, if we treat the number of hyperparameters $p$ as a small constant, then the factor $\Theta(d\log \Delta_f)$ in Theorem \ref{thm:pdim-tuning-training} is \textit{tight}. The lower-bound construction is inspired by the \textit{bit-extraction technique}, but requires a non-trivial stabilization argument to handle the implicit optimization problem in the definition of the loss function class. To begin with, we recall a standard property of the \textit{coercive function}, which is helpful for the proof of the lower bound.
+    
+    \begin{lemma}[Extreme value theorem for coercive function] \label{lm:evt-coercive}
+        If $P(\theta)$ is a continuous, coercive function ($P(\theta) \rightarrow \infty$ as $\|\theta\|_2 \rightarrow \infty$) on an unbounded, closed set, then $P(\theta)$ attains global minimum. 
+    \end{lemma}
+
+
+
+\begin{customthm}{\ref{thm:pdim-tuning-training-lower-bound} (restated)}
+    Let $\cA = \bbR^p$, $\Theta = \bbR^d$. Then for every sufficiently large $\Delta_f > 0$, there exists a function class $\mathcal{L} = \{\ell_\alpha: \cX \rightarrow \bbR \mid \alpha \in \cA\}$, where $\ell_\alpha(x) = \min_{\theta \in \Theta} f(x, \alpha, \theta)$, and $f(x, \alpha, \theta)$ is a degree at most $\Delta_f$ for any problem instance $x \in \cX$, such that $\Pdim(\cL) = \Omega(pd\log \Delta_f)$.
+\end{customthm}
+
+\proof[Proof of Theorem~\ref{thm:pdim-tuning-training-lower-bound}]
+    By definition, to show $\Pdim(\cL) = \Omega(pd\log \Delta_f)$, we have to show that there exists $N = \Omega(pd\log \Delta_f)$ problem instances $x_1, \dots, x_N \in \cX$ and $N$ real-valued threshold $\tau_1, \dots, \tau_N \in \bbR$ such that for any bit vector $y \in \{0, 1\}^{N}$, there exists a hyperparameter $\alpha_y \in \cA$ such that
+    \[
+        \bbI(\ell_{\alpha_y}(x_t) - \tau_t \geq 0) = y_t, \quad t = 1, \dots, N.
+    \]
+        In other words, the function class $\cL$ parameterized by $\cA$ can \textit{shatter} the set of problem instances $\{x_1, \dots, x_N\}$, with $\tau_1, \dots, \tau_n$ \textit{witnesses the shattering}. In the following, we will first construct the set of problem instances $\{x_1, \dots, x_N\}$, where $N = \Omega(pd\log \Delta_f)$, and then the objective $f(x, \alpha, \theta)$ which defines the function class $\cL$.
+
+        \paragraph{The construction of problem instances $x_t$.} Let $K = \lfloor \Delta_f / 2\rfloor$, $B = \lfloor \log_2 K\rfloor$. Let $N = p \cdot d \cdot B$, then it is obvious that $N = \Omega(pd \log \Delta_f)$. For the triplet $(j, i, b)$, where
+        \begin{itemize}
+            \item $j \in \{1, \dots, p\}$ specifies the dimensionality of the parameter $\alpha = (\alpha_j)_{j = 1}^p \in \cA \subset \bbR^p$,
+            \item $i \in \{1, \dots, d\}$ specifies the target base-$K$ digit of $\alpha_j$ (and the dimension of $\theta$), and
+            \item $b \in \{1, \dots, B\}$ specifies the exact bit location to extract,
+        \end{itemize}
+        we define the problem instance $x^{(j, i, b)}$ as the tuple of \textit{one-hot} vectors $(u, v, w) \in \{0, 1\}^p \times \{0, 1\}^d \times \{0, 1\}^B = \cX$. Here, $u_j = 1, v_i = 1, w_b = 1$, and all other entries are 0; that is, for the problem instance $x^{(j, i, b)} = (u, v, w)$, we have
+        \begin{equation*}
+            \begin{aligned}
+                u &= (0, \dots, 0, u_j = 1, 0\dots 0) \in \{0, 1\}^p, \\
+                v &= (0, \dots, 0, v_i= 1, 0\dots 0) \in \{0, 1\}^d, \\
+                w &= (0, \dots, 0, w_b = 1, 0\dots 0) \in \{0, 1\}^B.
+            \end{aligned}
+        \end{equation*}
+
+
+    \paragraph{The construction of the objective $f(x, \alpha, \theta)$.} We define the training objective $f(x, \alpha, \theta)$ as follow:
+    \[
+        f(x, \alpha, \theta)  = \underbrace{C \sum_{m=1}^d \prod_{k=0}^{K-1} (\theta_m - k)^2}_{\text{1. Grid Penalty $C \cdot P_{grid}(\theta)$}} + \underbrace{\left( \sum_{n=1}^p u_n \alpha_n - \sum_{m=1}^d \theta_m K^{m-1} \right)^2}_{\text{2. Selector Penalty}} + \underbrace{0.5 \sum_{m=1}^d \sum_{c=1}^B v_m w_c E_c(\theta_m)}_{\text{3. Bit Extractor}}.
+    \]
+         Here, $C > 0$ is a sufficiently large positive constant (independent of the choice of binary vector $y$ as well as the index $y, j, i, b$), and $E_c(t)$, where $t \in \bbR$ is a bit-extraction polynomial
+        \[
+            E_c(t) = \sum_{j=0}^{K-1} \beta_{j, c} \left( \prod_{\substack{m=0 \\ m \neq j}}^{K-1} \frac{t - m}{j - m} \right),
+        \]        
+        and $\beta_{j, c} \in \{0, 1\}$ denotes the $c^{th}$-bit of the integer $j$ in its binary representation. Specificially, if $t \in \{0, 1, \dots, K - 1\}$, then $E_c(t)$ is the $c^{th}$ bit of $t$ in the binary form. 
+        We then define $\ell_\alpha(x) = \min_{\theta \in \bbR^d}f(x, \alpha, \theta)$, and $\cL = \{\ell_\alpha: \cX \rightarrow \bbR \mid \alpha \in \bbR^p\}$. We will elaborate on the meaning of each term \textit{Grid Penalty, Selector Penalty, and Bit Extractor} in the proof of the following claims.
+
+        We consider an additional function $\ell^\cK_\alpha(x) = \min_{\theta \in \cK^d} f(x, \alpha, \theta)$, where $\cK = \{0, \dots, K - 1\}$, is the value function restricted on the parameter grid $\cK \subsetneq \Theta$ instead of the whole parameter domain $\Theta$.
+
+    We will now claim that: (1) for any $y$, we can construct $\alpha_y$ such that $\ell^\cK_{\alpha_y}(x^{(j, i, b)}) = \frac{y^{(j, i, b)}}{2}$, and (2) we can pick $C$ large enough such that $\ell_{\alpha_y}(x^{(j, i, b)}) \in (\ell^\cK_{\alpha_y}(x^{(j, i, b)}) - 0.1, \ell^\cK_{\alpha_y}(x^{(j, i, b)}))$.
+
+    \paragraph{Claim 1: $\ell^\cK_{\alpha_y}(x^{(j, i, b)}) = \frac{y^{(j, i, b)}}{2}$.} For any $y \in \{0, 1\}^{p \times d \times B}$, let $\alpha_y = (\alpha_1, \dots, \alpha_p)$ as follows
+    \begin{equation} \label{eq:alpha-construction}
+        \alpha_j = \sum_{i=1}^d \underbrace{\left( \sum_{b=1}^B y_{j, i, b} 2^{b-1} \right)}_{D_{j,i}} K^{i-1}, \quad j = 1, \dots, p.
+    \end{equation}
+    
+        Here, we can understand the term $D_{j, i} \in \{0, \dots, K - 1\}$ as the decimal form of the binary vector $y_{j, i}$ (uniquely encodes binary vector $(y_{j, i, 1}, \dots, y_{j, i, B})$). Therefore, $\alpha_j$ can be understood as an integer whose base-$K$ digits are exactly $D_{j, 1}, \dots, D_{j, d}$, and it is a unique way to encode all the bits of the binary matrix $y_j$, for $j = 1, \dots, p$, onto a single decimal value $\alpha_j$.
+
+    Using such construction of $\alpha_y$, for any input problem instance $x^{(j, i, b)}$, the function $f(x, \alpha, \theta)$ becomes
+    \[
+        f(x^{(j, i, b)}, \alpha_y, \theta) = C \cdot P_{grid}(\theta) + \left(\sum_{m=1}^d \theta_m K^{m - 1} - \alpha_j\right)^2 + \frac{1}{2}E_b(\theta_i).
+    \]
+    We have the following observations:
+    \begin{itemize}
+        \item \textbf{The perfect key}: at $\theta^* = (D_{j, 1}, \dots D_{j, d}) \in \cK^d$, the grid penalty $C \cdot P_{grid}(\theta) = 0$, the selection penalty $\left(\sum_{m=1}^d \theta_m K^{m - 1} - \alpha_j\right)^2 = 0$. By the construction, $f(x^{(j, i, b)}, \alpha_y, \theta) = \frac{1}{2}E_b(D_{j, i})$, which is exactly the $b^{th}$ bit of $D_{j, i} = y_{j, i, b}$. So $f(x^{(j, i, b)}, \alpha_y, \theta^*) = \frac{y_{j, i, b}}{2}$.
+        \item \textbf{Every other key is wrong:} At $\theta \in \cK^d \setminus \{\theta^*\}$, the grid penalty is $C \cdot P_{grid}(\theta) = 0$, the selector penalty $\left(\sum_{m=1}^d \theta_m K^{m - 1} - \alpha_j\right)^2 \geq 1$, and the bit extractor term $\frac{1}{2}E_b(\theta_i) \geq 0$. This means $f(x^{(j, i, b)}, \alpha_y, \theta^*) \leq f(x^{(j, i, b)}, \alpha_y, \theta)$.
+    \end{itemize} 
+    Hence, we claim that $\ell^\cK_{\alpha_y}(x^{(j, i, b)}) = \frac{y^{(j, i, b)}}{2}$.
+
+    \paragraph{Claim 2: For $C$ large enough, $\ell_{\alpha_y}(x^{(j, i, b)}) \in (\ell^\cK_{\alpha_y}(x^{(j, i, b)}) - 0.1, \ell^\cK_{\alpha_y}(x^{(j, i, b)}))$.} When $y$, $x^{(j, i, b)}$, and $\alpha_y$ are fixed and defined as above, we abuse notation and let $f(\theta) \triangleq f(x^{(j, i, b)}, \alpha_y, \theta) = C\cdot P(\theta) + \psi^{(j, i, b)}_{y}(\theta)$, where
+    \[
+        P(\theta) = P_{grid}(\theta), \quad \psi^{(j, i, b)}_{y}(\theta) = \left(\sum_{m=1}^d \theta_m K^{m - 1} - \alpha_j\right)^2 + \frac{1}{2}E_b(\theta_i).
+    \]
+    
+    \textbf{The upper bound:} At $\theta^*$, $P(\theta^*) = 0$, and therefore
+    \[
+        \ell_{\alpha_y}(x^{(j, i, b)}) = f(\theta_{cont}) \leq \psi^{(j, i, b)}_{y}(\theta^*) = \ell^\cK_{\alpha_y}(x^{(j, i, b)}), 
+    \]
+    where $\theta_{cont} \in \arg \min_{\theta \in \bbR^d}f(\theta)$.
+
+ 
+        Next, we choose the value $C$ properly so that it could be independent of the binary vector $y$ and the indexes $(j, i, b)$.
+    
+        \textbf{The lower bound:} Note that $\psi^{(j, i, b)}_{y}(\theta)$ is a polynomial of $\theta$, then its derivative is bounded in $[-0.5, K]^d \supset \cK^d$. Therefore, it is $L$-Lipschitz continuous in $[-0.5, K]^d$, for some $L = L(j, i, b, y) > 0$. Denote $\delta = \min\{0.25, \frac{0.1}{L}\}$, we claim that any $\theta_{\textup{cont}}$ has to be close to $\theta^*$, i.e., $\|\theta^* - \theta_{\textup{cont}}\|_2 <\delta$. Assume that this is not the case, then $\theta_{\textup{cont}}$ must fall into one of the following categories: (1) there exists $v \in \cK^d \setminus \theta^*$ such that $\|\theta_{\textup{cont}} - v\|_2 < \delta$, and (2) there does not exist $v \in \cK^d$ such that $\|\theta_{cont} - v\|_2 < \delta$, i.e., $\theta \in \bbR^d \setminus \cup_{v \in \cK^d}\cB(v, \delta)$.
+    
+        For Case 1, since $\psi^{(j, i, b)}_{y}(\theta)$ is $L$-Lipschitz in $\cB(v, \delta) \subset [-0.5, K]^d$, we have 
+        \[
+            \psi^{(j, i, b)}_{y}(\theta) \geq \psi^{(j, i, b)}_{y}(v) - L\delta \geq \psi^{(j, i, b)}_{y}(\theta^*) + 0.5 - L\delta \geq \psi^{(j, i, b)}_{y}(\theta^*) + 0.4.
+        \]
+        This means that $f(\theta) = C\cdot P(\theta) + \psi^{(j, i, b)}_{y}(\theta) \geq \psi^{(j, i, b)}_{y}(\theta) \geq \psi^{(j, i, b)}_{y}(\theta^*) + 0.4$, which is a contradiction.
+    
+        For Case 2, since $P(\theta)$ is a continuous, coercive function, and $\cR = \bbR^d \setminus \cup_{v \in \cK^d}\cB(v, \delta)$ is a closed, unbounded set, from the Extreme value theorem (Lemma \ref{lm:evt-coercive}), there exists $\overline{\theta}^{(j, i, b)}_{y} \in \cR$ such that $P(\overline{\theta}^{(j, i, b)}_{y} ) = \min_{\theta \in \cR} P(\theta)$. We then define $\mu = \mu^{(j, i, b)}_{y} = P(\overline{\theta}^{(j, i, b)}_{y} )$. Note that $\mu > 0$ due to the squared form of $P(\theta)$, and it cannot achieve $0$ as $\nu \not \in \cK^d$. Now note that: (1) $P(\theta)$ is a polynomial of degree $2K$, (2) $\psi^{(j, i, b)}_{y}(\theta)$ is a polynomial of degree at most $K$. Therefore, there exists some sufficiently large threshold $T > 0$ such that for any $\theta$ such that $\|\theta\|_\infty \geq T$, we have $P(\theta) + \psi^{(j, i, b)}_{y}(\theta) \geq 1$. This will lead to the following cases:
+        \begin{itemize}
+            \item If $\theta_{cont} \in \cR \cap \{\theta: \|\theta\|_\infty \geq T\}$: then $f(\theta_{cont}) = C\cdot P(\theta_{cont}) + \psi^{(j, i, b)}_{y}(\theta_{cont}) \geq 1 > f(\theta^*)$ which is a contradiction.
+            \item If $\theta_{cont} \in \cR \setminus \{\theta: \|\theta\|_\infty \geq T\}$: Since $\cR \setminus \{\theta: \|\theta\|_\infty \geq T\} \subset \{\theta: \|\theta\|_\infty < T\}$ is bounded, and $\psi^{(j, i, b)}_{y}(\theta)$ is a polynomial, there exists $M = M^{(j, i, b)}_y > 0$ such that $\psi^{(j, i, b)}_{y}(\theta) \geq -M$ for $\theta \in \cR \setminus \{\theta: \|\theta\|_\infty \geq T\}$. We then simply choose $C > \max_{j, i, b, y}\left(1 + \frac{\psi^{(j, i, b)}_{y}(\theta^*) +  M^{(j, i, b)}_y}{\mu^{(j, i, b)}_{y}}\right)$, and therefore
+            \[
+                f(\theta_{cont}) \geq C\mu - M > \psi^{(j, i, b)}_{y}(\theta^*) = f(\theta^*),
+            \]
+            which is a contradiction.
+        \end{itemize}
+    
+        Therefore, it must be the case $\|\theta^* - \theta_{cont}\|_2 \leq \delta$, and therefore
+        \[
+            \psi^{(j, i, b)}_{y}(\theta_{cont}) \geq \psi^{(j, i, b)}_{y}(\theta^*) - L\|\theta_{cont} - \theta^*\| \geq \psi^{(j, i, b)}_{y}(\theta^*)  - L\delta \geq \psi^{(j, i, b)}_{y}(\theta^*) - 0.1
+        \]
+        where the final inequality comes from the fact that $\delta \leq \frac{0.1}{L}$. This implies:
+        \[
+            f(\theta_{cont}) \geq \psi^{(j, i, b)}_{y}(\theta_{cont}) \geq \psi^{(j, i, b)}_{y}(\theta^*) - 0.1 = f(\theta^*) - 0.1.
+        \]
+
+        From the two claims above, we have
+        \[
+            \ell_{\alpha_y}(x^{j, i, b}) \in \left[\frac{y^{(j, i ,b)}}{2} - 0.1, \frac{y^{(j, i ,b)}}{2} \right].
+        \]
+        Now, if we choose $\tau^{(j, i, b)} = 0.25$, then: (1) if $y^{(j, i, b)} = 1$, $\ell_{\alpha_y}(x^{j, i, b})  - \tau^{(j, i, b)} > 0$ or $\bbI(\ell_{\alpha_y}(x^{j, i, b})  - \tau^{(j, i, b)} > 0) =  y^{(j, i, b)}$, (2) $y^{(j, i, b)} = 0$,$\ell_{\alpha_y}(x^{j, i, b})  - \tau^{(j, i, b)} < 0$ or $\bbI(\ell_{\alpha_y}(x^{j, i, b})  - \tau^{(j, i, b)} > 0) =  y^{(j, i, b)}$. This concludes the proof.    
+\qed
+
+
+
+
+
+
+\section{Proofs of \Cref{sec:tuning-validation}}
+\label{appendix:tuning-validation}
+\begin{proof}[Proof of \Cref{thm:pdim-tuning-validation}]
+    Similar to the proof of Theorem \ref{thm:pdim-tuning-training}, the idea is to use Theorem \ref{thm:upper-bound-pdim} by showing that: given a problem instance $x$ and a real-valued threshold $t$, there is a polynomial FOL $\Phi_{x, t}(\alpha)$ equivalent to $\mathbb{I}(\ell_x(\alpha) \geq t)$ with bounded complexities. Such a polynomial FOL can be defined as follows:
+    \begin{equation*}
+        \begin{aligned}
+            \Phi_{x,t}(\alpha) &\triangleq (\forall \theta \in \mathbb{R}^d) \left[ (\theta \in \mathcal{S}(x, \alpha)) \Rightarrow (g(x, \alpha, \theta) \ge t)\right] \\
+            &= (\forall \theta \in \mathbb{R}^d) \left[ \neg (\theta \in \mathcal{S}(x, \alpha)) \lor (g(x, \alpha, \theta) \ge t)\right].
+        \end{aligned}
+    \end{equation*}
+    Here, we again use the identity $(A \Rightarrow B) = (\neg A \lor B)$. We first expand the optimality constraints $\theta \in \cS(x, \alpha)$. Note that a parameter $\theta$ is not optimal (i.e., $\neg (\theta \in \cS(x, \alpha))$ if it is not in the region $\Theta$ or if there exists a better candidate $\theta'$ such that $f_x(\alpha, \theta') < f_x(\alpha, \theta)$. Therefore, $\neg (\theta \in \cS(x, \alpha))$ can be rewritten as
+    \[
+        (\theta \not \in \Theta) \lor \left[(\exists \theta' \in \bbR^d)[(\theta' \in \Theta) \land (f_x(\alpha, \theta') < f_x(\alpha, \theta))]\right].
+    \]
+    Let $L_1 = (\theta' \in \Theta) \land (f_x(\alpha, \theta') < f_x(\alpha, \theta))$, which is the logical sentence for \textit{optimality check}, we can then write $\Phi_{x, t}(\alpha)$ as 
+    \[
+        (\forall \theta \in \bbR^d)(\exists \theta' \in \bbR^d)\left[\underbrace{\theta \not \in \Theta}_{\textup{Domain check}} \lor \underbrace{(g_x(\alpha, \theta) \geq t)}_{\textup{Validation check}} \lor L_1\right].
+    \]
+    We now analyze the structural complexity of $\Phi_{x, t}(\alpha)$:
+    \begin{itemize}[leftmargin=*]
+        \item The formula involves two blocks of quantifiers, each with dimension $d$. Therefore, $K = 2$, and the complexity scales with $\prod_{i = 1}^K(d_k + 1) = \cO(d^2)$.
+        \item The atomic polynomial predicates required to express $\Phi_{x, t}(\alpha)$ include three components:
+        \begin{itemize}[leftmargin=*]
+            \item Domain constraints ($\theta' \not \in \Theta$ and $\theta \in \Theta$): since $\Theta = [\theta_\textup{min}, \theta_\textup{max}]^d$, checking those constraints take $\cO(d)$ atomic predicates of degree $1$.
+            \item Validation check ($g_x(\alpha, \theta) \geq t$): this relies on the piecewise structure of $g_x$ (Definition \ref{def:piecewise-poly-def}). Concretely, this condition holds if the pair $(\alpha, \theta)$ falls into the specific region indexed by a binary vector  $\sigma = (\sigma_1, \dots, \sigma_{M_g}) \in \Sigma_{g_x}$, and the corresponding value polynomial $P_{g_x, \sigma}$ that $g_x$ admits in such region satisfies $P_{g_x,\sigma}(\alpha, \theta) \geq t$. We can express ($g_x(\alpha, \theta) \geq t$) logically as:
+            \[
+                  \bigvee_{\sigma \in \Sigma_{g_x}} \left( \left[ \bigwedge_{j=1}^{M_g} \text{sign}(h_{g_x,j}(\alpha, \theta)) = \sigma_j \right] \land [P_{g_x, \sigma}(\alpha, \theta) \geq t] \right).
+            \]
+            \item Optimization check ($f_x(\alpha, \theta) < f_x(\alpha, \theta)$): here, we compare the function $f_x$ evaluated at two points $(\alpha, \theta)$ and $(\alpha, \theta')$. To do so, we must determine the active regions (indexed by binary vectors $\sigma, \sigma' \in \Sigma_{f_x}$) for both points simultaneously. The condition can then be expressed as:
+            \[
+                \bigvee_{\sigma \in\Sigma_{f_x}}\bigvee_{\sigma' \in\Sigma_{f_x}}\left( \textup{Where}^{\boldsymbol{\sigma}}_{f_{x}}(\alpha, \theta) \land \textup{Where}^{\boldsymbol{\sigma}'}_{f_{x}}(\alpha, \theta') \land L\right),
+            \]
+            where $L = (P_{f_x, \sigma'}(\alpha, \theta') < P_{f_x, \sigma}(\alpha, \theta)$ is the value comparison term, and $\textup{Where}^{\boldsymbol{\sigma}}_{f_{x}}(\alpha, \theta)$ is a shorthand for the conjunction of signs of $M_f$ boundary polynomials evaluated at $(\alpha, \theta)$. The atomic predicates involved here are: (1) the boundary polynomials of $f_x$ evaluated at $\theta$: $\{h_{f_x, j}(\alpha, \theta)\}_{j = 1}^{M_f}$, the boundary polynomials of $f$ evaluated at $\theta'$: $\{h_{f_x, j}(\alpha, \theta')\}_{j = 1}^{M_f}$, and the pairwise difference of piece polynomials: $\{P_{f_x, \sigma}(\alpha, \theta) - P_{f_x, \sigma'}(\alpha, \theta')\}_{\sigma, \sigma'\in \Sigma_{f_x}}$.
+        \end{itemize}
+    \end{itemize}
+    Summing these components, we conclude that the total number of distinct atomic polynomials $M_\textup{total}$ is bounded by
+    \begin{equation*}
+             M_\textup{total} \leq \underbrace{4d}_{\textup{Domain}} + \underbrace{(M_g + T_g)}_{\text{Validation}} +  \underbrace{(2M_f + T_f^2)}_{\textup{Optimization}} = \cO(d + M_g + T_g + M_f + T_f^2).
+    \end{equation*}
+    The maximum degree $\Delta_\textup{total}$ is defined by the highest degree among these polynomials, i.e., $\Delta_\textup{total} = \max(\Delta_f, \Delta_g)$. Substituting this into Theorem \ref{thm:upper-bound-pdim}, we have the postulated claim.
+\end{proof}
+
+\section{Proofs and Additional Results for Section \ref{sec:refined-structure-improved-bound} } \label{apx:explicit-solution-path}
+
+\subsection{Proofs}
+We now present the formal proof of Theorem \ref{thm:explicit-solution-path-guarantee}.
+
+\proof[Proof of Theorem~\ref{thm:explicit-solution-path-guarantee}]
+    In this scenario, we can apply the GJ framework directly without invoking quantifier elimination. Besides, since $\theta^*(x, \alpha)$ is now a rational function of $\alpha$, we expect that the final bound should only depend on the dimensionality of $\alpha$ instead of $\theta$. Recall that, to give an upper-bound for the pseudo-dimension of $\cL$ using GJ framework, for any problem instance $x \in \cX$ and and any real-valued threshold $t \in \bbR$, we want to show that the computation of $\mathbb{I}(\ell^*_x(\alpha) \geq t)$, where $\ell^*_x(\alpha)  \ell_\alpha(x) = k_x(\alpha, \theta^*(x, \alpha))$, can be described by a GJ algorithm (Definition \ref{def:GJ-algorithm}) with bounded complexities. 
+
+    At the high level idea, the computation of $\mathbb{I}(\ell^*_x(\alpha) \geq t)$ can be divided into the following steps: (1) locating the form of $\theta^*(x, \alpha)$ as a rational function of $\alpha$ based on the relative position of $\alpha$, and (2) locating the polynomial form of the objective $h_x(\alpha, \theta)$, and (3) calculating $\mathbb{I}(\ell^*_x(\alpha) \geq t) = \mathbb{I}(k_x(\alpha, \theta^*(x, \alpha)) \geq t)$ with a GJ algorithm, which is valid since $k_x(\alpha, \theta^*(x, \alpha))$ is now a rational function of $\alpha$.
+
+    First, to locate the form of $\theta^*(x, \alpha)$, based on its piecewise rational structure, we first calculate the vector $\sigma(\alpha)$, where $\sigma(\alpha)_i = \sign(h_{x, i}(\alpha))$. This requires at most $M_\textup{path}$ conditional statements, involving at most $M_\textup{path}$ distinct rational functions of $\alpha$. Second, for the rational form of $k_x(\alpha, \theta)$, again we leverage its piecewise rational structure, and calculate the vector $\kappa(\alpha, \theta^*(x, \alpha))$, where $\kappa(\alpha, \theta^*(x, \alpha))_i = \sign(h_{x, i, k}(\alpha, \theta^*(x, \alpha)))$. Here $h^k_{x, i}$ is the $i^{th}$ boundary rational functions of the objective function $k$ as in Definition \ref{def:piecewise-poly-def}. This requires at most $M_k \cdot T_\textup{path}$ conditional statements, where $M_k$ is the number of distinct forms of $h_{x, i, k}$ and $T_\textup{path}$ is the number of distinct forms of $\theta^*(x, \alpha)$. Finally, after the form of $k_x(\alpha, \theta^*(x, \alpha))$ is determined, which is a rational function of $\alpha$, we can now calculate $\mathbb{I}(\ell^*_x(\alpha) \geq t) = \mathbb{I}(k_x(\alpha, \theta^*(x, \alpha)) \geq t)$. The total distinct rational functions involved appearing in the conditional statements when calculating $\mathbb{I}(\ell^*_x(\alpha) \geq t)$ is at most $M_\textup{total} = M_\textup{path} + T_\textup{path}\cdot M_k + T_\textup{path} \cdot T_k = M_\textup{path} + T_\textup{path}(M_k + T_k)$. Here, the factor $T_\textup{path} \cdot T_k$ comes from the total forms that $k_x(\alpha, \theta^*(x, \alpha))$ can take. Finally, the maximum degree of the rational functions appearing in the conditional statements when calculating $\mathbb{I}(k_x(\alpha, \theta^*(x, \alpha)) \geq t)$ is at most $\Delta_\textup{total} = \Delta_k \cdot \Delta_\textup{path}$, due to the combination in $k_x(\alpha, \theta^*(x, \alpha))$. Applying Theorem~\ref{thm:gj} yields the final result.
+\qed
+
+\subsection{Data-driven ElasticNet} \label{apx:recovering-elastic-net}
+In this section, we will use our general bound in Theorem \ref{thm:explicit-solution-path-guarantee} to recover the upper-bound for the problem of data-driven tuning ElasticNet across instances presented by \citet{balcan2023new}. Since \citet{balcan2023new} also presented a matching lower-bound, this shows that our general bound is tight for some problem. 
+
+\textbf{Problem settings.} We first briefly introduce the problem of tuning regularization parameters for ElasticNet, previously considered by \citet{balcan2023new}. Concretely, consider a problem instance $x = (A, b, A_\textup{val}, b_\textup{val})$, where $(A, b) \in \bbR^{m \times d} \times \bbR^m$ representing a training set with $m$ samples and $d$ features, and $(A_\textup{val}, b_\textup{val}) \in \bbR^{m' \times d} \times \bbR^{m'}$ denotes the validation part of the problem instance $x$, we first consider the ElasticNet estimator $\theta(x, \alpha)$ defined as
+\[
+    \theta(x, \alpha) = \arg\min_{\theta \in \bbR^d} \frac{1}{2m} \|b - A\theta\|_2^2 + \alpha_1 \|\theta\|_1 + \alpha_2 \|\theta\|_2^2.
+\]
+Here, $\alpha = (\alpha_1, \alpha_2) \in \bbR^2_{> 0}$ denote the regularization hyperparameters controlling the magnitude of the $\ell_1$ and $\ell_2$ regularization. Then, the solution $\theta(x, \alpha)$ is evaluated in the validation set $(A_\textup{val}, b_\textup{val})$ of the problem instance $x$
+\[  
+    \ell_\alpha(x) = \frac{1}{2m'}\|b_\textup{val} - A_\textup{val} \theta(x, \alpha)\|_2^2. 
+\]
+Assuming that there is an application specific problem distribution $\cD$ over the space of problem instance $\cX = \bbR^{m \times d} \times \bbR^m \times \bbR^{m' \times d} \times \bbR^{m'}$, our goal is to answer the question of how many problem instances do we need to learn a good hyperparameter $\alpha$ for the problem distribution $\cD$. Denote $\cL = \{\ell_\alpha: \cX \rightarrow [-H, H] \mid \alpha \in \bbR^2_{>0}\}$, the previous question is equivalent to giving an upper-bound for the pseudo-dimension of $\cL$. 
+
+\textbf{Recovering the pseudo-dimension upper-bound.}
+We now demonstrate how to use our general result to establish an upper bound for $\Pdim(\cL)$. First, we will invoke the properties of the solution path of the ElasticNet, a rephrasing of the structural result mentioned in \citet{balcan2023new}.
+\begin{proposition}[Theorem 3.2, \citet{balcan2023new}] \label{prop:elasticnet-structural-properties}
+    For any fixed problem instance, the unique mapping $\alpha \rightarrow \theta^*(x, \alpha)$ satisfies Assumption \ref{asmp:explicit-solution-path} with 
+    \begin{itemize}
+        \item $T_\textup{path} = \cO(3^d)$: the domain $\bbR^2_{0}$ is partitioned into disjoint regions corresponding to the sign patterns (e.g., active sets) of the optimal coefficients. The number of regions is bounded by the total number of sign patterns, i.e., $T_\textup{path} \leq 3^d$.
+
+        \item $M_\textup{path} = \cO(d3^d)$: the boundaries separating these regions are defined by conditions where a coefficient vanishes. The number of such boundary polynomials is bounded by $M_\textup{path} \leq d3^d$.
+
+        \item $\Delta_\textup{path} = \cO(d)$: inside each region, the solution is given by a rational function (derived using Cramer's Rule on the active linear system). The degree of these rational functions is bounded by $\Delta_\textup{path} \leq 2d$.  
+    \end{itemize}
+\end{proposition}
+
+We are now ready to recover the upper-bound for the pseudo-dimension of $\cL$, which then implies the generalization guarantee for data-driven tuning of the regularization hyperparameters for ElasticNet, by combining Proposition \ref{prop:elasticnet-structural-properties} and Theorem \ref{thm:explicit-solution-path-guarantee}.
+
+\begin{corollary} Let $\cL$ be the class of validation loss functions for ElasticNet as defined above. Then $\Pdim(\cL) = \cO(d)$.
+\end{corollary}
+\proof
+    We first calculate the total complexities $M_\textup{total}, \Delta_\textup{total}$. First note that $p = 2$ (as $\alpha \in \bbR^2_{>0}$), and then we have:
+    \begin{itemize}
+        \item The piecewise rational structural complexities of the tuning objective $k_x(\alpha, \theta) = \frac{1}{2}\|b_\textup{val} - A_\textup{val}\theta\|_2^2$ are $M_k = 0$, $T_k = 1$, and $\Delta_k = 2$.
+
+        \item Combining with Proposition \ref{prop:elasticnet-structural-properties}, the total complexities are
+        \begin{itemize}
+            \item  $M_\textup{total} = M_\textup{path} + T_\textup{path}(M_k + T_k) \leq (d + 1)3^d$, 
+            \item $\Delta_\textup{total} = \Delta_k \cdot \Delta_\textup{path} \leq 4d$.
+        \end{itemize}
+    \end{itemize}
+
+    Finally, applying Theorem \ref{thm:explicit-solution-path-guarantee} gives us
+    \[
+        \Pdim(\cL) = \cO(p\log(M_\textup{total} \Delta_\textup{total})) = \cO(d).
+    \]
+    This completes the proof.
+\qed
+\begin{remark}
+    Note that by \citet[Theorem 3.5]{balcan2023new}, we have $\Pdim(\cL) = \Omega(d)$. Therefore, applying Theorem~\ref{asmp:explicit-solution-path} successfully recovers a tight bound for the pseudo-dimension of $\cL$.
+\end{remark}
+
+\section{Proofs of \Cref{sec:applications}}
+\label{appendix:applications}
+
+\subsection{Data-driven Weighted Group Lasso}
+\begin{proof}[Proof of \Cref{thm:group-lasso}]
+    The proof is similar to the previous. The only difference is how we describe $f$ using polynomials since the function is no longer piecewise polynomial. This is possible by adding extra $\nu_1, \ldots, \nu_p$ scalar variable and write:
+	\begin{equation*}
+		f(x, \alpha, \theta) = \|A\theta - b\|^2 + \sum_{i  = 1}^p \alpha_i \nu_i 
+	\end{equation*}
+	with polynomial constraints:
+	\begin{equation}
+		\label{eq:condition-l2}
+		\nu_i^2 = \sum_{j} [\theta_i]_j^2 \quad \text{and} \quad \nu_i \geq 0, \forall i = 1, \ldots, p.
+	\end{equation}
+	The corresponding first-order formula is given by:
+	\begin{equation*}
+			\forall \theta \in \bbR^d, \exists (z, \nu^\theta,\nu^{z}) \in \bbR^{d+2p},(T_1 \lor T_2),
+	\end{equation*}
+	where $T_1$ and $T_2$ are:
+	\begin{equation*}
+		\begin{aligned}
+			T_1 &= (\|A\theta - b\|^2 + \sum_{i} \alpha_i \nu_i^\theta >  \|Az - b\|^2 + \sum_{i} \alpha_i \nu_i^z) \land (\text{conditions } \eqref{eq:condition-l2} \text{ for } \nu^\theta \text{ and } \nu^z), \\
+			T_2 &= \|A'\theta -  b\|^2 \geq t.
+		\end{aligned}
+	\end{equation*}
+	Overall, we have $\Delta = 2$ and $M = 2(1 + 2p)$. Applying \Cref{thm:upper-bound-pdim}, we obtain:
+	\begin{equation*}
+		\Pdim(\cL) = \cO(p(d+1)(d + 2p + 1)\log (2 + 4p) + p^2(d+1)(d + 2p + 1)\log 2) = \cO(p^3d + p^2d^2). \qedhere
+	\end{equation*}
+\end{proof}
+
+
+\subsection{Data-driven Weighted Fused Lasso}
+
+We remind the problem setting and prove \Cref{thm:fused-lasso}.
+
+
+To prove the results of the Weighted Fused LASSO, we first need to reformulate the optimization problem into a canonical form. Let $D \in \bbR^{(d - 1) \times d}$ be the first-difference matrix, i.e., 
+\[
+    D = \begin{bmatrix}
+        -1 & 1 & 0 & \cdots & 0 & 0 \\
+        0 & -1 & 1 & \cdots & 0 & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+        0 & 0 & 0 & \cdots & -1 & 1
+        \end{bmatrix}.
+\]
+The Weighted Fused LASSO estimation problem can be rewritten as
+\[
+    \min_{\theta \in \bbR^d} \frac{1}{2}\|b - A\theta\|_2^2 + \sum_{i = 1}^p\alpha_i\abs{(D\theta)_i},
+\]
+or equivalently, 
+\[
+    \min_{\theta \in \bbR^d} \frac{1}{2}\|b - A\theta\|_2^2 + \sum_{i = 1}^p\alpha_i\abs{z_i}, \textup{ s.t. } z = D\theta.
+\]
+First, we will show that the dual form of Weighted Fused LASSO takes the \textit{multi-parametric Quadratic Programming} (mp-QP) \citep{bemporad2002explicit}.
+\begin{proposition}
+    The dual formulation of Weighted Fused LASSO is
+    \[
+        \min_{u \in \bbR^p} \frac{1}{2} \|\tilde{b} - \tilde{A}u\|_2^2, \textup{ s.t. } \abs{u_i} \leq \alpha_i, i = 1, \dots, p,
+    \]
+    where $\tilde{A} = (A^\top A)^{-1/2}D^\top$ and $\tilde{y} = (A^\top A)^{-1/2}A^\top y$.
+\end{proposition}
+\proof
+    We first define the Lagrangian function $L(\theta, z, u)$ as 
+    \[
+        L(\theta, z, u) = \frac{1}{2}\|b - A\theta\|_2^2 + \sum_{i = 1}^p\alpha_i\abs{z_i} + u^\top(D\theta - z),
+    \]
+    where $u \in \bbR^p$ is a Lagrangian variables. Strong duality holds due to the convexity and linear-quadratic structure of the original problem. We now derive the dual objective function, which is the separable infimum of the Lagrangian function w.r.t.~the primal variables $\theta$ and $z$, i.e.,
+    \begin{equation*}
+        \begin{aligned}
+            g(u) &= \inf_{\theta, z}L(\theta, z, u) \\
+            &= \underbrace{\inf_{\theta}\left(\frac{1}{2}\|y - A\theta\|_2^2 + u^\top D\theta\right)}_{\textup{First term}} + \underbrace{\inf_{z}\left(\sum_{i = 1}^p(\alpha_i\abs{z_i} - u_iz_i)\right)}_{\textup{Second term}}.
+            \end{aligned}
+    \end{equation*}
+    For the first term, we simply take the gradient w.r.t. $\theta$ and set it to zero, i.e.
+    \[
+        \nabla_\theta\left(\frac{1}{2}\|b - A\theta\|_2^2 + u^\top D\theta\right) = -A^\top(b - A\theta) + D^\top u = 0.
+    \]
+    If $A$ has full column rank (or in the \textit{general position}) \citep{tibshirani2011solution}, we conclude that the optimal $\theta^*(u)$ is
+    \[
+        \theta^*(u) = (A^\top A)^{-1}(A^\top b - D^\top u).
+    \]
+    For the second term, the infimum of $\alpha_{i}\abs{z_i} - u_iz_i$ is bounded only if $\abs{u_i} \leq \alpha_i$. If this holds, the infimum is $0$; otherwise, it is $-\infty$. This gives us the box constraints $\abs{u_i} \leq \alpha_i$. 
+    Therefore, we conclude that the dual problem is
+    \begin{equation*}
+        \begin{array}{cl}
+            \min_{u \in \bbR^p}  & \frac{1}{2}(A^\top y - D^\top u)^\top (A^\top A)^{-1}(A^\top b - D^\top u), \\
+            \textup{ s.t. } & \abs{u_i} \leq \alpha, i = 1, \dots, p.
+        \end{array}
+    \end{equation*}
+     Simply setting  $\tilde{A} = (A^\top A)^{-1/2}D^\top$ and $\tilde{b} = (A^\top A)^{-1/2}A^\top y$, we have the final conclusion.
+\qed
+
+Since the above take the form of mp-QP with linear constraints (i.e., $-\alpha \leq u_i \leq \alpha$), from Theorem 2 in \citet{bemporad2002explicit}, the solution $u^*(x, \alpha)$ is a \textit{piecewise affine} function of $\alpha$, where each piece corresponds to an active constraint. Using this property, we are now ready to prove the generalization guarantee for the problem of data-driven tuning regularization parameters for Weighted Fused LASSO in Theorem~\ref{thm:fused-lasso}.
+
+\proof[Proof of Theorem~\ref{thm:fused-lasso}]
+    To bound the pseudo-dimension, we use our proposed Theorem \ref{thm:explicit-solution-path-guarantee}. The complexity depends on the number of region $M_{\textup{path}}$ in the partition:
+    \begin{itemize}[leftmargin=*]
+        \item Each critical region corresponds to a stable set of active constraints. 
+        \item For each of $p = d - 1$ dual variables, the box constraints allow for at most $3$ states at optimality: (1) $u_i = \alpha_i$, (2) $u_i = -\alpha_i$, or (3) $-\alpha_i < u_i < \alpha_i$.
+        \item This means that the number of distinct regions is bounded by $M_\textup{path} \leq 3^p = 3^{d - 1}$.
+    \end{itemize}
+    Besides, $\Delta_\textup{path} = 1$ (affine) and $\Delta_\textup{k} = 2$ (quadratic of the validation $k(x, \alpha, \theta) = \frac{1}{2}\|b' - A'\theta\|_2^2$). Substituting into Theorem~\ref{thm:explicit-solution-path-guarantee}, we have the final conclusion.
+\qed
+
+
+
