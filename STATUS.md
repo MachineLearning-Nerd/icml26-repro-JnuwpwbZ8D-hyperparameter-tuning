@@ -1,6 +1,6 @@
 # Status — JnuwpwbZ8D
 
-Current step: local gate passed; public GitHub repository pushed.
+Current step: publication queued for the shared Hugging Face drain.
 
 All six anchored claims are checked by `repro/src/verify_hyperparameters.py`
 without an author implementation. The verifier records source hashes and
@@ -16,5 +16,8 @@ methods, tests, negative controls, and conclusion (with scope/cost).
 
 FULL_GATE_READY: JnuwpwbZ8D
 
-Next: atomically enqueue through the canonical shared Hugging Face backlog;
-the shared drain exclusively owns Space publication and readback.
+The gate-complete paper is atomically queued in the canonical
+`icml-2026-reproduction-challenge/scripts/backlog.json`. The shared drain
+exclusively owns Space creation, artifact upload, and public readback.
+
+Next: await shared-drain publication/readback; no direct HF publish is allowed.
