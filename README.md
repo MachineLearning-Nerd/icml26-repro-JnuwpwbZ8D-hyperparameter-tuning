@@ -27,11 +27,11 @@ group-norm lift variables, and using the wrong fused-LASSO breakpoint.
 ## Re-run
 
 ```bash
-uv venv --python 3.12 .venv
-.venv/bin/python repro/src/verify_hyperparameters.py --output outputs/verification.json
-.venv/bin/python -m unittest discover -s repro/tests -v
-.venv/bin/python repro/src/run_publication_gate.py --output outputs/publication_gate.json
+uv sync --frozen --python 3.12
+uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
 ```
 
-The verifier uses the Python standard library only. It does not import or
-execute the paper source.
+The baseline verifier itself uses the Python standard library only. The locked
+research environment also contains SymPy and Z3 for independently checked
+symbolic proof certificates, plus marimo for the required tutorial notebook.
+It does not import or execute the paper source.
