@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-label="Stacked experiment tree">
+<rect width="1000" height="430" rx="20" fill="#f8fafc"/>
+<g font-family="system-ui" text-anchor="middle">
+<rect x="365" y="30" width="270" height="60" rx="14" fill="#cbd5e1"/><text x="500" y="67" font-size="18" font-weight="700">Frozen judged baseline · 5s</text>
+<path d="M500 90v45M500 135H280v25M500 135H720v25" stroke="#64748b" stroke-width="3" fill="none"/>
+<rect x="145" y="160" width="270" height="70" rx="14" fill="#dbeafe" stroke="#2563eb"/><text x="280" y="191" font-size="17" font-weight="700">Positive certificates</text><text x="280" y="214" font-size="14">C1 then C2–C6</text>
+<rect x="585" y="160" width="270" height="70" rx="14" fill="#ffedd5" stroke="#ea580c"/><text x="720" y="191" font-size="17" font-weight="700">Adversarial audits</text><text x="720" y="214" font-size="14">counterexample candidates</text>
+<path d="M280 230v45h220M720 230v45H500v25" stroke="#64748b" stroke-width="3" fill="none"/>
+<rect x="340" y="300" width="320" height="60" rx="14" fill="#dcfce7" stroke="#16a34a"/><text x="500" y="337" font-size="18" font-weight="700">Symbolic winning node · 11 tests · 10s</text>
+<path d="M500 360v35" stroke="#64748b" stroke-width="3"/>
+<text x="500" y="416" font-size="16" fill="#334155">Release candidate: pages, report, notebook, manifests, blind traversal</text>
+</g>
+</svg>

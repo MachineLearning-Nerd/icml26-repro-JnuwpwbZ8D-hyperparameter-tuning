@@ -21,6 +21,7 @@ def main() -> None:
     claim1_falsification_output = ROOT / "outputs" / "claim1_falsification.json"
     specialization_output = ROOT / "outputs" / "claims2_6_proofs.json"
     claims2_6_audit_output = ROOT / "outputs" / "claims2_6_counterexample_audit.json"
+    visibility_output = ROOT / "outputs" / "evaluator_visibility.json"
     subprocess.run([sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)], cwd=ROOT, check=True)
     subprocess.run(
@@ -38,12 +39,18 @@ def main() -> None:
         cwd=ROOT,
         check=True,
     )
+    subprocess.run(
+        [sys.executable, "repro/src/audit_evaluator_visibility.py", "--output", str(visibility_output)],
+        cwd=ROOT,
+        check=True,
+    )
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"], cwd=ROOT, check=True)
     verification = json.loads(verifier_output.read_text())
     claim1 = json.loads(claim1_output.read_text())
     claim1_falsification = json.loads(claim1_falsification_output.read_text())
     specializations = json.loads(specialization_output.read_text())
     claims2_6_audit = json.loads(claims2_6_audit_output.read_text())
+    visibility = json.loads(visibility_output.read_text())
     passed = (
         verification["all_claims_passed"]
         and len(verification["claims"]) == 6
@@ -55,6 +62,8 @@ def main() -> None:
         and claims2_6_audit["verdict"] == "AUDIT_COMPLETE"
         and all(not row["falsification_succeeded"] for row in claims2_6_audit["claims"].values())
         and claims2_6_audit["claims"]["C6"]["status"] == "PROOF_DOMAIN_GAP"
+        and visibility["verdict"] == "EVALUATOR_VISIBLE_GATE_PASS"
+        and visibility["missing_cells"] == 0
     )
     payload = {
         "paper": "JnuwpwbZ8D",
