@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 
@@ -113,12 +114,49 @@ def main() -> None:
     for name in ("headline.svg", "proof-pipeline.svg", "checker-cases.svg", "adversarial-audit.svg", "experiment-tree.svg"):
         assert f"images/{name}" in report
 
+    allowlist = [
+        line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
+        if line
+    ]
+    if len(allowlist) != 100 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain 100 unique paths")
+    if allowlist != sorted(allowlist):
+        raise AssertionError("upload allowlist is not sorted")
+    for relative in allowlist:
+        upload = ROOT / relative
+        if not upload.is_file():
+            raise AssertionError(f"allowlisted file is missing: {relative}")
+        try:
+            text = upload.read_text()
+        except UnicodeDecodeError as error:
+            raise AssertionError(f"non-text file in allowlist: {relative}") from error
+        if re.search(r"\bhf_[A-Za-z0-9]{20,}\b", text):
+            raise AssertionError(f"possible Hugging Face token in {relative}")
+
+    candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
+    if len(candidate_manifest) != 99:
+        raise AssertionError("candidate manifest must hash every upload except itself")
+    for relative, expected in candidate_manifest.items():
+        if relative not in allowlist:
+            raise AssertionError(f"manifest path not allowlisted: {relative}")
+        if sha256(ROOT / relative) != expected:
+            raise AssertionError(f"candidate hash mismatch: {relative}")
+    if "evidence/candidate_text_manifest.sha256" not in allowlist:
+        raise AssertionError("candidate manifest is not allowlisted")
+
+    blind_review = (ROOT / "evidence/evaluator_blind_review.md").read_text()
+    assert "release visibility PASS" in blind_review
+    assert "zero missing paths" in blind_review
+
     payload = {
         "canonical_entrypoint": root["file"],
         "opened_files": opened,
         "claims": claim_checks,
         "historical_manifest_entries": len(judged),
         "historical_assets_hash_verified": preserved_pages,
+        "text_upload_paths": len(allowlist),
+        "candidate_hashes_verified": len(candidate_manifest),
+        "secret_scan": "PASS",
         "missing_cells": 0,
         "verdict": "EVALUATOR_VISIBLE_GATE_PASS",
     }

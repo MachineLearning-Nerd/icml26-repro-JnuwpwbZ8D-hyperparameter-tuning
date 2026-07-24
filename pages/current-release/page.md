@@ -37,6 +37,7 @@ index. It records every opened page and treats unlinked evidence as missing.
 Its report and exact upload allowlist are linked below:
 
 - [Blind traversal record](../../evidence/evaluator_blind_review.md)
+- [Final release report](../../evidence/release_report.md)
 - [Text upload allowlist](../../evidence/hf_upload_allowlist.txt)
 - [Candidate SHA-256 manifest](../../evidence/candidate_text_manifest.sha256)
 - [Run metadata](../../evidence/run_metadata.json)
