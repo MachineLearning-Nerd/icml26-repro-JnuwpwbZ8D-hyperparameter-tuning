@@ -1,0 +1,1 @@
+{"premise":"C1 with K=2,d_1=d_2=d and the exact forall-exists atom set","witnesses":["(d+1)^2<=4d^2","4d+M_g+T_g+2M_f+T_f^2<=5M_tot^2"],"conclusion":"Pdim=O(pd^2 log M_tot+p^2d^2 log Delta_tot)"}

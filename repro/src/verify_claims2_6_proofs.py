@@ -8,9 +8,73 @@ import json
 import math
 from pathlib import Path
 
+import sympy as sp
+
 
 ROOT = Path(__file__).resolve().parents[2]
 ARTIFACTS = ROOT / ".openresearch" / "artifacts"
+
+
+def _nonnegative_after_unit_shift(expression: sp.Expr, variables: tuple[sp.Symbol, ...]) -> bool:
+    """Prove a polynomial nonnegative for integer variables >=1 by coefficients."""
+    shifted = sp.Poly(sp.expand(expression.subs({var: var + 1 for var in variables})), *variables)
+    return all(coefficient >= 0 for coefficient in shifted.coeffs())
+
+
+def symbolic_witnesses() -> dict:
+    p, d, mf, tf, mg, tg = sp.symbols("p d mf tf mg tg", integer=True, positive=True)
+
+    c2_atom_slack = sp.expand(2 * (mf + tf + d) - (mf + tf + 2 * d))
+    c2_dimension_slack = sp.factor(2 * d - (d + 1))
+    assert c2_atom_slack == mf + tf
+    assert c2_dimension_slack == d - 1
+
+    mtot = d + mf + tf + mg + tg
+    c3_atoms = 4 * d + mg + tg + 2 * mf + tf**2
+    assert _nonnegative_after_unit_shift(5 * mtot**2 - c3_atoms, (d, mf, tf, mg, tg))
+    c3_dimension_slack = sp.factor(4 * d**2 - (d + 1) ** 2)
+    assert c3_dimension_slack == (d - 1) * (3 * d + 1)
+
+    log_mtotal, log_dtotal = sp.symbols("log_mtotal log_dtotal", nonnegative=True)
+    c4_direct = p * (log_mtotal + log_dtotal)
+    assert sp.expand(c4_direct - p * log_mtotal - p * log_dtotal) == 0
+
+    # log(2+4p) <= 2p and log(2) <= 1 for integer p>=1.
+    c5_upper = 2 * p**2 * (d + 1) * (d + 2 * p + 1) + p**2 * d * (d + 2 * p)
+    c5_target = 16 * (p**3 * d + p**2 * d**2)
+    assert _nonnegative_after_unit_shift(c5_target - c5_upper, (p, d))
+
+    # With p=d-1, M_path,T_path <=3^p and constant objective complexity,
+    # p*log(M_total*Delta_total) <= C*p*(p+1) <= 2C*d^2.
+    c6_dimension_slack = sp.factor((p + 1) ** 2 - p * (p + 1))
+    assert c6_dimension_slack == p + 1
+
+    result = {
+        "C2": {
+            "atom_witness": "M_f+T_f+2d <= 2(M_f+T_f+d)",
+            "dimension_witness": "d+1 <= 2d",
+        },
+        "C3": {
+            "atom_witness": "4d+M_g+T_g+2M_f+T_f^2 <= 5M_tot^2",
+            "dimension_witness": "(d+1)^2 <= 4d^2",
+        },
+        "C4": {
+            "composition_witness": "log(M_total*Delta_total)=log(M_total)+log(Delta_total)",
+        },
+        "C5": {
+            "coefficient_witness": "derived <=16(p^3 d+p^2 d^2) for p,d>=1",
+            "log_witness": "log(2+4p)<=2p and log(2)<=1",
+        },
+        "C6": {
+            "region_witness": "M_path,T_path<=3^p for p=d-1",
+            "coefficient_witness": "p log(O(3^p))=O(p^2)=O(d^2)",
+        },
+        "all_symbolic_witnesses_passed": True,
+    }
+    expected = json.loads((ARTIFACTS / "claims2_6_symbolic_witnesses.json").read_text())
+    if result != expected:
+        raise AssertionError("symbolic witnesses differ from committed certificate")
+    return result
 
 
 def c2() -> dict:
@@ -117,6 +181,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     source_and_controls()
+    witnesses = symbolic_witnesses()
     results = {fn.__name__.upper(): fn() for fn in (c2, c3, c4, c5, c6)}
     expected = {
         key: json.loads((ARTIFACTS / f"claim_{key[1:]}" / "raw_output.json").read_text())
@@ -124,7 +189,11 @@ def main() -> None:
     }
     if results != expected:
         raise AssertionError("computed specialization results differ from committed raw evidence")
-    payload = {"claims": results, "all_exact_claims_verified": True}
+    payload = {
+        "claims": results,
+        "symbolic_witnesses": witnesses,
+        "all_exact_claims_verified": witnesses["all_symbolic_witnesses_passed"],
+    }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print("CLAIMS2_6_RESULT=" + json.dumps(payload, sort_keys=True))

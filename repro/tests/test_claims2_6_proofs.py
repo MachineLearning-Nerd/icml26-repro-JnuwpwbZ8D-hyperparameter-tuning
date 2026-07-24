@@ -11,6 +11,11 @@ SPEC.loader.exec_module(VERIFY)
 
 
 class ClaimSpecializationTests(unittest.TestCase):
+    def test_symbolic_witnesses(self) -> None:
+        result = VERIFY.symbolic_witnesses()
+        self.assertTrue(result["all_symbolic_witnesses_passed"])
+        self.assertEqual(set(result) - {"all_symbolic_witnesses_passed"}, {"C2", "C3", "C4", "C5", "C6"})
+
     def test_all_specializations(self) -> None:
         expected_cases = {"C2": 64, "C3": 128, "C4": 128, "C5": 12, "C6": 5}
         for function in (VERIFY.c2, VERIFY.c3, VERIFY.c4, VERIFY.c5, VERIFY.c6):

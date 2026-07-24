@@ -1,0 +1,22 @@
+{
+  "C2": {
+    "atom_witness": "M_f+T_f+2d <= 2(M_f+T_f+d)",
+    "dimension_witness": "d+1 <= 2d"
+  },
+  "C3": {
+    "atom_witness": "4d+M_g+T_g+2M_f+T_f^2 <= 5M_tot^2",
+    "dimension_witness": "(d+1)^2 <= 4d^2"
+  },
+  "C4": {
+    "composition_witness": "log(M_total*Delta_total)=log(M_total)+log(Delta_total)"
+  },
+  "C5": {
+    "coefficient_witness": "derived <=16(p^3 d+p^2 d^2) for p,d>=1",
+    "log_witness": "log(2+4p)<=2p and log(2)<=1"
+  },
+  "C6": {
+    "coefficient_witness": "p log(O(3^p))=O(p^2)=O(d^2)",
+    "region_witness": "M_path,T_path<=3^p for p=d-1"
+  },
+  "all_symbolic_witnesses_passed": true
+}

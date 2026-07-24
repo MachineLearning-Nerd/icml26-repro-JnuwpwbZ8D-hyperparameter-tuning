@@ -1,0 +1,1 @@
+{"premise":"C1 with K=1,d_1=d,M=M_f+T_f+2d,Delta=Delta_f","witnesses":["d+1<=2d","M_f+T_f+2d<=2(M_f+T_f+d)"],"conclusion":"Pdim=O(pd log(M_f+T_f+d)+p^2d log Delta_f)"}

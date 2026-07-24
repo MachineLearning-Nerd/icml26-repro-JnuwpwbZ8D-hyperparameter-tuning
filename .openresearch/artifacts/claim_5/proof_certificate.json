@@ -1,0 +1,1 @@
+{"premise":"C1 with quantified block dimensions d and d+2p, M=2+4p, Delta=2","witnesses":["log(2+4p)<=2p for integer p>=1","(d+1)(d+2p+1)<=4d(d+p)"],"conclusion":"Pdim=O(p^3d+p^2d^2)"}
