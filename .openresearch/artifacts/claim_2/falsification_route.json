@@ -1,0 +1,1 @@
+{"route":"unattained-minimum search","falsification_succeeded":false,"result":"The piecewise-polynomial candidate has no minimum, so it makes the source-defined loss undefined rather than contradicting the bound.","remaining_risk":"The theorem should state attainment or continuity explicitly."}

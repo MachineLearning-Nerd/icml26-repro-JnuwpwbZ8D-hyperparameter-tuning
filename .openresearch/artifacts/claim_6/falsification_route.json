@@ -1,0 +1,1 @@
+{"route":"negative-weight full-rank construction","falsification_succeeded":false,"result":"A=I,b=0,alpha=-2 has two global minimizers and invalidates the cited unique box-QP path route, but does not contradict the O(d^2) Pdim statement.","remaining_risk":"The source must either restrict alpha_i>=0 or provide an all-real-weight proof."}
