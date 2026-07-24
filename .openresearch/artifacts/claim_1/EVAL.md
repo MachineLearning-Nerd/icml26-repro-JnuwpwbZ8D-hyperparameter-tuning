@@ -13,6 +13,7 @@ combinations, and all three targeted mutations are rejected.
 - Source audit: [`source_audit.md`](source_audit.md)
 - Method: [`method.md`](method.md)
 - Limitations: [`limitations.md`](limitations.md)
+- Falsification route: [`falsification_route.json`](falsification_route.json)
 
 The historical formula-substitution verifier is superseded for C1. It remains
 preserved as **Historical rejected baseline** evidence.

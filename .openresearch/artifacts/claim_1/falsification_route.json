@@ -1,0 +1,23 @@
+{
+  "route": "assumption-satisfying falsification audit",
+  "exact_claim_restatement": "Theorem 4.1 main-source lines 390-400, with fixed K, uses D_plus in the log(M) term and D_plain in the log(Delta) term.",
+  "candidates": [
+    {
+      "candidate": "appendix product upper index M rather than K",
+      "result": "REJECTED_AS_COUNTEREXAMPLE",
+      "reason": "This is an ill-typed local proof transcription when M differs from K, while the theorem and invoked QE lemma both use K."
+    },
+    {
+      "candidate": "judge paraphrase uses D_plus in the second term",
+      "result": "REJECTED_AS_COUNTEREXAMPLE",
+      "reason": "For d_k>=1, D_plus>=D_plain, so the paraphrase is a looser upper bound rather than a contradiction."
+    },
+    {
+      "candidate": "remove the p^2 degree contribution",
+      "result": "VALID_NEGATIVE_CONTROL_ONLY",
+      "reason": "It contradicts the QE-to-GJ derivation as p grows, but it is not the paper's claim."
+    }
+  ],
+  "falsification_succeeded": false,
+  "main_claim_status": "VERIFIED_BY_SYMBOLIC_CERTIFICATE"
+}
