@@ -1,0 +1,20 @@
+{
+  "claim_id": "C1",
+  "paper": "arXiv:2602.02406v2",
+  "source_anchor": "source/icml2026.tex:390-400",
+  "statement": "For a p-parameter real function class whose threshold predicate is uniformly expressible by a polynomial first-order formula with fixed K quantifier blocks of dimensions d_1,...,d_K, at most M atomic polynomials, and degree at most Delta, Pdim(F) is O(p*prod_k(d_k+1)*log(M) + p^2*prod_k(d_k)*log(Delta)).",
+  "domain": {
+    "p": "integer >= 1",
+    "K": "fixed integer >= 1",
+    "d_k": "integer >= 1",
+    "M": "integer >= 2",
+    "Delta": "integer >= 2"
+  },
+  "quantifiers": "For every class F and every x,t satisfying the uniform FOL representation assumptions.",
+  "accepted_primary_lemmas": [
+    "Basu-Pollack-Roy (2006), Algorithm 14.8 quantifier-elimination complexity, as stated in paper Theorem 2.5",
+    "Bartlett-Indyk-Wagner (2022), Theorem 3.3 GJ pseudo-dimension bound, as stated in paper Appendix Theorem A.3"
+  ],
+  "verification_target": "Independently reconstruct and mechanically check the asymptotic implication from the two accepted lemmas to the displayed Theorem 4.1 bound.",
+  "non_circularity": "No sample size, numerical horizon, tolerance, or target-derived query budget is used; this is a symbolic proof certificate."
+}
