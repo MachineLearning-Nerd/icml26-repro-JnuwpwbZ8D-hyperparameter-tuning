@@ -1,0 +1,1 @@
+{"control":"drop unique-path assumption","expected":"REJECT","observed":"REJECT","reason":"An arbitrary selected minimizer need not equal the optimistic infimum over all minimizers."}

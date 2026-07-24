@@ -1,0 +1,1 @@
+{"control":"finite-grid min/forall identity presented as a pseudo-dimension proof","expected":"REJECT","observed":"REJECT","reason":"It supplies neither a uniform FOL atom count nor a bound over the function class."}

@@ -1,0 +1,1 @@
+{"control":"omit nu_i>=0 from nu_i^2=||theta_i||^2","expected":"REJECT","observed":"REJECT","reason":"The negative square root changes the weighted objective and invalidates the FOL encoding."}

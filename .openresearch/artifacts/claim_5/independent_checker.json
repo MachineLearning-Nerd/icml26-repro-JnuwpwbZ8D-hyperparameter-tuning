@@ -1,0 +1,1 @@
+{"implementation":"repro/src/verify_claims2_6_proofs.py::c5","cases":12,"result":"PASS","checks":"two-block dimensions, degree two, asymptotic simplification"}

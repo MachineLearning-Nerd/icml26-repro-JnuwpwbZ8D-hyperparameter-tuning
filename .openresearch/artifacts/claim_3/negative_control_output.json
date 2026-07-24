@@ -1,0 +1,1 @@
+{"control":"drop the existential better-candidate block","expected":"REJECT","observed":"REJECT","reason":"The remaining formula cannot distinguish non-minimizers from lower-level minimizers."}

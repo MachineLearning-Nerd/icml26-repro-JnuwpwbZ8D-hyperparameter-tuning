@@ -19,6 +19,7 @@ def main() -> None:
     verifier_output = ROOT / "outputs" / "verification.json"
     claim1_output = ROOT / "outputs" / "claim1_proof.json"
     claim1_falsification_output = ROOT / "outputs" / "claim1_falsification.json"
+    specialization_output = ROOT / "outputs" / "claims2_6_proofs.json"
     subprocess.run([sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)], cwd=ROOT, check=True)
     subprocess.run(
@@ -26,10 +27,16 @@ def main() -> None:
         cwd=ROOT,
         check=True,
     )
+    subprocess.run(
+        [sys.executable, "repro/src/verify_claims2_6_proofs.py", "--output", str(specialization_output)],
+        cwd=ROOT,
+        check=True,
+    )
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"], cwd=ROOT, check=True)
     verification = json.loads(verifier_output.read_text())
     claim1 = json.loads(claim1_output.read_text())
     claim1_falsification = json.loads(claim1_falsification_output.read_text())
+    specializations = json.loads(specialization_output.read_text())
     passed = (
         verification["all_claims_passed"]
         and len(verification["claims"]) == 6
@@ -37,12 +44,16 @@ def main() -> None:
         and len(claim1["mutations_rejected"]) == 3
         and claim1_falsification["falsification_succeeded"] is False
         and claim1_falsification["main_claim_status"] == "VERIFIED_BY_SYMBOLIC_CERTIFICATE"
+        and specializations["all_exact_claims_verified"]
     )
     payload = {
         "paper": "JnuwpwbZ8D",
         "tests_passed": True,
         "claims_passed": len(verification["claims"]),
-        "current_exact_claims": {"C1": claim1["verdict"]},
+        "current_exact_claims": {
+            "C1": claim1["verdict"],
+            **{claim: result["verdict"] for claim, result in specializations["claims"].items()},
+        },
         "publication_gate_passed": passed,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

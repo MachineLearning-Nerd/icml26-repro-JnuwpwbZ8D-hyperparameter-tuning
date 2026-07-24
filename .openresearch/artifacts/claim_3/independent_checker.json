@@ -1,0 +1,1 @@
+{"implementation":"repro/src/verify_claims2_6_proofs.py::c3","cases":128,"result":"PASS","checks":"T_f^2 atom count is absorbed inside log(M_tot)"}

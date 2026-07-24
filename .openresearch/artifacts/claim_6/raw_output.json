@@ -1,0 +1,1 @@
+{"claim_id":"C6","exact_contract_checked":true,"independent_checker_cases":5,"negative_control_rejected":true,"non_circular":true,"route":"full-rank nonnegative-weight mp-QP active-set specialization","verdict":"VERIFIED"}

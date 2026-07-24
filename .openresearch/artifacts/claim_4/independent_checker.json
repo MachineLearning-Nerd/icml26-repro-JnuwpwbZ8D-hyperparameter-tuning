@@ -1,0 +1,1 @@
+{"implementation":"repro/src/verify_claims2_6_proofs.py::c4","cases":128,"result":"PASS","checks":"M_total and Delta_total composition"}
