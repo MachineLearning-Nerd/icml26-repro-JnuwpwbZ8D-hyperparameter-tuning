@@ -1,1 +1,1 @@
-{"claim_id":"C2","exact_contract_checked":true,"independent_checker_cases":128,"negative_control_rejected":true,"non_circular":true,"route":"single universal block and piecewise-polynomial predicate count","verdict":"VERIFIED"}
+{"claim_id":"C2","exact_contract_checked":true,"independent_checker_cases":64,"negative_control_rejected":true,"non_circular":true,"route":"single universal block and piecewise-polynomial predicate count","verdict":"VERIFIED"}

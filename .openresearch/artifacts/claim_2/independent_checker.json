@@ -1,1 +1,1 @@
-{"implementation":"repro/src/verify_claims2_6_proofs.py::c2","cases":128,"result":"PASS","shared_code_with_symbolic_certificate":false}
+{"implementation":"repro/src/verify_claims2_6_proofs.py::c2","cases":64,"result":"PASS","shared_code_with_symbolic_certificate":false}

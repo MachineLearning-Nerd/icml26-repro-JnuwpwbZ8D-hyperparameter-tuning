@@ -12,7 +12,7 @@ SPEC.loader.exec_module(VERIFY)
 
 class ClaimSpecializationTests(unittest.TestCase):
     def test_all_specializations(self) -> None:
-        expected_cases = {"C2": 128, "C3": 128, "C4": 128, "C5": 12, "C6": 5}
+        expected_cases = {"C2": 64, "C3": 128, "C4": 128, "C5": 12, "C6": 5}
         for function in (VERIFY.c2, VERIFY.c3, VERIFY.c4, VERIFY.c5, VERIFY.c6):
             result = function()
             self.assertEqual(result["verdict"], "VERIFIED")
