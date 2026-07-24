@@ -1,0 +1,15 @@
+{
+  "claim_id": "C1",
+  "exact_contract_checked": true,
+  "independent_checker_cases": 384,
+  "main_source_matches_certificate": true,
+  "mutations_rejected": [
+    "drop_p_squared_degree_term",
+    "replace_K_by_M_in_product_index",
+    "replace_D_plain_by_D_plus_in_exact_source_transcription"
+  ],
+  "non_circular": true,
+  "proof_dependencies_checked": 2,
+  "source_appendix_typos_detected": 2,
+  "verdict": "VERIFIED"
+}

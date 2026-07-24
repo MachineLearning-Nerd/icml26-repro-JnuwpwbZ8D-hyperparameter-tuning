@@ -17,14 +17,23 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=ROOT / "outputs" / "publication_gate.json")
     args = parser.parse_args()
     verifier_output = ROOT / "outputs" / "verification.json"
+    claim1_output = ROOT / "outputs" / "claim1_proof.json"
     subprocess.run([sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"], cwd=ROOT, check=True)
     verification = json.loads(verifier_output.read_text())
-    passed = verification["all_claims_passed"] and len(verification["claims"]) == 6
+    claim1 = json.loads(claim1_output.read_text())
+    passed = (
+        verification["all_claims_passed"]
+        and len(verification["claims"]) == 6
+        and claim1["verdict"] == "VERIFIED"
+        and len(claim1["mutations_rejected"]) == 3
+    )
     payload = {
         "paper": "JnuwpwbZ8D",
         "tests_passed": True,
         "claims_passed": len(verification["claims"]),
+        "current_exact_claims": {"C1": claim1["verdict"]},
         "publication_gate_passed": passed,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
