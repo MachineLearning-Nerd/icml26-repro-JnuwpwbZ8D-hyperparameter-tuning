@@ -1,0 +1,1 @@
+{"route":"signed-weight norm-lift audit","falsification_succeeded":false,"result":"The nu>=0 lift equals the group norm for positive, zero, and negative alpha; omitting nu>=0 is the failing control.","remaining_risk":"The theorem only covers well-defined bounded induced losses."}

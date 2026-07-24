@@ -1,0 +1,1 @@
+{"route":"nonunique-path search","falsification_succeeded":false,"result":"The two-minimizer polynomial is rejected because Assumption 7.1 explicitly requires uniqueness.","remaining_risk":"No claim is made outside the unique-path domain."}

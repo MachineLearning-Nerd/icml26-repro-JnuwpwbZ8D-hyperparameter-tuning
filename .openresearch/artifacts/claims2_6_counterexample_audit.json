@@ -1,0 +1,124 @@
+{
+  "claims": {
+    "C2": {
+      "candidate": {
+        "candidate": "piecewise-polynomial objective on [0,1] with unattained infimum",
+        "classification": "ASSUMPTION_GAP_NOT_COUNTEREXAMPLE",
+        "mathematical_infimum": 0.0,
+        "minimum_attained": false,
+        "reason": "The source writes min and defines a bounded real-valued loss; this candidate makes that loss undefined.",
+        "sampled_positive_values": [
+          0.1,
+          0.01,
+          0.001,
+          0.0001
+        ]
+      },
+      "falsification_succeeded": false,
+      "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE"
+    },
+    "C3": {
+      "candidate": {
+        "candidate": "piecewise-polynomial objective on [0,1] with unattained infimum",
+        "classification": "ASSUMPTION_GAP_NOT_COUNTEREXAMPLE",
+        "mathematical_infimum": 0.0,
+        "minimum_attained": false,
+        "reason": "The source writes min and defines a bounded real-valued loss; this candidate makes that loss undefined.",
+        "sampled_positive_values": [
+          0.1,
+          0.01,
+          0.001,
+          0.0001
+        ]
+      },
+      "falsification_succeeded": false,
+      "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE"
+    },
+    "C4": {
+      "candidate": {
+        "candidate": "two-minimizer polynomial path",
+        "classification": "ASSUMPTION_VIOLATION_NOT_COUNTEREXAMPLE",
+        "minimizers": [
+          -1.0,
+          1.0
+        ],
+        "reason": "Assumption 7.1 explicitly requires a singleton argmin for every alpha."
+      },
+      "falsification_succeeded": false,
+      "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE"
+    },
+    "C5": {
+      "candidate": {
+        "candidate": "negative group weight",
+        "classification": "REJECTED_AS_COUNTEREXAMPLE",
+        "reason": "The nonnegative lift is exactly the Euclidean norm even when alpha is negative.",
+        "rows": [
+          {
+            "alpha": -7.0,
+            "direct": -21.0,
+            "lifted": -21.0
+          },
+          {
+            "alpha": -1.0,
+            "direct": -3.0,
+            "lifted": -3.0
+          },
+          {
+            "alpha": 0.0,
+            "direct": 0.0,
+            "lifted": 0.0
+          },
+          {
+            "alpha": 2.0,
+            "direct": 6.0,
+            "lifted": 6.0
+          },
+          {
+            "alpha": 11.0,
+            "direct": 33.0,
+            "lifted": 33.0
+          }
+        ]
+      },
+      "falsification_succeeded": false,
+      "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE"
+    },
+    "C6": {
+      "candidate": {
+        "A": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "alpha": -2.0,
+        "b": [
+          0.0,
+          0.0
+        ],
+        "candidate": "negative fused-LASSO weight with full-column-rank A",
+        "classification": "PROOF_DOMAIN_GAP_NOT_BOUND_COUNTEREXAMPLE",
+        "global_minimizers": [
+          [
+            -2.0,
+            2.0
+          ],
+          [
+            2.0,
+            -2.0
+          ]
+        ],
+        "minimum_value": -4.0,
+        "reason": "The printed alpha-in-R^p domain permits this case, but the cited box-QP/unique-path proof does not. One fixed-d case cannot contradict an asymptotic Pdim upper bound."
+      },
+      "falsification_succeeded": false,
+      "status": "PROOF_DOMAIN_GAP"
+    }
+  },
+  "negative_control_rejected": true,
+  "verdict": "AUDIT_COMPLETE"
+}

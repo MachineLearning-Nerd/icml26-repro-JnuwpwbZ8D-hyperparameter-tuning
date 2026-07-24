@@ -1,0 +1,1 @@
+{"route":"empty-argmin search","falsification_succeeded":false,"result":"The candidate has an empty argmin and hence falls outside the stated bounded real-valued loss class.","remaining_risk":"Nonempty lower-level minimizers are implicit rather than separately stated."}
