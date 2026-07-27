@@ -91,7 +91,10 @@ an adversarial route, merged both only on a new child, strengthened the winner
 with symbolic coefficient witnesses, then descended to the empirical-signature
 correction. Its first formal run completed all new scientific checks in
 `2.953` seconds and failed closed only because the prior release manifest did
-not yet list the new files.
+not yet list the new files. After the live judge exposed a link-only visibility
+defect, the final child embedded the executed code and output inline. Its
+winning 10-second run verified all six claims, 118 candidate hashes, zero
+visibility omissions, and 18 tests.
 Every workload was single-process and confidently below five minutes, so the
 authorized Hugging Face `cpu-upgrade` threshold was never crossed. Total cost:
 $0 local and $0 Hugging Face.
@@ -108,4 +111,5 @@ Important branches: [frozen baseline](https://github.com/MachineLearning-Nerd/ic
 [certificate route](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/c2-c6-specialization-certificates),
 [adversarial route](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/c2-c6-counterexample-audits), and
 [winning symbolic route](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/symbolic-asymptotic-witnesses), and
-[empirical-signature release](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/empirical-theorem-signature-release).
+[empirical-signature release](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/empirical-theorem-signature-release), and
+[inline executed-verifier release](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/inline-executed-claim-verifiers).

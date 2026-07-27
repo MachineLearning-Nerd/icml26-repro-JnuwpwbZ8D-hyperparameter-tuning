@@ -58,7 +58,7 @@ numbers are also inline on the linked canonical page.
 The current total remains 6/12 until the live judge evaluates the new revision.
 No claim is described as newly earned. Claims C1–C6 all changed scientifically
 from toy checks to proof certificates. No claim is BLOCKED; C6 retains a
-material interpretation risk. The new empirical suite ran in `2.953` seconds
+material interpretation risk. The winning empirical suite ran in `3.004` seconds
 with seeds `173,271,419`; its independent checker reports
 `SIGNATURE_CHECK_PASS` with zero failures.
 

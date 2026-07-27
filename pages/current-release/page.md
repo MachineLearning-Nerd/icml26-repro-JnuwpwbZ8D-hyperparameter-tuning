@@ -7,11 +7,11 @@
 - Exact fixed command:
   `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json`
 - Seeds: proof checks are deterministic; empirical checks use `173,271,419`
-- Winning scientific SHA: `177668a1312bde3215e9778b2cc43f51dabd8a21`
-- Winning run: `480450c8-f8f1-4f6f-ad74-21b4dc490ab0`
-- Empirical stage runtime: 2.953 seconds, local CPU, one Python process on a host exposing 8 logical CPUs
+- Winning scientific and visibility SHA: `965d3915a574ab325f1411e4811cddd121ccead7`
+- Winning run: `4d4a3555-a313-4b8d-b38a-c191809d01d6`
+- Empirical stage runtime: 3.004 seconds; formal gate runtime: 10 seconds; local CPU, one Python process on a host exposing 8 logical CPUs
 - Hugging Face `cpu-upgrade`: not used; every formal task was confidently under five minutes and single-core
-- Recorded formal CPU runtime through the measurement preflight: 90 seconds across nine runs, including two fail-closed fixture/manifest checks
+- Recorded formal CPU runtime through the winning visibility run: 130 seconds across 13 runs, including three fail-closed fixture/manifest/visibility checks
 - Compute cost: $0 local; $0 Hugging Face
 
 ## Fail-closed behavior

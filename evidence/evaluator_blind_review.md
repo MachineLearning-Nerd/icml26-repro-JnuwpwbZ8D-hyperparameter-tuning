@@ -1,8 +1,9 @@
 # Evaluator-blind pre-publication review
 
-Candidate lineage: the immutable published predecessor is
-`8fa3b003ec2081f5c84a2e453c9c76fb4bc9d63a`; the correction is the child
-`orx/empirical-theorem-signature-release`.
+Candidate lineage: the live-judged published predecessor is
+`01db7fab41d2c338894316b6e83cbc0cede75756`; the winning correction is
+`orx/inline-executed-claim-verifiers` at
+`965d3915a574ab325f1411e4811cddd121ccead7`.
 Candidate construction: a fresh clone of the child was overlaid, using the
 planned text-only upload set, onto the immutable judged Space revision
 `a928c531f0d7b6784a4bfa3e7944bf0e20a49b26`.
@@ -99,3 +100,10 @@ warning.
 Reviewer conclusion: the specific visibility defect cited by the live judge is
 resolved in the candidate. Scientific verdicts remain unchanged; this is an
 evaluator-surface correction, not a claim that the score has increased.
+
+The fresh-clone formal run
+`4d4a3555-a313-4b8d-b38a-c191809d01d6` independently repeated that traversal.
+It reported `VERBATIM_EXECUTED_SOURCE_INLINE` for C1–C6, zero missing cells,
+118 verified candidate hashes, 19 preserved historical assets, and 18 passing
+tests. A negative unit test also confirms that a link-only claim page is
+rejected as not code-visible.

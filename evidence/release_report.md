@@ -16,6 +16,9 @@ code. Experiment `ddadaeaa-dbe5-4b85-9c93-adb4493157f3`
 (`orx/inline-executed-claim-verifiers`) corrects that exact failure by embedding
 verbatim executed code and stable captured output on every current claim page,
 embedding the full gate source, and nesting old toy pages beneath one archive.
+Its winning fixed-command run is
+`4d4a3555-a313-4b8d-b38a-c191809d01d6` at
+`965d3915a574ab325f1411e4811cddd121ccead7`.
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
@@ -47,9 +50,13 @@ files. The cumulative successor run
 six VERIFIED claims, `SIGNATURE_CHECK_PASS`, 16 tests, 118 text paths, and 117
 validated hashes. The later release at `01db7fab...` was scientifically
 unchanged but did not make its executable source visible in the form consumed
-by the evaluator. The current child is a judge-directed visibility correction;
-its formal run metadata will be recorded in the final presentation child before
-publication.
+by the evaluator. The judge-directed visibility correction first failed closed
+on a byte-different blank line in five embedded code blocks, then passed after
+that presentation defect was corrected. Run
+`4d4a3555-a313-4b8d-b38a-c191809d01d6` passed the complete gate in 10 seconds:
+six VERIFIED claims, `SIGNATURE_CHECK_PASS`, zero visibility-matrix omissions,
+118 validated candidate hashes, the secret scan, the notebook check, and 18
+unit tests.
 
 ## Commands
 
@@ -78,8 +85,8 @@ report and notebook are under `reports/theorem-certificates/` and `notebooks/`.
 The immutable judged manifest is
 `evidence/judged-space-a928c531.sha256`.
 
-Ten formal local CPU runs consumed approximately 100 seconds total, including
-two expected fail-closed release/fixture checks. Each was estimated at one
+Thirteen formal local CPU runs consumed 130 seconds total, including three
+fail-closed release/fixture/visibility checks. Each was estimated at one
 core, used one Python process, and was confidently under five minutes. Hugging Face
 `cpu-upgrade` was therefore not used. Local and Hugging Face compute cost: $0.
 
