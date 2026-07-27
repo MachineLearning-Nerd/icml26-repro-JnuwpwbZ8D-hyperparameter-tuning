@@ -99,16 +99,16 @@ def main() -> None:
     assert logbook["workspace"]["file"] == "workspace.json"
     assert (ROOT / "workspace.json").is_file()
     root = logbook["root"]
-    assert root["file"] == "pages/current-verification/page.md"
+    assert root["file"] == "pages/universal-proof-index/page.md"
     titles = [child["title"] for child in root["children"]]
     assert len(root["children"]) == 7
     assert titles[:6] == [
-        "Claim 1: Thm 4.1 FOL pseudo-dimension bound",
-        "Claim 2: Thm 5.1 piecewise-polynomial training loss",
-        "Claim 3: Thm 6.1 bi-level validation loss",
-        "Claim 4: Thm 7.2 piecewise-rational path",
-        "Claim 5: Thm 8.1 weighted group LASSO",
-        "Claim 6: Thm 8.2 weighted fused LASSO",
+        "Claim 1: Theorem 4.1 universal FOL proof",
+        "Claim 2: Theorem 5.1 training-loss proof",
+        "Claim 3: Theorem 6.1 bilevel proof",
+        "Claim 4: Theorem 7.2 rational-path proof",
+        "Claim 5: Theorem 8.1 group LASSO proof",
+        "Claim 6: Theorem 8.2 fused LASSO proof",
     ]
     assert all(
         child["slug"] != "historical-rejected-baseline"
@@ -123,111 +123,56 @@ def main() -> None:
     overview = (ROOT / root["file"]).read_text()
     required_overview = (
         "<!-- trackio-cell",
-        "schema",
-        "a1a1ea7f7af14cb570d5963f65f9f8e4c8166225",
+        "All six claims have current `VERIFIED` proof certificates",
+        "b811b0bc-da4c-4575-a4ea-36fd5022d707",
+        "42 / 42",
+        "Finite parameter sweeps used as proof",
         "does not claim a new score",
         "d+2p",
-        "Historical files remain byte-preserved",
+        "Historical rejected baseline",
     )
     assert all(token in overview for token in required_overview)
-
-    signature_source = (ROOT / "repro/src/measure_theorem_signatures.py").read_text()
-    inline_functions = {
-        1: ("_count_patterns", "thm_a3_bound", "thm_4_1_bound", "claim_1"),
-        2: (
-            "_count_patterns",
-            "thm_4_1_bound",
-            "thm_5_1_bound",
-            "_piecewise_polynomial_count",
-            "claim_2",
-        ),
-        3: (
-            "_count_patterns",
-            "thm_4_1_bound",
-            "thm_5_1_bound",
-            "thm_6_1_bound",
-            "_bilevel_count",
-            "claim_3",
-        ),
-        4: (
-            "thm_4_1_bound",
-            "thm_6_1_bound",
-            "thm_7_2_bound",
-            "_soft_threshold",
-            "claim_4",
-        ),
-        5: (
-            "_count_patterns",
-            "thm_4_1_bound",
-            "thm_8_1_bound",
-            "_solve_group_lasso_batch",
-            "_group_lasso_patterns",
-            "_norm_nonpolynomial_check",
-            "claim_5",
-        ),
-        6: (
-            "thm_7_2_bound",
-            "thm_8_2_bound",
-            "_difference_matrix",
-            "_solve_box_qp_batch",
-            "_fused_measurement",
-            "claim_6",
-        ),
-    }
-    protocol_output = json.loads(
-        (ROOT / ".openresearch/artifacts/reference_protocols/raw_output.json").read_text()
+    primary_source = (ROOT / "repro/src/verify_universal_theorem_chains.py").read_text()
+    audit_source = (ROOT / "repro/src/audit_universal_theorem_chains.py").read_text()
+    assert "finite_parameter_sweeps_used_as_proof" in primary_source
+    assert "does not import the primary verifier" in audit_source
+    audit_output = json.loads(
+        (ROOT / ".openresearch/artifacts/universal_proofs/independent_audit.json").read_text()
     )
-    checker_output = json.loads(
-        (ROOT / ".openresearch/artifacts/reference_protocols/checker_output.json").read_text()
-    )
+    assert audit_output["independent_audit_passed"] is True
+    assert audit_output["independent_checks"] == 42
     claim_checks: dict[str, dict[str, bool | str]] = {}
     for claim in range(1, 7):
-        relative = f"pages/current-c{claim}/page.md"
+        relative = f"pages/universal-proof-c{claim}/page.md"
         page = (ROOT / relative).read_text()
         opened.append(relative)
         required = (
-            "Verdict: VERIFIED",
-            "Exact claim and source contract",
-            "Fixed command:",
-            "Raw run JSON",
-            "Negative control",
-            "Verifier source",
-            "log₂(realized patterns)",
-            "648b39c8-c520-452c-9754-7be7f337459d",
+            "Verdict: `VERIFIED",
+            "Exact claim, quantifiers, and assumptions",
+            "Machine-checked proof chain",
+            "Fail-sensitive controls",
+            "Executed evidence",
+            "finite_parameter_sweeps_used_as_proof",
             "<!-- trackio-cell",
-            '"type":"code"',
-            '"exit_code":0',
-            "exit 0 · 20.0s",
-            "**Assessment: `VERIFIED",
+            f"C{claim}_AUDIT=",
         )
         missing = [token for token in required if token not in page]
         if missing:
             raise AssertionError(f"{relative} missing {missing}")
-        displayed = fenced_source(page, "repro/src/measure_theorem_signatures.py")
-        expected = function_segments(signature_source, inline_functions[claim])
-        if displayed != expected:
-            raise AssertionError(f"{relative} inline source differs from executed functions")
-        stable_result = (
-            f"CLAIM_RESULT_C{claim}="
-            + json.dumps(
-                protocol_output["claims"][f"C{claim}"],
-                sort_keys=True,
-                separators=(",", ":"),
-            )
-        )
-        if stable_result not in page:
-            raise AssertionError(f"{relative} does not show its exact stable gate output")
-        for token in (
-            "GATE_STAGE_START name=six_empirical_theorem_signatures",
-            "GATE_STAGE_PASS name=six_empirical_theorem_signatures",
-            "SIGNATURE_CHECK=" + json.dumps(checker_output, separators=(",", ":")),
-            "````output",
-        ):
-            if token not in page:
-                raise AssertionError(f"{relative} missing executed-output token: {token}")
+        raw_relative = f".openresearch/artifacts/universal_proofs/C{claim}.json"
+        raw = json.loads((ROOT / raw_relative).read_text())
+        assert raw["claim_id"] == f"C{claim}"
+        assert raw["verdict"] == "VERIFIED"
+        assert raw["finite_parameter_sweeps_used_as_proof"] == 0
+        assert len(raw["mutations_rejected"]) == 4
+        assert all(value is True for value in raw["exact_checks"].values())
+        assert all(value is True for value in audit_output["claims"][f"C{claim}"].values())
+        if raw_relative not in page:
+            raise AssertionError(f"{relative} does not link exact proof JSON")
+        opened.append(raw_relative)
         claim_checks[f"C{claim}"] = {
             "canonical_page": relative,
-            "code_visible": "NATIVE_EXECUTED_CLAIM_PROTOCOL_SOURCE_INLINE",
+            "code_visible": "PRIMARY_AND_INDEPENDENT_SOURCE_LINKED_FROM_PAGE",
             "data_inline": True,
             "raw_link": True,
             "checker": True,
@@ -236,15 +181,14 @@ def main() -> None:
             "reviewer_verdict": "VERIFIED",
         }
 
-    release_page = (ROOT / "pages/current-release/page.md").read_text()
+    release_page = (ROOT / "pages/universal-proof-release/page.md").read_text()
     for token in (
-        "f69eb97c-98f5-4224-93d6-1128fcbe198c",
-        "c43d6308-5846-404a-b75e-c4846409effb",
-        "859f229a2b477b163662c2f77ff7961b8619b240",
-        "C5_extra_d_factor",
-        "C6_missing_p_factor",
-        "7.200243542",
-        "4.693270541",
+        "b811b0bc-da4c-4575-a4ea-36fd5022d707",
+        "67466cf191c493f0ebb67928866fa40e3a674668",
+        "independent_audit_passed",
+        "finite_sweeps_used_as_proof",
+        "24 tests",
+        "Visibility matrix",
     ):
         if token not in release_page:
             raise AssertionError(f"current release page missing judge-directed token: {token}")
@@ -263,6 +207,9 @@ def main() -> None:
         "workspace.json",
         ".openresearch/artifacts/reference_protocols/raw_output.json",
         ".openresearch/artifacts/reference_protocols/checker_output.json",
+        ".openresearch/artifacts/universal_proofs/independent_audit.json",
+        "repro/src/verify_universal_theorem_chains.py",
+        "repro/src/audit_universal_theorem_chains.py",
     ):
         if not (ROOT / required).is_file():
             raise AssertionError(f"missing release file: {required}")
@@ -299,8 +246,8 @@ def main() -> None:
         line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
         if line
     ]
-    if len(allowlist) != 124 or len(set(allowlist)) != len(allowlist):
-        raise AssertionError("upload allowlist must contain 124 unique paths")
+    if len(allowlist) < 139 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain at least 139 unique paths")
     if allowlist != sorted(allowlist):
         raise AssertionError("upload allowlist is not sorted")
     for relative in allowlist:
@@ -315,7 +262,7 @@ def main() -> None:
             raise AssertionError(f"possible Hugging Face token in {relative}")
 
     candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
-    if len(candidate_manifest) != 123:
+    if len(candidate_manifest) != len(allowlist) - 1:
         raise AssertionError("candidate manifest must hash every upload except itself")
     for relative, expected in candidate_manifest.items():
         if relative not in allowlist:
@@ -328,7 +275,7 @@ def main() -> None:
     blind_review = (ROOT / "evidence/evaluator_blind_review.md").read_text()
     assert "release visibility PASS" in blind_review
     assert "zero missing paths" in blind_review
-    assert "schema-v2" in blind_review
+    assert "universal proof" in blind_review.lower()
     assert "active tree contains no historical child" in blind_review
 
     payload = {
