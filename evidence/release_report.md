@@ -7,18 +7,16 @@ Best-supported possible new score: **12/12 forecast, not a judge result**
 # Final release report
 
 The live evaluator judged Space revision
-`01db7fab41d2c338894316b6e83cbc0cede75756` at
-`2026-07-27T02:21:22+00:00` and retained `6/12`. It found the newly described
-measurements but said their code was not shown inline and the gate did not
-execute them. Inspection showed that the gate did execute them; the actual
-release defect was that the visibility audit treated source links as visible
-code. Experiment `ddadaeaa-dbe5-4b85-9c93-adb4493157f3`
-(`orx/inline-executed-claim-verifiers`) corrects that exact failure by embedding
-verbatim executed code and stable captured output on every current claim page,
-embedding the full gate source, and nesting old toy pages beneath one archive.
-Its winning fixed-command run is
-`4d4a3555-a313-4b8d-b38a-c191809d01d6` at
-`965d3915a574ab325f1411e4811cddd121ccead7`.
+`e41343cf30154ab7e49464ce303fc5ed1b56ea05` at
+`2026-07-27T04:11:17+00:00` and retained `6/12`. It found the inline finite
+experiments but said the distinct SymPy theorem certificates were referenced
+rather than embedded. The prior audit had therefore proved visibility of the
+corroborating experiment, not visibility of the theorem-level route.
+Experiment `dbf76dd4-46a2-498f-a15f-9a3d2da9cbcf`
+(`orx/embed-symbolic-theorem-certificates`) answers that exact failure: every
+current claim page now embeds the complete applicable proof program and stable
+proof output in addition to its finite experiment. A root-level current page
+also exposes both complete certificate programs and the C1–C6 mapping.
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|

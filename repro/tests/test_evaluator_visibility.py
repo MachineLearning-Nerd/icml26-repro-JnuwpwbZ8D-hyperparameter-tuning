@@ -29,6 +29,19 @@ class VisibilityTests(unittest.TestCase):
                 "repro/src/measure_theorem_signatures.py",
             )
 
+    def test_empirical_only_page_is_not_symbolic_code_visible(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        page = (root / "pages/current-c2/page.md").read_text()
+        empirical = AUDIT.fenced_source(
+            page,
+            "repro/src/measure_theorem_signatures.py",
+        )
+        with self.assertRaises(AssertionError):
+            AUDIT.fenced_source(
+                f"````python title=repro/src/measure_theorem_signatures.py\n{empirical}\n````",
+                "repro/src/verify_claims2_6_proofs.py",
+            )
+
     def test_historical_candidate_supports_downloaded_space(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -65,6 +78,25 @@ class VisibilityTests(unittest.TestCase):
                 "repro/src/measure_theorem_signatures.py",
             )
             self.assertEqual(displayed, AUDIT.function_segments(source, names))
+
+    def test_current_claims_embed_complete_symbolic_certificates(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        sources = {
+            1: (root / "repro/src/verify_claim1_proof.py").read_text().rstrip(),
+            **{
+                claim: (root / "repro/src/verify_claims2_6_proofs.py").read_text().rstrip()
+                for claim in range(2, 7)
+            },
+        }
+        for claim, source in sources.items():
+            title = (
+                "repro/src/verify_claim1_proof.py"
+                if claim == 1
+                else "repro/src/verify_claims2_6_proofs.py"
+            )
+            page = (root / f"pages/current-c{claim}/page.md").read_text()
+            self.assertEqual(AUDIT.fenced_source(page, title), source)
+            self.assertIn(AUDIT.expected_symbolic_result(claim), page)
 
 
 if __name__ == "__main__":

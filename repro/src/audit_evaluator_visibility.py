@@ -54,6 +54,29 @@ def function_segments(source: str, names: tuple[str, ...]) -> str:
     return "\n\n".join(by_name[name] for name in names)
 
 
+def expected_symbolic_result(claim: int) -> str:
+    if claim == 1:
+        result = json.loads(
+            (ROOT / ".openresearch/artifacts/claim_1/raw_output.json").read_text()
+        )
+        return "CLAIM1_RESULT=" + json.dumps(result, sort_keys=True)
+    claims = {
+        f"C{number}": json.loads(
+            (ROOT / f".openresearch/artifacts/claim_{number}/raw_output.json").read_text()
+        )
+        for number in range(2, 7)
+    }
+    witnesses = json.loads(
+        (ROOT / ".openresearch/artifacts/claims2_6_symbolic_witnesses.json").read_text()
+    )
+    payload = {
+        "claims": claims,
+        "symbolic_witnesses": witnesses,
+        "all_exact_claims_verified": witnesses["all_symbolic_witnesses_passed"],
+    }
+    return "CLAIMS2_6_RESULT=" + json.dumps(payload, sort_keys=True)
+
+
 def historical_candidate(root: Path, relative: str) -> Path | None:
     """Resolve immutable evidence in a source checkout or downloaded Space."""
     mirror = root / ".trackio" / "logbook" / relative
@@ -76,7 +99,7 @@ def main() -> None:
     titles = [child["title"] for child in root["children"]]
     current_titles = [title for title in titles if title.startswith("CURRENT")]
     historical_titles = [title for title in titles if title.startswith("Historical rejected baseline")]
-    assert len(current_titles) == 7
+    assert len(current_titles) == 8
     assert len(historical_titles) == 1
     historical_archive = next(
         child for child in root["children"]
@@ -105,6 +128,8 @@ def main() -> None:
     assert all(token in overview for token in required_overview)
 
     signature_source = (ROOT / "repro/src/measure_theorem_signatures.py").read_text()
+    c1_proof_source = (ROOT / "repro/src/verify_claim1_proof.py").read_text().rstrip()
+    c26_proof_source = (ROOT / "repro/src/verify_claims2_6_proofs.py").read_text().rstrip()
     inline_functions = {
         1: ("claim_1",),
         2: ("_piecewise_polynomial_count", "claim_2"),
@@ -127,6 +152,7 @@ def main() -> None:
             "Negative control",
             "Verifier source",
             "Historical rejected baseline",
+            "Complete symbolic theorem certificate",
         )
         missing = [token for token in required if token not in page]
         if missing:
@@ -135,6 +161,18 @@ def main() -> None:
         expected = function_segments(signature_source, inline_functions[claim])
         if displayed != expected:
             raise AssertionError(f"{relative} inline source differs from executed functions")
+        proof_title = (
+            "repro/src/verify_claim1_proof.py"
+            if claim == 1
+            else "repro/src/verify_claims2_6_proofs.py"
+        )
+        displayed_proof = fenced_source(page, proof_title)
+        expected_proof = c1_proof_source if claim == 1 else c26_proof_source
+        if displayed_proof != expected_proof:
+            raise AssertionError(f"{relative} inline symbolic certificate differs from executed source")
+        symbolic_result = expected_symbolic_result(claim)
+        if symbolic_result not in page:
+            raise AssertionError(f"{relative} does not show exact symbolic-certificate output")
         artifact = json.loads(
             (ROOT / f".openresearch/artifacts/claim_{claim}/signature_output.json").read_text()
         )
@@ -147,13 +185,23 @@ def main() -> None:
         for token in (
             "GATE_STAGE_START name=six_empirical_theorem_signatures",
             "GATE_STAGE_PASS name=six_empirical_theorem_signatures",
+            (
+                "GATE_STAGE_START name=claim1_symbolic_certificate"
+                if claim == 1
+                else "GATE_STAGE_START name=claims2_6_symbolic_certificates"
+            ),
+            (
+                "GATE_STAGE_PASS name=claim1_symbolic_certificate"
+                if claim == 1
+                else "GATE_STAGE_PASS name=claims2_6_symbolic_certificates"
+            ),
             "````output",
         ):
             if token not in page:
                 raise AssertionError(f"{relative} missing executed-output token: {token}")
         claim_checks[f"C{claim}"] = {
             "canonical_page": relative,
-            "code_visible": "VERBATIM_EXECUTED_SOURCE_INLINE",
+            "code_visible": "FULL_EXECUTED_EMPIRICAL_AND_SYMBOLIC_SOURCE_INLINE",
             "data_inline": True,
             "raw_link": True,
             "checker": True,
@@ -162,13 +210,23 @@ def main() -> None:
             "reviewer_verdict": "VERIFIED",
         }
 
+    proof_relative = "pages/current-proof-certificates/page.md"
+    proof_page = (ROOT / proof_relative).read_text()
+    opened.append(proof_relative)
+    if fenced_source(proof_page, "repro/src/verify_claim1_proof.py") != c1_proof_source:
+        raise AssertionError("root proof page C1 certificate differs from executed source")
+    if fenced_source(proof_page, "repro/src/verify_claims2_6_proofs.py") != c26_proof_source:
+        raise AssertionError("root proof page C2-C6 certificate differs from executed source")
+    if expected_symbolic_result(1) not in proof_page or expected_symbolic_result(2) not in proof_page:
+        raise AssertionError("root proof page missing exact certificate output")
+
     release_page = (ROOT / "pages/current-release/page.md").read_text()
     displayed_gate = fenced_source(release_page, "repro/src/run_publication_gate.py")
     executed_gate = (ROOT / "repro/src/run_publication_gate.py").read_text().rstrip()
     if displayed_gate != executed_gate:
         raise AssertionError("current release page does not embed the exact executed gate")
     for token in (
-        "01db7fab41d2c338894316b6e83cbc0cede75756",
+        "e41343cf30154ab7e49464ce303fc5ed1b56ea05",
         "six_empirical_theorem_signatures",
         "independent_signature_checker",
         "subprocess.run(command, cwd=ROOT, check=True)",
@@ -223,8 +281,8 @@ def main() -> None:
         line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
         if line
     ]
-    if len(allowlist) != 119 or len(set(allowlist)) != len(allowlist):
-        raise AssertionError("upload allowlist must contain 119 unique paths")
+    if len(allowlist) != 121 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain 121 unique paths")
     if allowlist != sorted(allowlist):
         raise AssertionError("upload allowlist is not sorted")
     for relative in allowlist:
@@ -239,7 +297,7 @@ def main() -> None:
             raise AssertionError(f"possible Hugging Face token in {relative}")
 
     candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
-    if len(candidate_manifest) != 118:
+    if len(candidate_manifest) != 120:
         raise AssertionError("candidate manifest must hash every upload except itself")
     for relative, expected in candidate_manifest.items():
         if relative not in allowlist:

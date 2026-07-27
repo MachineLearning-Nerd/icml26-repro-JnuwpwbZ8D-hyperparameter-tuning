@@ -88,6 +88,7 @@ pages/current-c3/page.md
 pages/current-c4/page.md
 pages/current-c5/page.md
 pages/current-c6/page.md
+pages/current-proof-certificates/page.md
 pages/current-release/page.md
 pages/current-verification/page.md
 pages/historical-rejected-baseline/page.md
@@ -103,6 +104,7 @@ repro/src/audit_claim1_falsification.py
 repro/src/audit_claims2_6_counterexamples.py
 repro/src/audit_evaluator_visibility.py
 repro/src/check_theorem_signatures.py
+repro/src/embed_symbolic_certificates.py
 repro/src/measure_theorem_signatures.py
 repro/src/run_publication_gate.py
 repro/src/verify_claim1_proof.py

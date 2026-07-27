@@ -17,6 +17,7 @@
       {"slug":"current-c4","title":"CURRENT — C4 rational path","file":"pages/current-c4/page.md","children":[]},
       {"slug":"current-c5","title":"CURRENT — C5 group LASSO","file":"pages/current-c5/page.md","children":[]},
       {"slug":"current-c6","title":"CURRENT — C6 fused LASSO","file":"pages/current-c6/page.md","children":[]},
+      {"slug":"current-proof-certificates","title":"CURRENT — Complete symbolic certificates","file":"pages/current-proof-certificates/page.md","children":[]},
       {"slug":"current-release","title":"CURRENT — Release evidence and visibility","file":"pages/current-release/page.md","children":[]},
       {
         "slug":"historical-rejected-baseline",
@@ -40,5 +41,5 @@
     ]
   },
   "agent_view_tokens": 30000,
-  "revision": "inline-executed-verifiers-candidate-2026-07-27"
+  "revision": "embedded-symbolic-certificates-candidate-2026-07-27"
 }

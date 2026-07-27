@@ -6,15 +6,17 @@ Conservative projected score range after this proposed change: **11–12/12**.
 
 Best-supported possible new score: **12/12 forecast**, not a judge result.
 
-The evaluator judged the intended Space SHA
-`01db7fab41d2c338894316b6e83cbc0cede75756` at
-`2026-07-27T02:21:22+00:00` and retained `6/12`. Its repeated criticism was
-that the stronger experiments were described but their code was not shown
-inline, and that the publication gate therefore appeared not to run them. This
-candidate directly fixes that evaluator-visible defect. Every CURRENT claim
-page now contains a verbatim Python block checked against the executed source
-and the exact stable `CLAIM_RESULT_C*` line emitted by the gate. The CURRENT
-release page contains the complete gate source and stage transcript.
+The evaluator judged the latest Space SHA
+`e41343cf30154ab7e49464ce303fc5ed1b56ea05` at
+`2026-07-27T04:11:17+00:00` and retained `6/12`. It could now execute the
+finite theorem-signature programs, but its repeated criticism was that the
+separate SymPy theorem certificates were referenced rather than embedded.
+This candidate fixes that exact remaining defect. Every CURRENT claim page now
+contains both its empirical implementation and the **complete** applicable
+symbolic certificate, byte-checked against the source executed by the gate,
+plus exact stable output from both stages. A root-level
+[complete-certificate page](#/current-proof-certificates) duplicates the two
+executed programs so the proof route is independently discoverable.
 
 The HTML paper source was retrieved from
 `https://ar5iv.labs.arxiv.org/html/2602.02406` on 2026-07-24 with SHA-256
@@ -48,12 +50,12 @@ numbers are also inline on the linked canonical page.
 
 | Claim | Canonical page | Code visible | Data inline | Raw link | Checker | Control | Exact claim tested | Reviewer verdict |
 |---|---|---|---|---|---|---|---|---|
-| C1 | [C1](#/current-c1) | yes | yes | [JSON](../../.openresearch/artifacts/claim_1/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | halfspace positive + sine negative | yes | VERIFIED |
-| C2 | [C2](#/current-c2) | yes | yes | [JSON](../../.openresearch/artifacts/claim_2/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | square-root piece rejected | yes | VERIFIED |
-| C3 | [C3](#/current-c3) | yes | yes | [JSON](../../.openresearch/artifacts/claim_3/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | `f==g` mutation rejected | yes | VERIFIED |
-| C4 | [C4](#/current-c4) | yes | yes | [JSON](../../.openresearch/artifacts/claim_4/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | non-rational path rejected | yes | VERIFIED |
-| C5 | [C5](#/current-c5) | yes | yes | [JSON](../../.openresearch/artifacts/claim_5/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | sine norm rejected | yes | VERIFIED |
-| C6 | [C6](#/current-c6) | yes | yes | [JSON](../../.openresearch/artifacts/claim_6/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | rank/weight/missing-`p` controls | yes | VERIFIED · scope warning |
+| C1 | [C1](#/current-c1) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_1/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | halfspace positive + three proof mutations | yes | VERIFIED |
+| C2 | [C2](#/current-c2) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_2/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | square-root piece + finite-grid proxy rejected | yes | VERIFIED |
+| C3 | [C3](#/current-c3) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_3/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | `f==g` mutation rejected | yes | VERIFIED |
+| C4 | [C4](#/current-c4) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_4/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | non-rational/nonunique path rejected | yes | VERIFIED |
+| C5 | [C5](#/current-c5) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_5/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | sine norm + unsigned lift rejected | yes | VERIFIED |
+| C6 | [C6](#/current-c6) | empirical + complete symbolic source inline | yes | [JSON](../../.openresearch/artifacts/claim_6/signature_output.json) | [source](../../repro/src/check_theorem_signatures.py) | rank/weight/missing-`p` controls | yes | VERIFIED · scope warning |
 
 The current total remains 6/12 until the live judge evaluates the new revision.
 No claim is described as newly earned. Claims C1–C6 all changed scientifically

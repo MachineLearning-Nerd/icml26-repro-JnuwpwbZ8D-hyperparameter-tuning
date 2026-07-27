@@ -57,13 +57,14 @@ unique-path route but is not an asymptotic pseudo-dimension counterexample.
 ## Judge-directed visibility correction
 
 The live evaluator judged Space revision
-`01db7fab41d2c338894316b6e83cbc0cede75756` on
-`2026-07-27T02:21:22+00:00`. It explicitly found the stronger measurements on
-the current pages but assigned TOY because the executable source was only
-linked, not embedded, and therefore concluded that the gate did not execute it.
-This revision answers that exact criticism: every current claim page now embeds
-its verbatim executed function and stable `CLAIM_RESULT_C*` output. The old
-link-only visibility rule was rejected.
+`e41343cf30154ab7e49464ce303fc5ed1b56ea05` on
+`2026-07-27T04:11:17+00:00`. It found and executed the stronger empirical
+programs, but assigned TOY because the referenced SymPy proof certificates
+were not embedded. This revision answers that exact criticism: every current
+claim page embeds its empirical implementation, the complete applicable
+symbolic certificate, and both stable outputs. The root navigation also exposes
+[the two complete certificate programs](#/current-proof-certificates). The
+prior empirical-only visibility rule was rejected.
 
 ## Shared executed measurement engine
 

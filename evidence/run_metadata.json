@@ -19,7 +19,8 @@
     {"run_id":"4d4a3555-a313-4b8d-b38a-c191809d01d6","purpose":"winning inline executed verifier release","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":3.0037827500200365,"tests_passed":18,"candidate_hashes_verified":118,"visibility_missing_cells":0,"status":"done","git_sha":"965d3915a574ab325f1411e4811cddd121ccead7"}
   ],
   "judge_evaluations": [
-    {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"}
+    {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"},
+    {"space_sha":"e41343cf30154ab7e49464ce303fc5ed1b56ea05","judged_at":"2026-07-27T04:11:17+00:00","score":"6/12","finding":"empirical code visible, but separate SymPy theorem certificates referenced rather than embedded"}
   ],
   "winning_experiment": "ddadaeaa-dbe5-4b85-9c93-adb4493157f3",
   "current_candidate_experiment": "83662604-8a4b-4d7d-9adf-b2f7fd312dc3",

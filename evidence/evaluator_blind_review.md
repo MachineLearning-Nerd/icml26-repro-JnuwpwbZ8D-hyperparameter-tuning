@@ -115,3 +115,26 @@ present and unchanged. The final audit resolves the mirror when available and
 otherwise verifies the actual published root path against the same immutable
 hash. Its dedicated test exercises both layouts; the post-overlay audit must
 pass before upload.
+
+## Second live-judge failure: empirical code was not the proof certificate
+
+The next live evaluation inspected Space revision
+`e41343cf30154ab7e49464ce303fc5ed1b56ea05` at
+`2026-07-27T04:11:17+00:00` and again retained `6/12`. The evaluator now found
+the exact finite sign-pattern code and outputs. Its new, repeated reason for
+TOY was that `verify_claim1_proof.py` and `verify_claims2_6_proofs.py` were
+only referenced and their SymPy certificates were not embedded.
+
+That exposes a second false-positive in the visibility audit: byte-matching the
+finite experiment source did not establish visibility of the distinct
+theorem-level route. The replacement audit now requires, on every claim page:
+
+1. the complete applicable symbolic program, not a function excerpt;
+2. byte-for-byte equality with the source executed by the fixed gate;
+3. the exact `CLAIM1_RESULT` or `CLAIMS2_6_RESULT` line;
+4. symbolic-stage start and pass records; and
+5. a root-level page containing both complete programs and the C1–C6 mapping.
+
+A negative unit test constructs an empirical-only page and requires the
+symbolic visibility check to reject it. The repeated blind review must open the
+new root proof page and all six claim pages before release.

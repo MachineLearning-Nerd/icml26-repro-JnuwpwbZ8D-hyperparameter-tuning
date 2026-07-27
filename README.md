@@ -30,14 +30,15 @@ shown rather than hidden.
 These are reproduction verdicts, not judge results. The live judged score
 remains **6/12** until the evaluator reviews a new Space revision.
 
-The evaluator reviewed revision `01db7fab41d2c338894316b6e83cbc0cede75756`
-and kept all six claims at TOY because the stronger verifier code was linked
-rather than embedded in the logbook, causing it to conclude that the gate did
-not execute those experiments. This child revision answers that exact
-visibility failure: each CURRENT claim page embeds the verbatim executed Python
-and stable captured output, and the CURRENT release page embeds the exact
-fail-closed gate showing the empirical and independent-checker stages. The
-historical toy pages remain preserved under a single explicit archive node.
+The evaluator reviewed revision `e41343cf30154ab7e49464ce303fc5ed1b56ea05`
+and kept all six claims at TOY. It found the finite theorem-signature programs
+but said the referenced SymPy certificates were not embedded, so the
+theorem-level route could not be assessed. This child revision answers that
+exact remaining visibility failure: each CURRENT claim page embeds the
+empirical implementation, the **complete** applicable symbolic program, and
+both stable captured outputs. The root navigation also exposes both full
+certificate programs directly. Historical toy pages remain preserved under a
+single explicit archive node.
 
 The scientific correction was calibrated against a public 12/12 revision and
 independently adds the three evidence types its judge credited: realized sign
@@ -64,6 +65,7 @@ each was single-process and completed in 5–15 seconds.
 ## Read and reproduce
 
 - [Current canonical verification](pages/current-verification/page.md)
+- [Complete symbolic certificates](pages/current-proof-certificates/page.md)
 - [Executed gate and shared engine](pages/current-release/page.md)
 - [Illustrated technical report](reports/theorem-certificates/report.md)
 - [Tutorial marimo notebook](notebooks/theorem_certificates.py)
