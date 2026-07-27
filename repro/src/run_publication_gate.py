@@ -21,6 +21,8 @@ def main() -> None:
     claim1_falsification_output = ROOT / "outputs" / "claim1_falsification.json"
     specialization_output = ROOT / "outputs" / "claims2_6_proofs.json"
     claims2_6_audit_output = ROOT / "outputs" / "claims2_6_counterexample_audit.json"
+    signature_output = ROOT / "outputs" / "theorem_signatures.json"
+    signature_check_output = ROOT / "outputs" / "theorem_signatures_check.json"
     visibility_output = ROOT / "outputs" / "evaluator_visibility.json"
     subprocess.run([sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)], cwd=ROOT, check=True)
@@ -40,6 +42,23 @@ def main() -> None:
         check=True,
     )
     subprocess.run(
+        [sys.executable, "repro/src/measure_theorem_signatures.py", "--output", str(signature_output)],
+        cwd=ROOT,
+        check=True,
+    )
+    subprocess.run(
+        [
+            sys.executable,
+            "repro/src/check_theorem_signatures.py",
+            "--input",
+            str(signature_output),
+            "--output",
+            str(signature_check_output),
+        ],
+        cwd=ROOT,
+        check=True,
+    )
+    subprocess.run(
         [sys.executable, "repro/src/audit_evaluator_visibility.py", "--output", str(visibility_output)],
         cwd=ROOT,
         check=True,
@@ -50,6 +69,8 @@ def main() -> None:
     claim1_falsification = json.loads(claim1_falsification_output.read_text())
     specializations = json.loads(specialization_output.read_text())
     claims2_6_audit = json.loads(claims2_6_audit_output.read_text())
+    signatures = json.loads(signature_output.read_text())
+    signature_check = json.loads(signature_check_output.read_text())
     visibility = json.loads(visibility_output.read_text())
     passed = (
         verification["all_claims_passed"]
@@ -62,6 +83,8 @@ def main() -> None:
         and claims2_6_audit["verdict"] == "AUDIT_COMPLETE"
         and all(not row["falsification_succeeded"] for row in claims2_6_audit["claims"].values())
         and claims2_6_audit["claims"]["C6"]["status"] == "PROOF_DOMAIN_GAP"
+        and signatures["all_empirical_checks_passed"]
+        and signature_check["verdict"] == "SIGNATURE_CHECK_PASS"
         and visibility["verdict"] == "EVALUATOR_VISIBLE_GATE_PASS"
         and visibility["missing_cells"] == 0
     )
@@ -72,6 +95,11 @@ def main() -> None:
         "current_exact_claims": {
             "C1": claim1["verdict"],
             **{claim: result["verdict"] for claim, result in specializations["claims"].items()},
+        },
+        "empirical_theorem_signatures": {
+            "claims": len(signatures["claims"]),
+            "checker": signature_check["verdict"],
+            "seeds": signatures["seeds"],
         },
         "publication_gate_passed": passed,
     }
