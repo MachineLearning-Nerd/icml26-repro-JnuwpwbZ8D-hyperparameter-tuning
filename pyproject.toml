@@ -5,6 +5,7 @@ description = "CPU-only proof and evidence checks for arXiv:2602.02406"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "marimo>=0.17,<1",
+  "numpy>=2.3,<3",
   "sympy>=1.14,<2",
   "z3-solver>=4.15,<5",
 ]
