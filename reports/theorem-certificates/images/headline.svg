@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420" role="img" aria-labelledby="t d">
-<title id="t">Six claim evidence summary</title><desc id="d">Claims one through five verified at high confidence and claim six verified at medium confidence with a proof-domain warning.</desc>
+<title id="t">Six claim proof and empirical evidence summary</title><desc id="d">Claims one through five verified at high confidence and claim six verified at medium confidence with proof certificates and concrete theorem-signature checks.</desc>
 <rect width="1000" height="420" rx="24" fill="#0f172a"/>
 <text x="55" y="65" fill="#f8fafc" font-family="system-ui" font-size="32" font-weight="700">Six theorem claims: current evidence</text>
-<text x="55" y="103" fill="#94a3b8" font-family="system-ui" font-size="18">Proof certificates replace the historical toy checks</text>
+<text x="55" y="103" fill="#94a3b8" font-family="system-ui" font-size="18">Proof certificates + named-class sign patterns replace historical toy checks</text>
 <g font-family="system-ui" font-size="22" font-weight="700" text-anchor="middle">
 <rect x="55" y="145" width="130" height="120" rx="18" fill="#16a34a"/><text x="120" y="202" fill="white">C1</text><text x="120" y="236" fill="#dcfce7" font-size="15">HIGH</text>
 <rect x="207" y="145" width="130" height="120" rx="18" fill="#16a34a"/><text x="272" y="202" fill="white">C2</text><text x="272" y="236" fill="#dcfce7" font-size="15">HIGH</text>
@@ -11,7 +11,7 @@
 <rect x="663" y="145" width="130" height="120" rx="18" fill="#16a34a"/><text x="728" y="202" fill="white">C5</text><text x="728" y="236" fill="#dcfce7" font-size="15">HIGH</text>
 <rect x="815" y="145" width="130" height="120" rx="18" fill="#d97706"/><text x="880" y="202" fill="white">C6</text><text x="880" y="236" fill="#fef3c7" font-size="15">MEDIUM</text>
 </g>
-<text x="55" y="320" fill="#e2e8f0" font-family="system-ui" font-size="20">Cumulative gate: 11 tests · symbolic witnesses · adversarial controls · 10 s</text>
+<text x="55" y="320" fill="#e2e8f0" font-family="system-ui" font-size="20">Cumulative gate: 15 tests · symbolic proof · sign patterns · controls</text>
 <text x="55" y="358" fill="#fbbf24" font-family="system-ui" font-size="17">C6 warning: α∈Rᵖ in text, but the cited box-QP proof requires αᵢ≥0</text>
-<text x="55" y="390" fill="#94a3b8" font-family="system-ui" font-size="15">Forecast 10–12/12; live score remains 6/12 pending judge review</text>
+<text x="55" y="390" fill="#94a3b8" font-family="system-ui" font-size="15">Forecast 11–12/12; live score remains 6/12 pending judge review</text>
 </svg>

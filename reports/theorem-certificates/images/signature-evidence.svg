@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+<title id="title">Concrete theorem-signature evidence for six claims</title>
+<desc id="desc">Six cards summarize shattering, sign patterns, exact solution paths, KKT residuals, and negative controls.</desc>
+<rect width="1000" height="430" rx="24" fill="#f8fafc"/>
+<text x="45" y="55" font-family="system-ui" font-size="28" font-weight="700" fill="#0f172a">What the corrective run measures</text>
+<text x="45" y="85" font-family="system-ui" font-size="16" fill="#475569">Fixed budgets · seeds 173, 271, 419 · one CPU core · 2.953 s</text>
+<g font-family="system-ui">
+  <g transform="translate(45 115)"><rect width="280" height="120" rx="16" fill="#dbeafe"/><text x="18" y="30" font-size="15" font-weight="700" fill="#1e3a8a">C1 · FOL</text><text x="18" y="61" font-size="24" font-weight="700" fill="#1d4ed8">256 / 256</text><text x="18" y="86" font-size="14" fill="#334155">halfspace patterns at p=8</text><text x="18" y="108" font-size="13" fill="#64748b">2^K signature: 1.885×, 1.993×</text></g>
+  <g transform="translate(360 115)"><rect width="280" height="120" rx="16" fill="#dcfce7"/><text x="18" y="30" font-size="15" font-weight="700" fill="#14532d">C2–C3 · structured losses</text><text x="18" y="61" font-size="24" font-weight="700" fill="#15803d">up to 582</text><text x="18" y="86" font-size="14" fill="#334155">realized patterns on 12 instances</text><text x="18" y="108" font-size="13" fill="#64748b">piecewise quadratic and f ≠ g bilevel</text></g>
+  <g transform="translate(675 115)"><rect width="280" height="120" rx="16" fill="#fef3c7"/><text x="18" y="30" font-size="15" font-weight="700" fill="#78350f">C4 · ElasticNet</text><text x="18" y="61" font-size="24" font-weight="700" fill="#b45309">4, 6, 8, 10</text><text x="18" y="86" font-size="14" fill="#334155">exact regions at d=3,5,7,9</text><text x="18" y="108" font-size="13" fill="#64748b">closed-form orthogonal solution path</text></g>
+  <g transform="translate(202 270)"><rect width="280" height="120" rx="16" fill="#ede9fe"/><text x="18" y="30" font-size="15" font-weight="700" fill="#4c1d95">C5 · group LASSO</text><text x="18" y="61" font-size="24" font-weight="700" fill="#6d28d9">16 / 16</text><text x="18" y="86" font-size="14" fill="#334155">group-active patterns at p=4</text><text x="18" y="108" font-size="13" fill="#64748b">exact block soft-threshold solver</text></g>
+  <g transform="translate(517 270)"><rect width="280" height="120" rx="16" fill="#fee2e2"/><text x="18" y="30" font-size="15" font-weight="700" fill="#7f1d1d">C6 · fused LASSO</text><text x="18" y="61" font-size="24" font-weight="700" fill="#b91c1c">&lt; 1.0e−12</text><text x="18" y="86" font-size="14" fill="#334155">maximum dual KKT violation</text><text x="18" y="108" font-size="13" fill="#64748b">8–106 regions; d² ratio 0.796–1.057</text></g>
+</g>
+</svg>

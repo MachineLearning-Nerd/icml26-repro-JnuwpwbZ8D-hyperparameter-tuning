@@ -63,6 +63,11 @@ def main() -> None:
         cwd=ROOT,
         check=True,
     )
+    subprocess.run(
+        [sys.executable, "-m", "marimo", "check", "notebooks/theorem_certificates.py"],
+        cwd=ROOT,
+        check=True,
+    )
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"], cwd=ROOT, check=True)
     verification = json.loads(verifier_output.read_text())
     claim1 = json.loads(claim1_output.read_text())

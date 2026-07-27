@@ -20,6 +20,23 @@ errors detected, and all `3` mutations rejected. The mutations remove the
 quadratic-in-`p` term, replace the product index `K` by the appendix typo `M`,
 and replace the source's second `prod d_k` by `prod(d_k+1)`.
 
+## Concrete sign-pattern and scaling evidence
+
+An exact halfspace positive control shatters all `16/16` patterns at `p=4`
+and all `256/256` at `p=8`, recovering the known pseudo-dimension `p`. On
+degree-two polynomial threshold families, a fixed, formula-independent budget
+of 4,096 parameter vectors realizes `101–105`, `89–112`, and `82–100`
+patterns for `K=1,2,3` across seeds `173,271,419`. The independently computed
+representative bounds are `25.424`, `47.932`, and `95.540`; their ratios
+`1.885` and `1.993` reproduce the `prod(d_k+1)=2^K` signature. A sine class is
+rejected before evaluation because its threshold predicate is not polynomial
+first-order.
+
+- [Empirical verifier](../../repro/src/measure_theorem_signatures.py)
+- [Independent checker](../../repro/src/check_theorem_signatures.py)
+- [Empirical raw JSON](../../.openresearch/artifacts/claim_1/signature_output.json)
+- [Checker output](../../.openresearch/artifacts/claim_1/signature_checker.json)
+
 - [Contract](../../.openresearch/artifacts/claim_1/claim_contract.json)
 - [Proof certificate](../../.openresearch/artifacts/claim_1/proof_certificate.json)
 - [Raw JSON](../../.openresearch/artifacts/claim_1/raw_output.json)
@@ -31,5 +48,6 @@ and replace the source's second `prod d_k` by `prod(d_k+1)`.
 
 Fixed command:
 `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json`.
-No seeds; deterministic local CPU. The historical 96 formula substitutions are
-preserved only as **Historical rejected baseline**.
+The proof certificate is seedless; empirical checks use the three fixed seeds
+above on local CPU. The historical 96 formula substitutions are preserved only
+as **Historical rejected baseline**.

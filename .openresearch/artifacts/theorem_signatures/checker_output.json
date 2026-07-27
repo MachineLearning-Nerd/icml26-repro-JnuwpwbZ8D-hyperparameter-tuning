@@ -1,0 +1,7 @@
+{
+  "claims_checked": 6,
+  "failures": [],
+  "independent_formula_and_invariant_checker": true,
+  "missing_p_mutation_rejected": true,
+  "verdict": "SIGNATURE_CHECK_PASS"
+}

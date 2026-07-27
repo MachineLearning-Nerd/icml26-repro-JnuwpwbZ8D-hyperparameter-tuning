@@ -20,6 +20,23 @@ The unattained-minimum adversarial candidate makes the argmin empty and the
 paper's bounded real-valued loss undefined; it is therefore an assumption-gap
 witness, not falsification.
 
+## Concrete bilevel and scaling evidence
+
+The measured class uses
+`f(theta)=1/2 ||theta-B alpha||²`, whose exact unique minimizer is `B alpha`,
+and a distinct quadratic validation objective `g`. With the same
+formula-independent 6,000-vector budget, 12 instances, and seeds
+`173,271,419`, the realized patterns are `72/70/33`, `123/331/366`, and
+`582/336/565` at `(p,d)=(2,4),(3,6),(4,8)`. The `d=2..32` sweep keeps
+`bound/d²` in `[33.66,51.79]`, while the C3/C2 ratio rises from `3.74` to
+`37.44`, exposing the claimed `d` to `d²` jump. Replacing `g` by `f` is a
+failing control because it collapses the claim to the training-only setting.
+
+- [Empirical verifier](../../repro/src/measure_theorem_signatures.py)
+- [Independent checker](../../repro/src/check_theorem_signatures.py)
+- [Empirical raw JSON](../../.openresearch/artifacts/claim_3/signature_output.json)
+- [Checker output](../../.openresearch/artifacts/claim_3/signature_checker.json)
+
 - [Contract](../../.openresearch/artifacts/claim_3/claim_contract.json)
 - [Proof certificate](../../.openresearch/artifacts/claim_3/proof_certificate.json)
 - [Raw JSON](../../.openresearch/artifacts/claim_3/raw_output.json)

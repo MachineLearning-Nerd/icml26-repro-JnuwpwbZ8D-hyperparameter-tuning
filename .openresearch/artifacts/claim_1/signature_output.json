@@ -1,0 +1,99 @@
+{
+  "paper": "2602.02406",
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "budget_policy": "fixed independently of theorem formulas",
+  "cpu_core_estimate": 1,
+  "selected_compute": "local CPU",
+  "runtime_seconds": 2.953093041985994,
+  "claim": {
+    "claim_id": "C1",
+    "limitations": "Finite sign patterns corroborate but do not prove the universal upper bound; the symbolic certificate supplies that proof step.",
+    "measured_polynomial_fol": [
+      {
+        "blocks": 1,
+        "fixed_alpha_budget": 4096,
+        "max_patterns": 105,
+        "min_patterns": 101,
+        "seed_pattern_counts": [
+          105,
+          105,
+          101
+        ]
+      },
+      {
+        "blocks": 2,
+        "fixed_alpha_budget": 4096,
+        "max_patterns": 112,
+        "min_patterns": 89,
+        "seed_pattern_counts": [
+          100,
+          89,
+          112
+        ]
+      },
+      {
+        "blocks": 3,
+        "fixed_alpha_budget": 4096,
+        "max_patterns": 100,
+        "min_patterns": 82,
+        "seed_pattern_counts": [
+          99,
+          82,
+          100
+        ]
+      }
+    ],
+    "negative_control": {
+      "applicable": false,
+      "class": "sin(omega dot alpha)",
+      "expected_failure": "threshold predicate is not polynomial first-order"
+    },
+    "positive_control": [
+      {
+        "exact_pdim_lower_bound": 4,
+        "p": 4,
+        "patterns": 16,
+        "points": 4,
+        "possible": 16
+      },
+      {
+        "exact_pdim_lower_bound": 8,
+        "p": 8,
+        "patterns": 256,
+        "points": 8,
+        "possible": 256
+      }
+    ],
+    "scaling_signature": [
+      {
+        "blocks": 1,
+        "bound": 25.424430642783562,
+        "dimensions": [
+          1
+        ]
+      },
+      {
+        "blocks": 2,
+        "bound": 47.93171637686386,
+        "dimensions": [
+          1,
+          1
+        ]
+      },
+      {
+        "blocks": 3,
+        "bound": 95.5401894366474,
+        "dimensions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "verdict": "VERIFIED"
+  }
+}

@@ -2,7 +2,7 @@
   "fixed_command": "uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json",
   "host_logical_cpus": 8,
   "workload_processes": 1,
-  "seeds": [],
+  "seeds": [173, 271, 419],
   "runs": [
     {"run_id":"eae3feb3-e7cd-4c93-b111-62beaead142e","purpose":"frozen judged baseline","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":5,"status":"done"},
     {"run_id":"aaf44a3e-442b-4437-908d-c7c5ae2f815e","purpose":"C1 symbolic proof","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":15,"status":"done"},
@@ -11,9 +11,10 @@
     {"run_id":"407bad38-eb69-4e3b-98ad-9f1287406795","purpose":"C2-C6 certificates","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"ae4c9c1d-864e-41c8-aa24-dfbda3320141","purpose":"C2-C6 counterexample audits","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"f1fd6e16-747d-445b-88e8-820084573158","purpose":"cumulative merge","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
-    {"run_id":"57c82ea9-fdab-4f11-8963-d41cb3be076b","purpose":"winning symbolic witnesses","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"}
+    {"run_id":"57c82ea9-fdab-4f11-8963-d41cb3be076b","purpose":"winning symbolic witnesses","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
+    {"run_id":"a982ff28-c284-492e-9ff8-aeb54b178592","purpose":"empirical theorem signatures and stale-manifest preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.953093041985994,"status":"failed closed after scientific checks passed"}
   ],
-  "total_formal_runtime_seconds": 80,
+  "total_formal_runtime_seconds": 90,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }

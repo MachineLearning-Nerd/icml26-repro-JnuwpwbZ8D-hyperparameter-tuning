@@ -1,0 +1,80 @@
+{
+  "paper": "2602.02406",
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "budget_policy": "fixed independently of theorem formulas",
+  "cpu_core_estimate": 1,
+  "selected_compute": "local CPU",
+  "runtime_seconds": 2.953093041985994,
+  "claim": {
+    "claim_id": "C4",
+    "elasticnet_signature": [
+      {
+        "bilevel_qe_bound": 91.26860622152226,
+        "d": 2,
+        "ratio_qe_to_path": 8.489663167125475,
+        "rational_path_bound": 10.75055681536833
+      },
+      {
+        "bilevel_qe_bound": 271.52615866933667,
+        "d": 4,
+        "ratio_qe_to_path": 15.468974403082136,
+        "rational_path_bound": 17.552951578692642
+      },
+      {
+        "bilevel_qe_bound": 553.0605297024906,
+        "d": 6,
+        "ratio_qe_to_path": 23.60351793585115,
+        "rational_path_bound": 23.431275422823834
+      },
+      {
+        "bilevel_qe_bound": 938.9234974817175,
+        "d": 8,
+        "ratio_qe_to_path": 32.484523657439084,
+        "rational_path_bound": 28.903717578961647
+      },
+      {
+        "bilevel_qe_bound": 1431.7645513446691,
+        "d": 10,
+        "ratio_qe_to_path": 41.93091834056046,
+        "rational_path_bound": 34.14579522718681
+      }
+    ],
+    "exact_elasticnet_path_regions": [
+      {
+        "cap_3_to_d": 27,
+        "cap_holds": true,
+        "d": 3,
+        "observed_exact_orthogonal_elasticnet_regions": 4
+      },
+      {
+        "cap_3_to_d": 243,
+        "cap_holds": true,
+        "d": 5,
+        "observed_exact_orthogonal_elasticnet_regions": 6
+      },
+      {
+        "cap_3_to_d": 2187,
+        "cap_holds": true,
+        "d": 7,
+        "observed_exact_orthogonal_elasticnet_regions": 8
+      },
+      {
+        "cap_3_to_d": 19683,
+        "cap_holds": true,
+        "d": 9,
+        "observed_exact_orthogonal_elasticnet_regions": 10
+      }
+    ],
+    "limitations": "The region measurement uses the exact orthogonal-design ElasticNet subclass; the source-level certificate verifies the general rational-path composition.",
+    "negative_control": {
+      "applicable": false,
+      "class": "group norm path with square-root dependence",
+      "piecewise_rational_certificate": false
+    },
+    "verdict": "VERIFIED"
+  }
+}

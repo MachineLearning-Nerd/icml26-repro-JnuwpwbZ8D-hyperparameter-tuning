@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -46,7 +47,7 @@ def main() -> None:
     overview = (ROOT / root["file"]).read_text()
     required_overview = (
         "Previous live judged score: `6/12`",
-        "10–12/12",
+        "11–12/12",
         "Visibility matrix",
         "not a judge result",
     )
@@ -62,6 +63,7 @@ def main() -> None:
             "Exact",
             "Fixed command:",
             "Raw JSON",
+            "Empirical raw JSON",
             "Negative control",
             "Verifier source",
             "Historical rejected baseline",
@@ -87,6 +89,7 @@ def main() -> None:
         "reports/theorem-certificates/images/checker-cases.svg",
         "reports/theorem-certificates/images/adversarial-audit.svg",
         "reports/theorem-certificates/images/experiment-tree.svg",
+        "reports/theorem-certificates/images/signature-evidence.svg",
         "notebooks/theorem_certificates.py",
         "evidence/run_metadata.json",
         "evidence/judged-space-a928c531.sha256",
@@ -111,15 +114,23 @@ def main() -> None:
         raise AssertionError(f"only {preserved_pages} judged assets verified")
 
     report = (ROOT / "reports/theorem-certificates/report.md").read_text()
-    for name in ("headline.svg", "proof-pipeline.svg", "checker-cases.svg", "adversarial-audit.svg", "experiment-tree.svg"):
+    for name in (
+        "headline.svg",
+        "proof-pipeline.svg",
+        "checker-cases.svg",
+        "adversarial-audit.svg",
+        "experiment-tree.svg",
+        "signature-evidence.svg",
+    ):
         assert f"images/{name}" in report
+        ET.parse(ROOT / "reports" / "theorem-certificates" / "images" / name)
 
     allowlist = [
         line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
         if line
     ]
-    if len(allowlist) != 100 or len(set(allowlist)) != len(allowlist):
-        raise AssertionError("upload allowlist must contain 100 unique paths")
+    if len(allowlist) != 118 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain 118 unique paths")
     if allowlist != sorted(allowlist):
         raise AssertionError("upload allowlist is not sorted")
     for relative in allowlist:
@@ -134,7 +145,7 @@ def main() -> None:
             raise AssertionError(f"possible Hugging Face token in {relative}")
 
     candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
-    if len(candidate_manifest) != 99:
+    if len(candidate_manifest) != 117:
         raise AssertionError("candidate manifest must hash every upload except itself")
     for relative, expected in candidate_manifest.items():
         if relative not in allowlist:

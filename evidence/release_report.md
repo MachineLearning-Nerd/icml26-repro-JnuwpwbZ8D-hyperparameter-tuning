@@ -1,6 +1,6 @@
 Previous live judged score: `6/12`
 
-Conservative projected score range after the proposed change: **10–12/12**
+Conservative projected score range after the proposed change: **11–12/12**
 
 Best-supported possible new score: **12/12 forecast, not a judge result**
 
@@ -8,14 +8,14 @@ Best-supported possible new score: **12/12 forecast, not a judge result**
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
-| C1 | 1 | 2 | HIGH | VERIFIED | Symbolic QE-to-GJ certificate; conditional on two cited published lemmas |
-| C2 | 1 | 2 | HIGH | VERIFIED | Exact one-block FOL and symbolic atom/dimension witness; attainment implicit |
-| C3 | 1 | 2 | HIGH | VERIFIED | Exact two-block formula and `T_f²` absorption; nonempty argmin implicit |
-| C4 | 1 | 2 | HIGH | VERIFIED | Direct GJ composition under explicit unique rational-path assumption |
-| C5 | 1 | 2 | HIGH | VERIFIED | Exact norm lift, two-block certificate, and signed-weight audit |
-| C6 | 1 | 2 | MEDIUM | VERIFIED | Nonnegative-weight active-state proof; printed all-real notation remains broader |
+| C1 | 1 | 2 | HIGH | VERIFIED | QE-to-GJ proof plus exact halfspace shattering and `2^K` sweep |
+| C2 | 1 | 2 | HIGH | VERIFIED | One-block proof plus three-seed two-piece-quadratic patterns |
+| C3 | 1 | 2 | HIGH | VERIFIED | Two-block proof plus genuine `f != g` patterns and `d²` separation |
+| C4 | 1 | 2 | HIGH | VERIFIED | Direct GJ proof plus exact orthogonal ElasticNet path regions |
+| C5 | 1 | 2 | HIGH | VERIFIED | Norm-lift proof plus exact block soft-threshold active patterns |
+| C6 | 1 | 2 | MEDIUM | VERIFIED | KKT-checked nonnegative-weight paths; printed all-real notation remains broader |
 
-Current total score: **6/12**. Conservative projected total: **10–12/12**.
+Current total score: **6/12**. Conservative projected total: **11–12/12**.
 Best-supported possible total: **12/12**, forecast only. All six claims changed
 from TOY evidence to proof-certificate evidence. No claim is BLOCKED. C6 is the
 only MEDIUM-confidence claim and retains the explicit negative-weight
@@ -26,10 +26,11 @@ proof-domain risk.
 The frozen baseline is `orx/frozen-judged-baseline`. Round 1 promoted the C1
 symbolic certificate and falsification audit. Round 2 compared C2–C6 positive
 certificates with assumption-aware counterexample audits, then merged them
-only on a new child. The winning scientific branch is
-`orx/symbolic-asymptotic-witnesses` at
-`bf9dcf4efcc687d1010e81d68c1f65f98a23c023`; its run
-`57c82ea9-fdab-4f11-8963-d41cb3be076b` passed in 10 seconds.
+only on a new child. The corrective child is
+`orx/empirical-theorem-signature-release`. Its first run
+`a982ff28-c284-492e-9ff8-aeb54b178592` completed all new scientific checks,
+with `SIGNATURE_CHECK_PASS` and a measured 2.953-second empirical stage, then
+failed closed because the prior release manifest did not list the new files.
 
 ## Commands
 
@@ -58,9 +59,9 @@ report and notebook are under `reports/theorem-certificates/` and `notebooks/`.
 The immutable judged manifest is
 `evidence/judged-space-a928c531.sha256`.
 
-Eight formal local CPU runs consumed 80 seconds total, including one
-10-second fixture mismatch that failed closed. Each was estimated at one core,
-used one Python process, and was confidently under five minutes. Hugging Face
+Nine formal local CPU runs consumed approximately 90 seconds total, including
+two expected fail-closed release/fixture checks. Each was estimated at one
+core, used one Python process, and was confidently under five minutes. Hugging Face
 `cpu-upgrade` was therefore not used. Local and Hugging Face compute cost: $0.
 
 All 23 judged paths remain in the candidate tree; 19 historical pages/assets

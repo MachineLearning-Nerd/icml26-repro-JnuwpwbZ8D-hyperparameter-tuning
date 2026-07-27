@@ -1,0 +1,96 @@
+{
+  "paper": "2602.02406",
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "budget_policy": "fixed independently of theorem formulas",
+  "cpu_core_estimate": 1,
+  "selected_compute": "local CPU",
+  "runtime_seconds": 2.953093041985994,
+  "claim": {
+    "claim_id": "C6",
+    "d2_signature": [
+      {
+        "bound": 7.16703787691222,
+        "bound_over_d2": 0.7963375418791355,
+        "d": 3
+      },
+      {
+        "bound": 23.122974063169316,
+        "bound_over_d2": 0.9249189625267726,
+        "d": 5
+      },
+      {
+        "bound": 63.536062672576605,
+        "bound_over_d2": 0.9927509792590095,
+        "d": 8
+      },
+      {
+        "bound": 148.18132490116005,
+        "bound_over_d2": 1.0290369784802782,
+        "d": 12
+      },
+      {
+        "bound": 267.982180367123,
+        "bound_over_d2": 1.0468053920590743,
+        "d": 16
+      },
+      {
+        "bound": 422.93862907046554,
+        "bound_over_d2": 1.057346572676164,
+        "d": 20
+      }
+    ],
+    "limitations": "Measurements use full-rank signal denoising A=I and nonnegative weights. The printed all-real alpha notation remains a documented proof-domain gap.",
+    "measured_weighted_fused_lasso": [
+      {
+        "cap_3_to_d_minus_1": 27,
+        "cap_holds": true,
+        "d": 4,
+        "max_kkt_violation": 9.43023437116608E-13,
+        "regions_by_seed": [
+          10,
+          9,
+          8
+        ]
+      },
+      {
+        "cap_3_to_d_minus_1": 243,
+        "cap_holds": true,
+        "d": 6,
+        "max_kkt_violation": 9.992007221626409E-13,
+        "regions_by_seed": [
+          32,
+          25,
+          28
+        ]
+      },
+      {
+        "cap_3_to_d_minus_1": 2187,
+        "cap_holds": true,
+        "d": 8,
+        "max_kkt_violation": 9.999778782798785E-13,
+        "regions_by_seed": [
+          65,
+          77,
+          106
+        ]
+      }
+    ],
+    "negative_controls": [
+      {
+        "expected_failure": "Proposition G.1 requires full column rank",
+        "mutation": "rank-deficient training design",
+        "rejected": true
+      },
+      {
+        "expected_failure": "box radius |u_i| <= alpha_i is infeasible for alpha_i < 0",
+        "mutation": "negative regularization weight",
+        "rejected": true
+      }
+    ],
+    "verdict": "VERIFIED"
+  }
+}

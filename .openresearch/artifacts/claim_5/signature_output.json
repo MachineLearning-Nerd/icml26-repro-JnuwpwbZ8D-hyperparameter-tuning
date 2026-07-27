@@ -1,0 +1,105 @@
+{
+  "paper": "2602.02406",
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "budget_policy": "fixed independently of theorem formulas",
+  "cpu_core_estimate": 1,
+  "selected_compute": "local CPU",
+  "runtime_seconds": 2.953093041985994,
+  "claim": {
+    "claim_id": "C5",
+    "d_signature": [
+      {
+        "bound": 603.3361698214762,
+        "d": 2
+      },
+      {
+        "bound": 1283.8336917230408,
+        "d": 4
+      },
+      {
+        "bound": 3188.4729416192204,
+        "d": 8
+      },
+      {
+        "bound": 9172.328265783784,
+        "d": 16
+      },
+      {
+        "bound": 29838.34621160172,
+        "d": 32
+      }
+    ],
+    "limitations": "Active-pattern measurements use an exact orthogonal-group subclass; the norm-lift proof certificate establishes the general semi-algebraic reduction.",
+    "measured_weighted_group_lasso": [
+      {
+        "active_patterns_by_seed": [
+          4,
+          4,
+          4
+        ],
+        "d": 4,
+        "exact_solver": "orthogonal block soft threshold",
+        "p": 2,
+        "representative_bound": 295.9554974811371
+      },
+      {
+        "active_patterns_by_seed": [
+          8,
+          8,
+          8
+        ],
+        "d": 6,
+        "exact_solver": "orthogonal block soft threshold",
+        "p": 3,
+        "representative_bound": 1169.62202398781
+      },
+      {
+        "active_patterns_by_seed": [
+          16,
+          16,
+          16
+        ],
+        "d": 8,
+        "exact_solver": "orthogonal block soft threshold",
+        "p": 4,
+        "representative_bound": 3188.4729416192204
+      }
+    ],
+    "negative_control": {
+      "applicable": false,
+      "regularizer": "sin(group norm)",
+      "semi_algebraic": false
+    },
+    "p_signature": [
+      {
+        "bound": 232.83596189837309,
+        "p": 1
+      },
+      {
+        "bound": 804.9734290956258,
+        "p": 2
+      },
+      {
+        "bound": 1767.5105764986047,
+        "p": 3
+      },
+      {
+        "bound": 3188.4729416192204,
+        "p": 4
+      },
+      {
+        "bound": 7687.2092341416455,
+        "p": 6
+      },
+      {
+        "bound": 14864.841499029699,
+        "p": 8
+      }
+    ],
+    "verdict": "VERIFIED"
+  }
+}

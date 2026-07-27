@@ -1,0 +1,560 @@
+{
+  "all_empirical_checks_passed": true,
+  "budget_policy": "fixed independently of theorem formulas",
+  "claims": {
+    "C1": {
+      "claim_id": "C1",
+      "limitations": "Finite sign patterns corroborate but do not prove the universal upper bound; the symbolic certificate supplies that proof step.",
+      "measured_polynomial_fol": [
+        {
+          "blocks": 1,
+          "fixed_alpha_budget": 4096,
+          "max_patterns": 105,
+          "min_patterns": 101,
+          "seed_pattern_counts": [
+            105,
+            105,
+            101
+          ]
+        },
+        {
+          "blocks": 2,
+          "fixed_alpha_budget": 4096,
+          "max_patterns": 112,
+          "min_patterns": 89,
+          "seed_pattern_counts": [
+            100,
+            89,
+            112
+          ]
+        },
+        {
+          "blocks": 3,
+          "fixed_alpha_budget": 4096,
+          "max_patterns": 100,
+          "min_patterns": 82,
+          "seed_pattern_counts": [
+            99,
+            82,
+            100
+          ]
+        }
+      ],
+      "negative_control": {
+        "applicable": false,
+        "class": "sin(omega dot alpha)",
+        "expected_failure": "threshold predicate is not polynomial first-order"
+      },
+      "positive_control": [
+        {
+          "exact_pdim_lower_bound": 4,
+          "p": 4,
+          "patterns": 16,
+          "points": 4,
+          "possible": 16
+        },
+        {
+          "exact_pdim_lower_bound": 8,
+          "p": 8,
+          "patterns": 256,
+          "points": 8,
+          "possible": 256
+        }
+      ],
+      "scaling_signature": [
+        {
+          "blocks": 1,
+          "bound": 25.424430642783562,
+          "dimensions": [
+            1
+          ]
+        },
+        {
+          "blocks": 2,
+          "bound": 47.93171637686386,
+          "dimensions": [
+            1,
+            1
+          ]
+        },
+        {
+          "blocks": 3,
+          "bound": 95.5401894366474,
+          "dimensions": [
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "verdict": "VERIFIED"
+    },
+    "C2": {
+      "claim_id": "C2",
+      "d_sweep": [
+        {
+          "bound": 55.45177444479562,
+          "d": 2
+        },
+        {
+          "bound": 104.27606502691631,
+          "d": 4
+        },
+        {
+          "bound": 208.68220147798033,
+          "d": 8
+        },
+        {
+          "bound": 434.7705733297878,
+          "d": 16
+        },
+        {
+          "bound": 926.5481573644877,
+          "d": 32
+        },
+        {
+          "bound": 1994.6097427718028,
+          "d": 64
+        }
+      ],
+      "limitations": "The measured class is a concrete two-piece quadratic subclass; universal coverage comes from the independent symbolic reduction.",
+      "measured_piecewise_polynomial": [
+        {
+          "d": 4,
+          "degree": 2,
+          "fixed_alpha_budget": 6000,
+          "mf": 2,
+          "p": 2,
+          "patterns_by_seed": [
+            70,
+            70,
+            79
+          ],
+          "pdim_lower_bounds": [
+            6,
+            6,
+            6
+          ],
+          "representative_bound": 37.48092818511171,
+          "tf": 4
+        },
+        {
+          "d": 6,
+          "degree": 2,
+          "fixed_alpha_budget": 6000,
+          "mf": 4,
+          "p": 3,
+          "patterns_by_seed": [
+            190,
+            190,
+            246
+          ],
+          "pdim_lower_bounds": [
+            7,
+            7,
+            7
+          ],
+          "representative_bound": 104.1690781875439,
+          "tf": 8
+        },
+        {
+          "d": 8,
+          "degree": 2,
+          "fixed_alpha_budget": 6000,
+          "mf": 8,
+          "p": 4,
+          "patterns_by_seed": [
+            490,
+            386,
+            428
+          ],
+          "pdim_lower_bounds": [
+            8,
+            8,
+            8
+          ],
+          "representative_bound": 213.48933161246316,
+          "tf": 8
+        }
+      ],
+      "negative_control": {
+        "applicable": false,
+        "class": "sqrt(1 + theta^2)",
+        "expected_failure": "piece is not polynomial"
+      },
+      "p_sweep": [
+        {
+          "bound": 35.53501803605639,
+          "p": 1
+        },
+        {
+          "bound": 82.16039096107191,
+          "p": 2
+        },
+        {
+          "bound": 139.87611877504656,
+          "p": 3
+        },
+        {
+          "bound": 208.68220147798033,
+          "p": 4
+        },
+        {
+          "bound": 379.5654315507253,
+          "p": 6
+        },
+        {
+          "bound": 594.8100811793066,
+          "p": 8
+        }
+      ],
+      "verdict": "VERIFIED"
+    },
+    "C3": {
+      "claim_id": "C3",
+      "d2_signature": [
+        {
+          "bound": 207.14580832960195,
+          "bound_over_d2": 51.78645208240049,
+          "d": 2,
+          "ratio_to_c2": 3.735602880225656
+        },
+        {
+          "bound": 637.9626968221552,
+          "bound_over_d2": 39.8726685513847,
+          "d": 4,
+          "ratio_to_c2": 6.118016600046048
+        },
+        {
+          "bound": 2249.945934811846,
+          "bound_over_d2": 35.1554052314351,
+          "d": 8,
+          "ratio_to_c2": 10.781685830783491
+        },
+        {
+          "bound": 8615.908240044853,
+          "bound_over_d2": 33.65589156267521,
+          "d": 16,
+          "ratio_to_c2": 19.81713751705409
+        },
+        {
+          "bound": 34689.81321876543,
+          "bound_over_d2": 33.87677072145061,
+          "d": 32,
+          "ratio_to_c2": 37.43983833224447
+        }
+      ],
+      "limitations": "Finite measurements use strongly convex quadratic training problems; the symbolic certificate covers the stated piecewise-polynomial family.",
+      "measured_bilevel_quadratic": [
+        {
+          "d": 4,
+          "fixed_alpha_budget": 6000,
+          "p": 2,
+          "patterns_by_seed": [
+            72,
+            70,
+            33
+          ],
+          "pdim_lower_bounds": [
+            6,
+            6,
+            5
+          ],
+          "representative_bound": 231.24490047000492
+        },
+        {
+          "d": 6,
+          "fixed_alpha_budget": 6000,
+          "p": 3,
+          "patterns_by_seed": [
+            123,
+            331,
+            366
+          ],
+          "pdim_lower_bounds": [
+            6,
+            8,
+            8
+          ],
+          "representative_bound": 799.6470682993597
+        },
+        {
+          "d": 8,
+          "fixed_alpha_budget": 6000,
+          "p": 4,
+          "patterns_by_seed": [
+            582,
+            336,
+            565
+          ],
+          "pdim_lower_bounds": [
+            9,
+            8,
+            9
+          ],
+          "representative_bound": 2025.3662483104235
+        }
+      ],
+      "negative_control": {
+        "expected_failure": "collapses the genuinely bilevel f != g contract to Theorem 5.1",
+        "mutation": "replace validation g with training f",
+        "rejected": true
+      },
+      "verdict": "VERIFIED"
+    },
+    "C4": {
+      "claim_id": "C4",
+      "elasticnet_signature": [
+        {
+          "bilevel_qe_bound": 91.26860622152226,
+          "d": 2,
+          "ratio_qe_to_path": 8.489663167125475,
+          "rational_path_bound": 10.75055681536833
+        },
+        {
+          "bilevel_qe_bound": 271.52615866933667,
+          "d": 4,
+          "ratio_qe_to_path": 15.468974403082136,
+          "rational_path_bound": 17.552951578692642
+        },
+        {
+          "bilevel_qe_bound": 553.0605297024906,
+          "d": 6,
+          "ratio_qe_to_path": 23.60351793585115,
+          "rational_path_bound": 23.431275422823834
+        },
+        {
+          "bilevel_qe_bound": 938.9234974817175,
+          "d": 8,
+          "ratio_qe_to_path": 32.484523657439084,
+          "rational_path_bound": 28.903717578961647
+        },
+        {
+          "bilevel_qe_bound": 1431.7645513446691,
+          "d": 10,
+          "ratio_qe_to_path": 41.93091834056046,
+          "rational_path_bound": 34.14579522718681
+        }
+      ],
+      "exact_elasticnet_path_regions": [
+        {
+          "cap_3_to_d": 27,
+          "cap_holds": true,
+          "d": 3,
+          "observed_exact_orthogonal_elasticnet_regions": 4
+        },
+        {
+          "cap_3_to_d": 243,
+          "cap_holds": true,
+          "d": 5,
+          "observed_exact_orthogonal_elasticnet_regions": 6
+        },
+        {
+          "cap_3_to_d": 2187,
+          "cap_holds": true,
+          "d": 7,
+          "observed_exact_orthogonal_elasticnet_regions": 8
+        },
+        {
+          "cap_3_to_d": 19683,
+          "cap_holds": true,
+          "d": 9,
+          "observed_exact_orthogonal_elasticnet_regions": 10
+        }
+      ],
+      "limitations": "The region measurement uses the exact orthogonal-design ElasticNet subclass; the source-level certificate verifies the general rational-path composition.",
+      "negative_control": {
+        "applicable": false,
+        "class": "group norm path with square-root dependence",
+        "piecewise_rational_certificate": false
+      },
+      "verdict": "VERIFIED"
+    },
+    "C5": {
+      "claim_id": "C5",
+      "d_signature": [
+        {
+          "bound": 603.3361698214762,
+          "d": 2
+        },
+        {
+          "bound": 1283.8336917230408,
+          "d": 4
+        },
+        {
+          "bound": 3188.4729416192204,
+          "d": 8
+        },
+        {
+          "bound": 9172.328265783784,
+          "d": 16
+        },
+        {
+          "bound": 29838.34621160172,
+          "d": 32
+        }
+      ],
+      "limitations": "Active-pattern measurements use an exact orthogonal-group subclass; the norm-lift proof certificate establishes the general semi-algebraic reduction.",
+      "measured_weighted_group_lasso": [
+        {
+          "active_patterns_by_seed": [
+            4,
+            4,
+            4
+          ],
+          "d": 4,
+          "exact_solver": "orthogonal block soft threshold",
+          "p": 2,
+          "representative_bound": 295.9554974811371
+        },
+        {
+          "active_patterns_by_seed": [
+            8,
+            8,
+            8
+          ],
+          "d": 6,
+          "exact_solver": "orthogonal block soft threshold",
+          "p": 3,
+          "representative_bound": 1169.62202398781
+        },
+        {
+          "active_patterns_by_seed": [
+            16,
+            16,
+            16
+          ],
+          "d": 8,
+          "exact_solver": "orthogonal block soft threshold",
+          "p": 4,
+          "representative_bound": 3188.4729416192204
+        }
+      ],
+      "negative_control": {
+        "applicable": false,
+        "regularizer": "sin(group norm)",
+        "semi_algebraic": false
+      },
+      "p_signature": [
+        {
+          "bound": 232.83596189837309,
+          "p": 1
+        },
+        {
+          "bound": 804.9734290956258,
+          "p": 2
+        },
+        {
+          "bound": 1767.5105764986047,
+          "p": 3
+        },
+        {
+          "bound": 3188.4729416192204,
+          "p": 4
+        },
+        {
+          "bound": 7687.2092341416455,
+          "p": 6
+        },
+        {
+          "bound": 14864.841499029699,
+          "p": 8
+        }
+      ],
+      "verdict": "VERIFIED"
+    },
+    "C6": {
+      "claim_id": "C6",
+      "d2_signature": [
+        {
+          "bound": 7.16703787691222,
+          "bound_over_d2": 0.7963375418791355,
+          "d": 3
+        },
+        {
+          "bound": 23.122974063169316,
+          "bound_over_d2": 0.9249189625267726,
+          "d": 5
+        },
+        {
+          "bound": 63.536062672576605,
+          "bound_over_d2": 0.9927509792590095,
+          "d": 8
+        },
+        {
+          "bound": 148.18132490116005,
+          "bound_over_d2": 1.0290369784802782,
+          "d": 12
+        },
+        {
+          "bound": 267.982180367123,
+          "bound_over_d2": 1.0468053920590743,
+          "d": 16
+        },
+        {
+          "bound": 422.93862907046554,
+          "bound_over_d2": 1.057346572676164,
+          "d": 20
+        }
+      ],
+      "limitations": "Measurements use full-rank signal denoising A=I and nonnegative weights. The printed all-real alpha notation remains a documented proof-domain gap.",
+      "measured_weighted_fused_lasso": [
+        {
+          "cap_3_to_d_minus_1": 27,
+          "cap_holds": true,
+          "d": 4,
+          "max_kkt_violation": 9.43023437116608E-13,
+          "regions_by_seed": [
+            10,
+            9,
+            8
+          ]
+        },
+        {
+          "cap_3_to_d_minus_1": 243,
+          "cap_holds": true,
+          "d": 6,
+          "max_kkt_violation": 9.992007221626409E-13,
+          "regions_by_seed": [
+            32,
+            25,
+            28
+          ]
+        },
+        {
+          "cap_3_to_d_minus_1": 2187,
+          "cap_holds": true,
+          "d": 8,
+          "max_kkt_violation": 9.999778782798785E-13,
+          "regions_by_seed": [
+            65,
+            77,
+            106
+          ]
+        }
+      ],
+      "negative_controls": [
+        {
+          "expected_failure": "Proposition G.1 requires full column rank",
+          "mutation": "rank-deficient training design",
+          "rejected": true
+        },
+        {
+          "expected_failure": "box radius |u_i| <= alpha_i is infeasible for alpha_i < 0",
+          "mutation": "negative regularization weight",
+          "rejected": true
+        }
+      ],
+      "verdict": "VERIFIED"
+    }
+  },
+  "cpu_core_estimate": 1,
+  "paper": "2602.02406",
+  "runtime_seconds": 2.953093041985994,
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "selected_compute": "local CPU"
+}

@@ -20,6 +20,22 @@ composition and 128 independent complexity tuples check the counts.
 The negative control uses a polynomial with minimizers `-1` and `1`; it is
 rejected because Assumption 7.1 explicitly requires a singleton argmin.
 
+## Exact ElasticNet path evidence
+
+For orthogonal-design ElasticNet, the implemented optimizer is the exact map
+`theta_j*=soft_threshold(z_j,lambda_1)/(1+2 lambda_2)`, not an approximate
+solver. Parameter grids expose `4,6,8,10` distinct active-set regions at
+`d=3,5,7,9`, all below the exact `3^d` path cap. At `d=2,4,6,8,10`, the
+rational-path representative bound is `10.75,17.55,23.43,28.90,34.15`;
+the corresponding QE/path ratio grows `8.49,15.47,23.60,32.48,41.93`,
+demonstrating the claimed linear-versus-quadratic improvement. A group-norm
+path without a rational certificate is rejected as inapplicable.
+
+- [Empirical verifier](../../repro/src/measure_theorem_signatures.py)
+- [Independent checker](../../repro/src/check_theorem_signatures.py)
+- [Empirical raw JSON](../../.openresearch/artifacts/claim_4/signature_output.json)
+- [Checker output](../../.openresearch/artifacts/claim_4/signature_checker.json)
+
 - [Contract](../../.openresearch/artifacts/claim_4/claim_contract.json)
 - [Proof certificate](../../.openresearch/artifacts/claim_4/proof_certificate.json)
 - [Raw JSON](../../.openresearch/artifacts/claim_4/raw_output.json)

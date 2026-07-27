@@ -6,22 +6,24 @@
 - Manager: `uv`; lockfile: `uv.lock`
 - Exact fixed command:
   `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json`
-- Seeds: none; all proof checks are deterministic
+- Seeds: proof checks are deterministic; empirical checks use `173,271,419`
 - Winning scientific SHA: `bf9dcf4efcc687d1010e81d68c1f65f98a23c023`
 - Winning run: `57c82ea9-fdab-4f11-8963-d41cb3be076b`
-- Runtime: 10 seconds, local CPU, one Python process on a host exposing 8 logical CPUs
+- Empirical stage runtime: 2.953 seconds, local CPU, one Python process on a host exposing 8 logical CPUs
 - Hugging Face `cpu-upgrade`: not used; every formal task was confidently under five minutes and single-core
-- Total formal CPU runtime: 80 seconds across eight runs, including one 10-second failed fixture check
+- Recorded formal CPU runtime through the measurement preflight: 90 seconds across nine runs, including two fail-closed fixture/manifest checks
 - Compute cost: $0 local; $0 Hugging Face
 
 ## Fail-closed behavior
 
 The current gate runs the historical regression suite, C1 symbolic certificate,
 C1 falsification audit, C2–C6 symbolic/specialization certificates, the
-C2–C6 adversarial audit, and 11 unit tests. It exits nonzero on any mismatch.
+C2–C6 adversarial audit, six concrete theorem-signature experiments, an
+independent signature checker, and 15 unit tests. It exits nonzero on any mismatch.
 The negative controls reject a missing `p²` term, source-index mutations,
 finite-grid proxy evidence, missing bilevel existential structure, nonunique
-paths, a signed norm lift, and an invalid negative-radius dual box.
+paths, a signed norm lift, an invalid negative-radius dual box, a circular
+sample budget, and a missing `p=d-1` factor.
 
 ## Historical safety and red team
 
@@ -41,6 +43,8 @@ Its report and exact upload allowlist are linked below:
 - [Text upload allowlist](../../evidence/hf_upload_allowlist.txt)
 - [Candidate SHA-256 manifest](../../evidence/candidate_text_manifest.sha256)
 - [Run metadata](../../evidence/run_metadata.json)
+- [Empirical raw output](../../.openresearch/artifacts/theorem_signatures/raw_output.json)
+- [Independent empirical checker](../../.openresearch/artifacts/theorem_signatures/checker_output.json)
 
 ## Remaining limitation
 

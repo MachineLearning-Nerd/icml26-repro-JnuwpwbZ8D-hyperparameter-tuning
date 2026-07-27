@@ -1,0 +1,104 @@
+{
+  "paper": "2602.02406",
+  "seeds": [
+    173,
+    271,
+    419
+  ],
+  "budget_policy": "fixed independently of theorem formulas",
+  "cpu_core_estimate": 1,
+  "selected_compute": "local CPU",
+  "runtime_seconds": 2.953093041985994,
+  "claim": {
+    "claim_id": "C3",
+    "d2_signature": [
+      {
+        "bound": 207.14580832960195,
+        "bound_over_d2": 51.78645208240049,
+        "d": 2,
+        "ratio_to_c2": 3.735602880225656
+      },
+      {
+        "bound": 637.9626968221552,
+        "bound_over_d2": 39.8726685513847,
+        "d": 4,
+        "ratio_to_c2": 6.118016600046048
+      },
+      {
+        "bound": 2249.945934811846,
+        "bound_over_d2": 35.1554052314351,
+        "d": 8,
+        "ratio_to_c2": 10.781685830783491
+      },
+      {
+        "bound": 8615.908240044853,
+        "bound_over_d2": 33.65589156267521,
+        "d": 16,
+        "ratio_to_c2": 19.81713751705409
+      },
+      {
+        "bound": 34689.81321876543,
+        "bound_over_d2": 33.87677072145061,
+        "d": 32,
+        "ratio_to_c2": 37.43983833224447
+      }
+    ],
+    "limitations": "Finite measurements use strongly convex quadratic training problems; the symbolic certificate covers the stated piecewise-polynomial family.",
+    "measured_bilevel_quadratic": [
+      {
+        "d": 4,
+        "fixed_alpha_budget": 6000,
+        "p": 2,
+        "patterns_by_seed": [
+          72,
+          70,
+          33
+        ],
+        "pdim_lower_bounds": [
+          6,
+          6,
+          5
+        ],
+        "representative_bound": 231.24490047000492
+      },
+      {
+        "d": 6,
+        "fixed_alpha_budget": 6000,
+        "p": 3,
+        "patterns_by_seed": [
+          123,
+          331,
+          366
+        ],
+        "pdim_lower_bounds": [
+          6,
+          8,
+          8
+        ],
+        "representative_bound": 799.6470682993597
+      },
+      {
+        "d": 8,
+        "fixed_alpha_budget": 6000,
+        "p": 4,
+        "patterns_by_seed": [
+          582,
+          336,
+          565
+        ],
+        "pdim_lower_bounds": [
+          9,
+          8,
+          9
+        ],
+        "representative_bound": 2025.3662483104235
+      }
+    ],
+    "negative_control": {
+      "expected_failure": "collapses the genuinely bilevel f != g contract to Theorem 5.1",
+      "mutation": "replace validation g with training f",
+      "rejected": true
+    },
+    "verdict": "VERIFIED"
+  }
+}
