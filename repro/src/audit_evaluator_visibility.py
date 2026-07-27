@@ -233,9 +233,12 @@ def main() -> None:
     release_page = (ROOT / "pages/current-release/page.md").read_text()
     for token in (
         "f69eb97c-98f5-4224-93d6-1128fcbe198c",
+        "c43d6308-5846-404a-b75e-c4846409effb",
+        "859f229a2b477b163662c2f77ff7961b8619b240",
         "C5_extra_d_factor",
         "C6_missing_p_factor",
         "7.200243542",
+        "4.693270541",
     ):
         if token not in release_page:
             raise AssertionError(f"current release page missing judge-directed token: {token}")

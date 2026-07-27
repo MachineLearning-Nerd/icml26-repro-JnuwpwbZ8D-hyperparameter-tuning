@@ -13,6 +13,14 @@ single-thread job was confidently below five minutes. Actual six-protocol
 runtime: 7.200243542 seconds; the whole failed calibration run stopped after
 the deliberately stale presentation audit.
 
+The superseding cumulative publication gate is formal run
+`c43d6308-5846-404a-b75e-c4846409effb` at
+`859f229a2b477b163662c2f77ff7961b8619b240`. It reran the same fixed command
+and passed all six claim protocols, 21 tests, the independent checker, 122
+candidate hashes, and the evaluator-visible audit with zero missing cells.
+Its six-protocol stage took 4.693270541 seconds on the same one-thread local
+CPU allocation.
+
 The current executable routes are:
 
 - [six-claim protocol source](../../repro/src/measure_theorem_signatures.py)

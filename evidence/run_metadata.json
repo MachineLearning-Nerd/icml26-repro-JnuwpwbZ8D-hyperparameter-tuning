@@ -18,16 +18,17 @@
     {"run_id":"6a4d41b8-8319-4aab-97d9-d48b51d338a7","purpose":"inline executed verifier preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"failed closed on byte-different inline whitespace"},
     {"run_id":"4d4a3555-a313-4b8d-b38a-c191809d01d6","purpose":"winning inline executed verifier release","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":3.0037827500200365,"tests_passed":18,"candidate_hashes_verified":118,"visibility_missing_cells":0,"status":"done","git_sha":"965d3915a574ab325f1411e4811cddd121ccead7"},
     {"run_id":"1680d0f0-1dff-40e4-8b11-615b842b0dfa","purpose":"embedded complete symbolic-certificate visibility","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":5.497699750005268,"tests_passed":21,"candidate_hashes_verified":120,"visibility_missing_cells":0,"status":"done","git_sha":"1355f08b57162f46805ef86287774fc677c4b73a"},
-    {"run_id":"f69eb97c-98f5-4224-93d6-1128fcbe198c","purpose":"clean-room reference-protocol calibration and C5 formula correction","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one computational thread enforced on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":20,"empirical_stage_seconds":7.200243541999953,"tests_passed":null,"status":"failed closed after science and checker passed; stale page audit","git_sha":"8aef1f4"}
+    {"run_id":"f69eb97c-98f5-4224-93d6-1128fcbe198c","purpose":"clean-room reference-protocol calibration and C5 formula correction","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one computational thread enforced on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":20,"empirical_stage_seconds":7.200243541999953,"tests_passed":null,"status":"failed closed after science and checker passed; stale page audit","git_sha":"8aef1f4"},
+    {"run_id":"c43d6308-5846-404a-b75e-c4846409effb","purpose":"successful cumulative reference-protocol publication gate","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one computational thread enforced on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":20,"empirical_stage_seconds":4.693270540999947,"tests_passed":21,"candidate_hashes_verified":122,"visibility_missing_cells":0,"status":"done","git_sha":"859f229a2b477b163662c2f77ff7961b8619b240"}
   ],
   "judge_evaluations": [
     {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"},
     {"space_sha":"e41343cf30154ab7e49464ce303fc5ed1b56ea05","judged_at":"2026-07-27T04:11:17+00:00","score":"6/12","finding":"empirical code visible, but separate SymPy theorem certificates referenced rather than embedded"},
     {"space_sha":"929165205a02428c2cc7207ddb0f2e187cf913d9","judged_at":"2026-07-27T05:20:08+00:00","score":"6/12","finding":"symbolic checks are loose arithmetic envelopes; experiments remain simplified and small"}
   ],
-  "winning_experiment": "dbf76dd4-46a2-498f-a15f-9a3d2da9cbcf",
-  "current_candidate_experiment": "e86ce5c8-9e75-4e7c-a215-70d02cf7b0e4",
-  "total_formal_runtime_seconds": 160,
+  "winning_experiment": "e86ce5c8-9e75-4e7c-a215-70d02cf7b0e4",
+  "current_candidate_experiment": "8d091b9a-bdf8-4167-b735-7b0d2c9acf8e",
+  "total_formal_runtime_seconds": 180,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }

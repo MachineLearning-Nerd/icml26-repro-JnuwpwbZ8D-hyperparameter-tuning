@@ -87,9 +87,11 @@ sense for nonnegative radii.
 The failed calibration run `f69eb97c-98f5-4224-93d6-1128fcbe198c` produced
 all six new results and an independent checker pass, then deliberately failed
 the stale presentation audit. Its six-protocol stage took 7.200243542 seconds
-with seed 0 and a hard one-thread cap. The successor release updates the
-canonical pages, raw attachments, manifest, and blind traversal before
-publication.
+with seed 0 and a hard one-thread cap. Cumulative run
+`c43d6308-5846-404a-b75e-c4846409effb` at `859f229` passed the unchanged
+publication gate: 21 tests, 122 candidate hashes, and zero missing visibility
+cells; its regenerated protocol stage took 4.693270541 seconds. The successor
+metadata child exposes that successful run before publication.
 
 Previous live judged score: 6/12. Conservative projected range: 8–12/12.
 Best-supported possible score: 12/12 forecast only. No score increase is

@@ -46,6 +46,12 @@ and a hard one-thread cap. The six-protocol stage took 7.200243542 seconds.
 The independent checker reports zero failures and rejects the previous C5
 extra-d formula and a C6 missing-p mutation.
 
+The superseding cumulative run
+`c43d6308-5846-404a-b75e-c4846409effb` at commit
+`859f229a2b477b163662c2f77ff7961b8619b240` passed the complete publication
+gate: six claim protocols, 21 tests, 122 hashes, and zero missing visibility
+cells. Its regenerated six-protocol stage took 4.693270541 seconds.
+
 ## Visibility matrix
 
 | Claim | Canonical page | Code visible | Data inline | Raw link | Checker | Control | Exact claim tested | Reviewer verdict |

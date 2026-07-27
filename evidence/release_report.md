@@ -40,7 +40,11 @@ branch `orx/reference-protocol-parity-and-corrected-theorem`, contains the
 clean-room protocols. Calibration run
 `f69eb97c-98f5-4224-93d6-1128fcbe198c` emitted all new evidence and an
 independent checker pass, then failed closed at the intentionally stale page
-audit. The publication-ready successor is recorded after its cumulative run.
+audit. Cumulative run `c43d6308-5846-404a-b75e-c4846409effb` then passed the
+unchanged command at commit `859f229a2b477b163662c2f77ff7961b8619b240`:
+all six claims, 21 tests, the independent checker, 122 manifest hashes, and
+zero visibility gaps. The final metadata-only child is
+`8d091b9a-bdf8-4167-b735-7b0d2c9acf8e`.
 
 Every node uses:
 
@@ -50,7 +54,9 @@ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs
 
 The calibration estimated one core and 1–2 minutes. It selected local CPU,
 enforced a one-thread BLAS/OpenMP cap, and measured 7.200243542 seconds for the
-six protocols. Hugging Face cpu-upgrade was not required. Cost: $0.
+committed calibration evidence. The successful cumulative rerun measured
+4.693270541 seconds for the same stage. Hugging Face cpu-upgrade was not
+required. Cost: $0.
 
 ## Evidence and visibility
 
