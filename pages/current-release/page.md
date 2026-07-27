@@ -7,11 +7,11 @@
 - Exact fixed command:
   `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json`
 - Seeds: proof checks are deterministic; empirical checks use `173,271,419`
-- Winning scientific and visibility SHA: `965d3915a574ab325f1411e4811cddd121ccead7`
-- Winning run: `4d4a3555-a313-4b8d-b38a-c191809d01d6`
-- Empirical stage runtime: 3.004 seconds; formal gate runtime: 10 seconds; local CPU, one Python process on a host exposing 8 logical CPUs
+- Winning embedded-certificate SHA: `1355f08b57162f46805ef86287774fc677c4b73a`
+- Winning embedded-certificate run: `1680d0f0-1dff-40e4-8b11-615b842b0dfa`
+- Empirical stage runtime: 5.498 seconds; formal gate runtime: 10 seconds; local CPU, one Python process on a host exposing 8 logical CPUs
 - Hugging Face `cpu-upgrade`: not used; every formal task was confidently under five minutes and single-core
-- Recorded formal CPU runtime through the winning visibility run: 130 seconds across 13 runs, including three fail-closed fixture/manifest/visibility checks
+- Recorded formal CPU runtime through the embedded-certificate run: 140 seconds across 14 runs, including three fail-closed fixture/manifest/visibility checks
 - Compute cost: $0 local; $0 Hugging Face
 
 ## Fail-closed behavior
@@ -19,7 +19,7 @@
 The current gate runs the historical regression suite, C1 symbolic certificate,
 C1 falsification audit, C2–C6 symbolic/specialization certificates, the
 C2–C6 adversarial audit, six concrete theorem-signature experiments, an
-independent signature checker, and 19 unit tests. It exits nonzero on any mismatch.
+independent signature checker, and 21 unit tests. It exits nonzero on any mismatch.
 The negative controls reject a missing `p²` term, source-index mutations,
 finite-grid proxy evidence, missing bilevel existential structure, nonunique
 paths, a signed norm lift, an invalid negative-radius dual box, a circular

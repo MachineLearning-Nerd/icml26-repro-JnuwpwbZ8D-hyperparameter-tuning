@@ -138,3 +138,16 @@ theorem-level route. The replacement audit now requires, on every claim page:
 A negative unit test constructs an empirical-only page and requires the
 symbolic visibility check to reject it. The repeated blind review must open the
 new root proof page and all six claim pages before release.
+
+## Repeated review with complete proof programs
+
+Run `1680d0f0-1dff-40e4-8b11-615b842b0dfa` at
+`1355f08b57162f46805ef86287774fc677c4b73a` performed that repeated traversal.
+Starting from the canonical root, it opened all six current claim pages and
+`pages/current-proof-certificates/page.md`. For C1 it byte-matched the complete
+120-line certificate; for C2–C6 it byte-matched the complete 203-line shared
+certificate on every applicable page. It located the exact symbolic output and
+stage-pass record for all claims. The audit reported
+`FULL_EXECUTED_EMPIRICAL_AND_SYMBOLIC_SOURCE_INLINE`, zero missing cells, 120
+verified non-self hashes, 19 preserved historical assets, and a passing secret
+scan. All 21 unit tests passed, including the empirical-only rejection.

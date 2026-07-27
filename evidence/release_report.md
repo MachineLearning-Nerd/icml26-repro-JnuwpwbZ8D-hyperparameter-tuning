@@ -16,7 +16,11 @@ Experiment `dbf76dd4-46a2-498f-a15f-9a3d2da9cbcf`
 (`orx/embed-symbolic-theorem-certificates`) answers that exact failure: every
 current claim page now embeds the complete applicable proof program and stable
 proof output in addition to its finite experiment. A root-level current page
-also exposes both complete certificate programs and the C1–C6 mapping.
+also exposes both complete certificate programs and the C1–C6 mapping. Its
+fixed-command run `1680d0f0-1dff-40e4-8b11-615b842b0dfa` at
+`1355f08b57162f46805ef86287774fc677c4b73a` passed in 10 seconds with 21 tests,
+zero visibility omissions, 121 text paths, 120 hashes, and all six exact
+certificate verdicts VERIFIED.
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
@@ -56,6 +60,15 @@ six VERIFIED claims, `SIGNATURE_CHECK_PASS`, zero visibility-matrix omissions,
 118 validated candidate hashes, the secret scan, the notebook check, and 18
 unit tests.
 
+The next live evaluation at `e41343cf...` showed that empirical-source
+visibility still did not expose the distinct symbolic certificates. The
+descendant `orx/embed-symbolic-theorem-certificates` corrected that boundary.
+Run `1680d0f0-1dff-40e4-8b11-615b842b0dfa` at
+`1355f08b57162f46805ef86287774fc677c4b73a` passed the cumulative gate:
+complete empirical and symbolic source inline for C1–C6, exact outputs for
+both stages, zero visibility omissions, 120 validated candidate hashes, the
+secret scan, notebook check, and 21 unit tests.
+
 ## Commands
 
 The exact fixed reproduction command on every formal node was:
@@ -83,7 +96,7 @@ report and notebook are under `reports/theorem-certificates/` and `notebooks/`.
 The immutable judged manifest is
 `evidence/judged-space-a928c531.sha256`.
 
-Thirteen formal local CPU runs consumed 130 seconds total, including three
+Fourteen formal local CPU runs consumed 140 seconds total, including three
 fail-closed release/fixture/visibility checks. Each was estimated at one
 core, used one Python process, and was confidently under five minutes. Hugging Face
 `cpu-upgrade` was therefore not used. Local and Hugging Face compute cost: $0.
@@ -92,8 +105,8 @@ All 23 judged paths remain in the candidate tree; 19 historical pages/assets
 available in the repository mirror are byte-for-byte hash verified. The old
 README/logbook navigation is superseded, while every historical evidence page
 is unchanged and reachable beneath the exact label **Historical rejected
-baseline — archive**. The corrected upload allowlist contains 119 text paths;
-its non-self manifest contains 118 hashes.
+baseline — archive**. The corrected upload allowlist contains 121 text paths;
+its non-self manifest contains 120 hashes.
 
 ## Publication action
 
