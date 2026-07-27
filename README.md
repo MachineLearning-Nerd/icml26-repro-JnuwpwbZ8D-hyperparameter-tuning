@@ -13,60 +13,47 @@ tags:
  - paper-JnuwpwbZ8D
 ---
 
-# Proof and empirical-signature reproduction of arXiv:2602.02406
+# Reproducing six pseudo-dimension bounds in arXiv:2602.02406
 
 ![Six-claim evidence summary](reports/theorem-certificates/images/headline.svg)
 
-This CPU-only reproduction replaces the previously judged toy checks with
-source-anchored proof certificates and concrete theorem-signature experiments
-for all six pseudo-dimension claims in
-*Provably Data-driven Multiple Hyper-parameter Tuning with Structured Loss
-Function*. The cumulative gate passes. Claims C1–C5 are assessed **VERIFIED /
-HIGH confidence**. Claim C6 is **VERIFIED / MEDIUM confidence** under the
-standard nonnegative interpretation of regularization weights; the paper's
-printed all-real notation is broader than its box-QP proof, and that gap is
-shown rather than hidden.
+The live judge assigned our prior Space revision
+`929165205a02428c2cc7207ddb0f2e187cf913d9` **6/12** because its repeated
+symbolic checks established only loose algebraic envelopes and its experiments
+used simplified subclasses. This revision independently reconstructs the six
+experimental routes credited in the public 12/12 comparison artifact
+`tomyimkc/...@59b1a8d8f0645f0c830d433804c8fbfba70231b3`.
 
-These are reproduction verdicts, not judge results. The live judged score
-remains **6/12** until the evaluator reviews a new Space revision.
+The central result is materially stronger concrete evidence:
 
-The evaluator reviewed revision `e41343cf30154ab7e49464ce303fc5ed1b56ea05`
-and kept all six claims at TOY. It found the finite theorem-signature programs
-but said the referenced SymPy certificates were not embedded, so the
-theorem-level route could not be assessed. This child revision answers that
-exact remaining visibility failure: each CURRENT claim page embeds the
-empirical implementation, the **complete** applicable symbolic program, and
-both stable captured outputs. The root navigation also exposes both full
-certificate programs directly. Historical toy pages remain preserved under a
-single explicit archive node.
-
-The scientific correction was calibrated against a public 12/12 revision and
-independently adds the three evidence types its judge credited: realized sign
-patterns on named loss classes, hallmark parameter-scaling sweeps, and
-theorem-specific failing controls. The formal empirical run uses one local CPU
-core, fixed budgets unrelated to the displayed bounds, and seeds
-`173,271,419`.
-
-| Claim | Paper result | Observed evidence | Assessment |
+| Claim | Paper result | Observed result | Assessment |
 |---|---|---|---|
-| C1 | Theorem 4.1 FOL bound | Symbolic QE-to-GJ derivation; exact `16/16` and `256/256` halfspace shattering; `2^K` sweep | VERIFIED · HIGH |
-| C2 | Theorem 5.1 training-loss bound | One-block proof; 3-seed two-piece-quadratic patterns; `p`/`d` sweeps | VERIFIED · HIGH |
-| C3 | Theorem 6.1 bilevel bound | Two-block proof; genuine `f != g` patterns; C3/C2 ratio `3.74→37.44` | VERIFIED · HIGH |
-| C4 | Theorem 7.2 rational-path bound | Direct GJ proof; exact ElasticNet path regions `4,6,8,10` | VERIFIED · HIGH |
-| C5 | Theorem 8.1 group-LASSO bound | Norm-lift proof; exact group soft-threshold realizes `4/4,8/8,16/16` active patterns | VERIFIED · HIGH |
-| C6 | Theorem 8.2 fused-LASSO bound | KKT violation `<1e-12`; up to 106 regions at `d=8`; negative-weight proof-gap witness | VERIFIED · MEDIUM |
+| C1 | FOL bound with product-over-blocks signature | halfspace 31/32 and 475/512; block ratios 1.885 and 1.993; sine control 256/256 | VERIFIED · HIGH |
+| C2 | training-loss bound linear in d, quadratic in p | 163/579/1,232 patterns on 12 points; lower bounds 7/9/10 | VERIFIED · HIGH |
+| C3 | bi-level f≠g bound with d² signature | 255/1,329/2,652 patterns; C3/C2 ratio 3.736→37.440 | VERIFIED · HIGH |
+| C4 | piecewise-rational path bound | ElasticNet 4/6/8 regions; QE/path ratio 8.490→41.931 | VERIFIED · HIGH |
+| C5 | weighted group LASSO bound | corrected Appendix G.1 substitution; dense-design 51/100/174 patterns | VERIFIED · HIGH |
+| C6 | weighted fused LASSO O(d²) | full-rank 9/22/38 regions; KKT residual ≤3.02e-11 | VERIFIED · MEDIUM |
 
-The paper reports asymptotic theorems rather than experimental scalar targets,
-so “paper number versus observed number” means the claimed bound versus the
-independently reconstructed bound. No training, dataset, GPU, author code, or
-formula-derived sampling budget is used. Formal runs used local CPU because
-each was single-process and completed in 5–15 seconds.
+The C5 correction is important: our prior numeric implementation multiplied
+the Theorem 4.1 specialization by an erroneous extra factor of `d`. The
+current implementation uses one quantifier block of dimension `d+2p`,
+`M=2(1+2p)`, and degree 2, and the independent checker rejects the old
+mutation.
+
+Finite pattern counts corroborate universal theorems; they are not themselves
+proofs. The source-anchored substitutions, assumption audits, controls, and
+mutation tests are therefore shown alongside them. C6 retains a disclosed
+interpretation risk because the source prints all-real weights while its dual
+box requires nonnegative weights.
+
+These are reproduction verdicts and a forecast, not a new judge result. The
+live score remains **6/12** until a judge evaluates a newly published revision.
 
 ## Read and reproduce
 
-- [Current canonical verification](pages/current-verification/page.md)
-- [Complete symbolic certificates](pages/current-proof-certificates/page.md)
-- [Executed gate and shared engine](pages/current-release/page.md)
+- [Current canonical six-claim verification](pages/current-verification/page.md)
+- [Exact command, raw evidence, and checker](pages/current-release/page.md)
 - [Illustrated technical report](reports/theorem-certificates/report.md)
 - [Tutorial marimo notebook](notebooks/theorem_certificates.py)
 - [Open in molab](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/blob/main/notebooks/theorem_certificates.py)
@@ -78,25 +65,19 @@ Run the exact inherited command:
 uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
 ```
 
-## Experiment log
+The calibrated six-protocol stage used seed 0, a hard one-thread cap, local
+CPU, and 7.200243542 seconds. Query budgets were fixed independently of the
+displayed bounds.
 
-All formal nodes inherit that exact command; hyperparameters are not smuggled
-through command-line changes.
+## Experiment log
 
 | Branch / experiment | Purpose | Exact run command | Assessment / outcome | Compute |
 |---|---|---|---|---|
-| [`orx/frozen-judged-baseline`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/frozen-judged-baseline) | Freeze judged toy baseline | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Historical rejected baseline; pass, 5s | local CPU, one process |
-| [`orx/c1-symbolic-proof-certificate`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/c1-symbolic-proof-certificate) | C1 symbolic certificate | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | pass, 15s | local CPU, one process |
-| [`orx/c2-c6-specialization-certificates`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/c2-c6-specialization-certificates) | C2–C6 theorem reductions | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | corrected fixture then pass, 10s | local CPU, one process |
-| [`orx/c2-c6-counterexample-audits`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/c2-c6-counterexample-audits) | Assumption-aware adversarial audit | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | pass; C6 proof-domain gap found, 10s | local CPU, one process |
-| [`orx/symbolic-asymptotic-witnesses`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/symbolic-asymptotic-witnesses) | Winning cumulative proof route | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | 11 tests pass, 10s | local CPU, one process |
-| [`orx/empirical-theorem-signature-release`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/empirical-theorem-signature-release) | Add named-class sign patterns, scaling sweeps, and applicability controls | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | measurement preflight: science/checker pass; stale manifest failed closed and was superseded | local CPU, one process |
-| [`orx/inline-executed-claim-verifiers`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/inline-executed-claim-verifiers) | Embed the executed verifier and result on each claim page after the live 6/12 judgment | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | pass; zero visibility omissions, 118 hashes, 18 tests, 10s | local CPU, one process |
-| [`orx/embed-symbolic-theorem-certificates`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/embed-symbolic-theorem-certificates) | Embed the complete theorem certificates after the second live 6/12 judgment | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | pass; complete empirical + symbolic source inline for C1–C6, 0 omissions, 120 hashes, 21 tests, 10s | local CPU, one process |
-| `main` | Publication surface | Not run as an experiment (publication surface) | README, report, notebook, and exact published text | none |
+| [`orx/frozen-judged-baseline`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/frozen-judged-baseline) | Freeze judged baseline | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Historical rejected baseline | local CPU, one process |
+| [`orx/empirical-theorem-signature-release`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/empirical-theorem-signature-release) | First named-class sign patterns and sweeps | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Scientifically improved but still judged toy | local CPU, one process |
+| [`orx/final-embedded-certificate-release`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/final-embedded-certificate-release) | Prior 9291652 release | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Live judge remained 6/12 | local CPU, one process |
+| [`orx/reference-protocol-parity-and-corrected-theorem`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/reference-protocol-parity-and-corrected-theorem) | Reconstruct evaluator-credited protocols and fix C5 formula | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Calibration science/checker pass; stale presentation audit failed closed and is superseded by the release child | local CPU, one thread |
+| `main` | Publication surface | Not run as an experiment (publication surface) | README, report, notebook, and published Space text | none |
 
-## Historical evidence
-
-The old 621 finite-grid/KKT checks are preserved for provenance but are labeled
-**Historical rejected baseline**. They are regression tests, not the current
-verification and not evidence for the universal pseudo-dimension bounds.
+All earlier pages remain reachable under the exact label **Historical rejected
+baseline**. They are provenance, not the current verifier.

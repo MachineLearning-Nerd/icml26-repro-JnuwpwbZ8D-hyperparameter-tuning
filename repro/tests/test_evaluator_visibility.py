@@ -64,12 +64,28 @@ class VisibilityTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[2]
         source = (root / "repro/src/measure_theorem_signatures.py").read_text()
         functions = {
-            1: ("claim_1",),
-            2: ("_piecewise_polynomial_count", "claim_2"),
-            3: ("_bilevel_count", "claim_3"),
-            4: ("_soft_threshold", "claim_4"),
-            5: ("_group_lasso_instance", "claim_5"),
-            6: ("_fused_dual", "_fused_measurement", "claim_6"),
+            1: ("_count_patterns", "thm_a3_bound", "thm_4_1_bound", "claim_1"),
+            2: (
+                "_count_patterns", "thm_4_1_bound", "thm_5_1_bound",
+                "_piecewise_polynomial_count", "claim_2",
+            ),
+            3: (
+                "_count_patterns", "thm_4_1_bound", "thm_5_1_bound",
+                "thm_6_1_bound", "_bilevel_count", "claim_3",
+            ),
+            4: (
+                "thm_4_1_bound", "thm_6_1_bound", "thm_7_2_bound",
+                "_soft_threshold", "claim_4",
+            ),
+            5: (
+                "_count_patterns", "thm_4_1_bound", "thm_8_1_bound",
+                "_solve_group_lasso_batch", "_group_lasso_patterns",
+                "_norm_nonpolynomial_check", "claim_5",
+            ),
+            6: (
+                "thm_7_2_bound", "thm_8_2_bound", "_difference_matrix",
+                "_solve_box_qp_batch", "_fused_measurement", "claim_6",
+            ),
         }
         for claim, names in functions.items():
             page = (root / f"pages/current-c{claim}/page.md").read_text()
@@ -79,24 +95,18 @@ class VisibilityTests(unittest.TestCase):
             )
             self.assertEqual(displayed, AUDIT.function_segments(source, names))
 
-    def test_current_claims_embed_complete_symbolic_certificates(self) -> None:
+    def test_current_claims_link_raw_protocol_and_checker(self) -> None:
         root = Path(__file__).resolve().parents[2]
-        sources = {
-            1: (root / "repro/src/verify_claim1_proof.py").read_text().rstrip(),
-            **{
-                claim: (root / "repro/src/verify_claims2_6_proofs.py").read_text().rstrip()
-                for claim in range(2, 7)
-            },
-        }
-        for claim, source in sources.items():
-            title = (
-                "repro/src/verify_claim1_proof.py"
-                if claim == 1
-                else "repro/src/verify_claims2_6_proofs.py"
-            )
+        for claim in range(1, 7):
             page = (root / f"pages/current-c{claim}/page.md").read_text()
-            self.assertEqual(AUDIT.fenced_source(page, title), source)
-            self.assertIn(AUDIT.expected_symbolic_result(claim), page)
+            self.assertIn(
+                ".openresearch/artifacts/reference_protocols/raw_output.json",
+                page,
+            )
+            self.assertIn(
+                ".openresearch/artifacts/reference_protocols/checker_output.json",
+                page,
+            )
 
 
 if __name__ == "__main__":

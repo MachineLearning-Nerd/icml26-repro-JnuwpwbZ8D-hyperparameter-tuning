@@ -1,119 +1,80 @@
 Previous live judged score: `6/12`
 
-Conservative projected score range after the proposed change: **11–12/12**
+Conservative projected score range after the proposed change: **8–12/12**
 
 Best-supported possible new score: **12/12 forecast, not a judge result**
 
-# Final release report
+# Reference-protocol parity release report
 
-The live evaluator judged Space revision
-`e41343cf30154ab7e49464ce303fc5ed1b56ea05` at
-`2026-07-27T04:11:17+00:00` and retained `6/12`. It found the inline finite
-experiments but said the distinct SymPy theorem certificates were referenced
-rather than embedded. The prior audit had therefore proved visibility of the
-corroborating experiment, not visibility of the theorem-level route.
-Experiment `dbf76dd4-46a2-498f-a15f-9a3d2da9cbcf`
-(`orx/embed-symbolic-theorem-certificates`) answers that exact failure: every
-current claim page now embeds the complete applicable proof program and stable
-proof output in addition to its finite experiment. A root-level current page
-also exposes both complete certificate programs and the C1–C6 mapping. Its
-fixed-command run `1680d0f0-1dff-40e4-8b11-615b842b0dfa` at
-`1355f08b57162f46805ef86287774fc677c4b73a` passed in 10 seconds with 21 tests,
-zero visibility omissions, 121 text paths, 120 hashes, and all six exact
-certificate verdicts VERIFIED.
+The evaluator judged Space SHA
+`929165205a02428c2cc7207ddb0f2e187cf913d9` on
+2026-07-27 at 05:20:08 UTC and retained 6/12. All six claims were TOY because
+the symbolic programs checked only loose algebraic envelopes and the concrete
+classes were simplified. The public comparison Space
+`tomyimkc/...@59b1a8d8f0645f0c830d433804c8fbfba70231b3` received 12/12 for six
+specific routes: theorem substitutions, scaling signatures, named-class
+patterns or path regions, and applicability controls.
+
+This release reconstructs those routes independently, fixes an actual C5
+formula bug, and makes the raw output and checker directly visible.
 
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
-| C1 | 1 | 2 | HIGH | VERIFIED | QE-to-GJ proof plus exact halfspace shattering and `2^K` sweep |
-| C2 | 1 | 2 | HIGH | VERIFIED | One-block proof plus three-seed two-piece-quadratic patterns |
-| C3 | 1 | 2 | HIGH | VERIFIED | Two-block proof plus genuine `f != g` patterns and `d²` separation |
-| C4 | 1 | 2 | HIGH | VERIFIED | Direct GJ proof plus exact orthogonal ElasticNet path regions |
-| C5 | 1 | 2 | HIGH | VERIFIED | Norm-lift proof plus exact block soft-threshold active patterns |
-| C6 | 1 | 2 | MEDIUM | VERIFIED | KKT-checked nonnegative-weight paths; printed all-real notation remains broader |
+| C1 | 1 | 2 | HIGH | VERIFIED | 31/32 and 475/512 halfspace patterns; block ratios 1.885/1.993; sine control |
+| C2 | 1 | 2 | HIGH | VERIFIED | one-block substitution; 163/579/1,232 patterns; p/d sweeps |
+| C3 | 1 | 2 | HIGH | VERIFIED | f differs from g; 255/1,329/2,652 patterns; d-squared separation |
+| C4 | 1 | 2 | HIGH | VERIFIED | 4/6/8 ElasticNet regions; linear path bound versus quadratic QE route |
+| C5 | 1 | 2 | HIGH | VERIFIED | corrected G.1 substitution; dense-design 51/100/174 patterns; old formula rejected |
+| C6 | 1 | 2 | MEDIUM | VERIFIED | full-rank mp-QP; PSD Hessian; 9/22/38 regions; weight-domain ambiguity remains |
 
-Current total score: **6/12**. Conservative projected total: **11–12/12**.
-Best-supported possible total: **12/12**, forecast only. All six claims changed
-from TOY evidence to proof-certificate evidence. No claim is BLOCKED. C6 is the
-only MEDIUM-confidence claim and retains the explicit negative-weight
-proof-domain risk.
+Current total score: **6/12**. Conservative projected total: **8–12/12**.
+Best-supported possible total: **12/12**, forecast only. Every claim changed
+scientifically from revision 9291652. No claim is marked BLOCKED, but C6
+retains a material interpretation risk.
 
-## Experiment tree and winner
+## Experiment tree and fixed command
 
-The frozen baseline is `orx/frozen-judged-baseline`. Round 1 promoted the C1
-symbolic certificate and falsification audit. Round 2 compared C2–C6 positive
-certificates with assumption-aware counterexample audits, then merged them
-only on a new child. The scientific corrective child was
-`orx/empirical-theorem-signature-release`. Its first run
-`a982ff28-c284-492e-9ff8-aeb54b178592` completed all new scientific checks,
-then failed closed because the prior release manifest did not list the new
-files. The cumulative successor run
-`480450c8-f8f1-4f6f-ad74-21b4dc490ab0` at
-`177668a1312bde3215e9778b2cc43f51dabd8a21` passed the full gate in 10 seconds:
-six VERIFIED claims, `SIGNATURE_CHECK_PASS`, 16 tests, 118 text paths, and 117
-validated hashes. The later release at `01db7fab...` was scientifically
-unchanged but did not make its executable source visible in the form consumed
-by the evaluator. The judge-directed visibility correction first failed closed
-on a byte-different blank line in five embedded code blocks, then passed after
-that presentation defect was corrected. Run
-`4d4a3555-a313-4b8d-b38a-c191809d01d6` passed the complete gate in 10 seconds:
-six VERIFIED claims, `SIGNATURE_CHECK_PASS`, zero visibility-matrix omissions,
-118 validated candidate hashes, the secret scan, the notebook check, and 18
-unit tests.
+Parent `orx/final-embedded-certificate-release` is frozen at `c9f159e`.
+Child experiment `e86ce5c8-9e75-4e7c-a215-70d02cf7b0e4`,
+branch `orx/reference-protocol-parity-and-corrected-theorem`, contains the
+clean-room protocols. Calibration run
+`f69eb97c-98f5-4224-93d6-1128fcbe198c` emitted all new evidence and an
+independent checker pass, then failed closed at the intentionally stale page
+audit. The publication-ready successor is recorded after its cumulative run.
 
-The next live evaluation at `e41343cf...` showed that empirical-source
-visibility still did not expose the distinct symbolic certificates. The
-descendant `orx/embed-symbolic-theorem-certificates` corrected that boundary.
-Run `1680d0f0-1dff-40e4-8b11-615b842b0dfa` at
-`1355f08b57162f46805ef86287774fc677c4b73a` passed the cumulative gate:
-complete empirical and symbolic source inline for C1–C6, exact outputs for
-both stages, zero visibility omissions, 120 validated candidate hashes, the
-secret scan, notebook check, and 21 unit tests.
-
-## Commands
-
-The exact fixed reproduction command on every formal node was:
+Every node uses:
 
 ```bash
 uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
 ```
 
-Formal orchestration commands used were `orx create-experiment ... --parent
-<id>`, `orx exp run <id> --backend local`, `orx exp wait <id> --timeout 480`,
-`orx runs d69602ab-4834-46c6-b762-c17b9a2685bc`, and `orx logs <run-id>`.
-Startup/source commands included `orx projects --json`, `orx project view`,
-`orx paper 2602.02406 --full`, `orx skill` and the four mandatory native skill
-reads, `git status --short`, `git branch -a`, `git ls-remote`, `df -h`, and a
-User-Agent-bearing HTTP retrieval of the ar5iv HTML. Release checks used
-`marimo check notebooks/theorem_certificates.py`, JSON parsing, SVG XML
-validation, SHA-256 verification, a fresh Git clone, and a root-only Markdown
-link traversal.
+The calibration estimated one core and 1–2 minutes. It selected local CPU,
+enforced a one-thread BLAS/OpenMP cap, and measured 7.200243542 seconds for the
+six protocols. Hugging Face cpu-upgrade was not required. Cost: $0.
 
-## Evidence, compute, and preservation
+## Evidence and visibility
 
-Evaluator-visible pages are under `pages/current-*`; code is under `repro/`;
-machine-readable evidence is under `.openresearch/artifacts/`; the illustrated
-report and notebook are under `reports/theorem-certificates/` and `notebooks/`.
-The immutable judged manifest is
-`evidence/judged-space-a928c531.sha256`.
+- canonical page: `pages/current-verification/page.md`
+- claim pages: `pages/current-c1/page.md` through `current-c6/page.md`
+- executable source: `repro/src/measure_theorem_signatures.py`
+- independent checker: `repro/src/check_theorem_signatures.py`
+- raw JSON: `.openresearch/artifacts/reference_protocols/raw_output.json`
+- checker output: `.openresearch/artifacts/reference_protocols/checker_output.json`
 
-Fourteen formal local CPU runs consumed 140 seconds total, including three
-fail-closed release/fixture/visibility checks. Each was estimated at one
-core, used one Python process, and was confidently under five minutes. Hugging Face
-`cpu-upgrade` was therefore not used. Local and Hugging Face compute cost: $0.
+The important correction is C5. The previous numeric implementation added an
+extra factor d. The new Appendix G.1 substitution uses one block of dimension
+d+2p, M=2(1+2p), and degree 2; the checker rejects the old mutation.
 
-All 23 judged paths remain in the candidate tree; 19 historical pages/assets
-available in the repository mirror are byte-for-byte hash verified. The old
-README/logbook navigation is superseded, while every historical evidence page
-is unchanged and reachable beneath the exact label **Historical rejected
-baseline — archive**. The corrected upload allowlist contains 121 text paths;
-its non-self manifest contains 120 hashes.
+The historical judged file set remains reachable. The final allowlist contains
+123 text paths and its non-self manifest contains 122 hashes. A fresh candidate
+download is traversed only from the canonical entrypoint before upload, and
+the process is repeated after publication.
 
-## Publication action
+## Exact publication action
 
-After the final gate passes, upload exactly the paths in
-`evidence/hf_upload_allowlist.txt` through the text-only Hugging Face API to
-the existing Space `DineshAI/JnuwpwbZ8D`; do not create a Space. Then download
-that exact revision, verify `evidence/candidate_text_manifest.sha256`, repeat
-the blind traversal, fast-forward GitHub `main` to the identical release
-commit, and confirm it with `git ls-remote`. Mark the paper awaiting judge and
-do not claim a score increase.
+After every cumulative gate passes, upload only the exact text allowlist to
+the existing Space `DineshAI/JnuwpwbZ8D` using the text-only Hugging Face API.
+Then download the exact revision, verify every hash, repeat the evaluator-blind
+traversal, mirror the published text to GitHub main, confirm with
+`git ls-remote`, and await the live judge. No score increase is claimed before
+that judgment.

@@ -17,8 +17,7 @@
       {"slug":"current-c4","title":"CURRENT — C4 rational path","file":"pages/current-c4/page.md","children":[]},
       {"slug":"current-c5","title":"CURRENT — C5 group LASSO","file":"pages/current-c5/page.md","children":[]},
       {"slug":"current-c6","title":"CURRENT — C6 fused LASSO","file":"pages/current-c6/page.md","children":[]},
-      {"slug":"current-proof-certificates","title":"CURRENT — Complete symbolic certificates","file":"pages/current-proof-certificates/page.md","children":[]},
-      {"slug":"current-release","title":"CURRENT — Release evidence and visibility","file":"pages/current-release/page.md","children":[]},
+      {"slug":"current-release","title":"CURRENT — Command, raw evidence, and checker","file":"pages/current-release/page.md","children":[]},
       {
         "slug":"historical-rejected-baseline",
         "title":"Historical rejected baseline — archive",
@@ -35,11 +34,12 @@
           {"slug":"claim-c3-validation-loss","title":"Historical rejected baseline — C3","file":"pages/claim-c3-validation-loss/page.md","children":[]},
           {"slug":"claim-c4-rational-path","title":"Historical rejected baseline — C4","file":"pages/claim-c4-rational-path/page.md","children":[]},
           {"slug":"claim-c5-group-lasso","title":"Historical rejected baseline — C5","file":"pages/claim-c5-group-lasso/page.md","children":[]},
-          {"slug":"claim-c6-fused-lasso","title":"Historical rejected baseline — C6","file":"pages/claim-c6-fused-lasso/page.md","children":[]}
+          {"slug":"claim-c6-fused-lasso","title":"Historical rejected baseline — C6","file":"pages/claim-c6-fused-lasso/page.md","children":[]},
+          {"slug":"current-proof-certificates","title":"Historical rejected baseline — weak symbolic certificates","file":"pages/current-proof-certificates/page.md","children":[]}
         ]
       }
     ]
   },
-  "agent_view_tokens": 30000,
-  "revision": "embedded-symbolic-certificates-candidate-2026-07-27"
+  "agent_view_tokens": 20000,
+  "revision": "reference-protocol-parity-candidate-2026-07-27"
 }

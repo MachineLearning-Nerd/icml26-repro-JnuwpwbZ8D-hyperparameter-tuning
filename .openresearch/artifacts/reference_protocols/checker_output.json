@@ -1,0 +1,10 @@
+{
+  "claims_checked": 6,
+  "failures": [],
+  "independent_formula_and_invariant_checker": true,
+  "mutations_rejected": [
+    "C5_extra_d_factor",
+    "C6_missing_p_factor"
+  ],
+  "verdict": "SIGNATURE_CHECK_PASS"
+}

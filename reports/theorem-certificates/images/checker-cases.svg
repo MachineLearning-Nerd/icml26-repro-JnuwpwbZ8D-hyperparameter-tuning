@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-label="Independent checker cases per claim">
 <rect width="1000" height="430" rx="20" fill="#ffffff"/>
-<text x="55" y="55" font-family="system-ui" font-size="28" font-weight="700" fill="#0f172a">Independent regression cases (not proof samples)</text>
+<text x="55" y="55" font-family="system-ui" font-size="28" font-weight="700" fill="#0f172a">Strongest realized pattern or region count</text>
 <g font-family="system-ui" font-size="17" fill="#334155">
-<text x="55" y="112">C1</text><rect x="105" y="92" width="768" height="27" rx="7" fill="#2563eb"/><text x="885" y="112">384</text>
-<text x="55" y="162">C2</text><rect x="105" y="142" width="128" height="27" rx="7" fill="#7c3aed"/><text x="245" y="162">64</text>
-<text x="55" y="212">C3</text><rect x="105" y="192" width="256" height="27" rx="7" fill="#7c3aed"/><text x="373" y="212">128</text>
-<text x="55" y="262">C4</text><rect x="105" y="242" width="256" height="27" rx="7" fill="#7c3aed"/><text x="373" y="262">128</text>
-<text x="55" y="312">C5</text><rect x="105" y="292" width="24" height="27" rx="7" fill="#16a34a"/><text x="141" y="312">12</text>
-<text x="55" y="362">C6</text><rect x="105" y="342" width="10" height="27" rx="5" fill="#d97706"/><text x="127" y="362">5 dimensions</text>
+<text x="55" y="112">C1</text><rect x="105" y="92" width="138" height="27" rx="7" fill="#2563eb"/><text x="255" y="112">475</text>
+<text x="55" y="162">C2</text><rect x="105" y="142" width="357" height="27" rx="7" fill="#7c3aed"/><text x="474" y="162">1,232</text>
+<text x="55" y="212">C3</text><rect x="105" y="192" width="768" height="27" rx="7" fill="#7c3aed"/><text x="885" y="212">2,652</text>
+<text x="55" y="262">C4</text><rect x="105" y="242" width="20" height="27" rx="7" fill="#7c3aed"/><text x="137" y="262">8 regions</text>
+<text x="55" y="312">C5</text><rect x="105" y="292" width="51" height="27" rx="7" fill="#16a34a"/><text x="168" y="312">174</text>
+<text x="55" y="362">C6</text><rect x="105" y="342" width="28" height="27" rx="5" fill="#d97706"/><text x="145" y="362">38 regions</text>
 </g>
-<text x="55" y="405" font-family="system-ui" font-size="15" fill="#64748b">The universal result is carried by the symbolic certificate; these cases guard independent implementations.</text>
+<text x="55" y="405" font-family="system-ui" font-size="15" fill="#64748b">Pattern counts are scoped corroboration; independent substitutions, controls, and mutations guard the theorem routes.</text>
 </svg>

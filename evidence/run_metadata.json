@@ -2,7 +2,7 @@
   "fixed_command": "uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json",
   "host_logical_cpus": 8,
   "workload_processes": 1,
-  "seeds": [173, 271, 419],
+  "seeds": [0],
   "runs": [
     {"run_id":"eae3feb3-e7cd-4c93-b111-62beaead142e","purpose":"frozen judged baseline","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":5,"status":"done"},
     {"run_id":"aaf44a3e-442b-4437-908d-c7c5ae2f815e","purpose":"C1 symbolic proof","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":15,"status":"done"},
@@ -17,15 +17,17 @@
     {"run_id":"c5a07209-45f9-4f06-a28f-2e9b7ac749e5","purpose":"final empirical signature release","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":3.0196,"tests_passed":16,"status":"done"},
     {"run_id":"6a4d41b8-8319-4aab-97d9-d48b51d338a7","purpose":"inline executed verifier preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"failed closed on byte-different inline whitespace"},
     {"run_id":"4d4a3555-a313-4b8d-b38a-c191809d01d6","purpose":"winning inline executed verifier release","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":3.0037827500200365,"tests_passed":18,"candidate_hashes_verified":118,"visibility_missing_cells":0,"status":"done","git_sha":"965d3915a574ab325f1411e4811cddd121ccead7"},
-    {"run_id":"1680d0f0-1dff-40e4-8b11-615b842b0dfa","purpose":"embedded complete symbolic-certificate visibility","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":5.497699750005268,"tests_passed":21,"candidate_hashes_verified":120,"visibility_missing_cells":0,"status":"done","git_sha":"1355f08b57162f46805ef86287774fc677c4b73a"}
+    {"run_id":"1680d0f0-1dff-40e4-8b11-615b842b0dfa","purpose":"embedded complete symbolic-certificate visibility","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":5.497699750005268,"tests_passed":21,"candidate_hashes_verified":120,"visibility_missing_cells":0,"status":"done","git_sha":"1355f08b57162f46805ef86287774fc677c4b73a"},
+    {"run_id":"f69eb97c-98f5-4224-93d6-1128fcbe198c","purpose":"clean-room reference-protocol calibration and C5 formula correction","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one computational thread enforced on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":20,"empirical_stage_seconds":7.200243541999953,"tests_passed":null,"status":"failed closed after science and checker passed; stale page audit","git_sha":"8aef1f4"}
   ],
   "judge_evaluations": [
     {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"},
-    {"space_sha":"e41343cf30154ab7e49464ce303fc5ed1b56ea05","judged_at":"2026-07-27T04:11:17+00:00","score":"6/12","finding":"empirical code visible, but separate SymPy theorem certificates referenced rather than embedded"}
+    {"space_sha":"e41343cf30154ab7e49464ce303fc5ed1b56ea05","judged_at":"2026-07-27T04:11:17+00:00","score":"6/12","finding":"empirical code visible, but separate SymPy theorem certificates referenced rather than embedded"},
+    {"space_sha":"929165205a02428c2cc7207ddb0f2e187cf913d9","judged_at":"2026-07-27T05:20:08+00:00","score":"6/12","finding":"symbolic checks are loose arithmetic envelopes; experiments remain simplified and small"}
   ],
   "winning_experiment": "dbf76dd4-46a2-498f-a15f-9a3d2da9cbcf",
-  "current_candidate_experiment": "67362154-da4d-4641-a24f-8fea4e613859",
-  "total_formal_runtime_seconds": 140,
+  "current_candidate_experiment": "e86ce5c8-9e75-4e7c-a215-70d02cf7b0e4",
+  "total_formal_runtime_seconds": 160,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }

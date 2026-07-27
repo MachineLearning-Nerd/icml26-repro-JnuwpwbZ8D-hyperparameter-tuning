@@ -114,7 +114,9 @@ def main() -> None:
         "empirical_theorem_signatures": {
             "claims": len(signatures["claims"]),
             "checker": signature_check["verdict"],
-            "seeds": signatures["seeds"],
+            "seed": signatures["seed"],
+            "protocol": signatures["protocol"],
+            "thread_cap": signatures["thread_cap"],
         },
         "publication_gate_passed": passed,
     }

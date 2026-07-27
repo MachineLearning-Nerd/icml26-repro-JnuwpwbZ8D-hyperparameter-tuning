@@ -70,6 +70,8 @@
 .openresearch/artifacts/claim_6/source_audit.md
 .openresearch/artifacts/claims2_6_counterexample_audit.json
 .openresearch/artifacts/claims2_6_symbolic_witnesses.json
+.openresearch/artifacts/reference_protocols/checker_output.json
+.openresearch/artifacts/reference_protocols/raw_output.json
 .openresearch/artifacts/theorem_signatures/checker_output.json
 .openresearch/artifacts/theorem_signatures/raw_output.json
 .python-version
