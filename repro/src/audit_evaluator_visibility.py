@@ -328,7 +328,7 @@ def main() -> None:
     blind_review = (ROOT / "evidence/evaluator_blind_review.md").read_text()
     assert "release visibility PASS" in blind_review
     assert "zero missing paths" in blind_review
-    assert "schema v2" in blind_review
+    assert "schema-v2" in blind_review
     assert "active tree contains no historical child" in blind_review
 
     payload = {
