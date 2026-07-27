@@ -54,6 +54,17 @@ def function_segments(source: str, names: tuple[str, ...]) -> str:
     return "\n\n".join(by_name[name] for name in names)
 
 
+def historical_candidate(root: Path, relative: str) -> Path | None:
+    """Resolve immutable evidence in a source checkout or downloaded Space."""
+    mirror = root / ".trackio" / "logbook" / relative
+    if mirror.is_file():
+        return mirror
+    published = root / relative
+    if published.is_file():
+        return published
+    return None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
@@ -184,15 +195,15 @@ def main() -> None:
     judged = parse_manifest(ROOT / "evidence/judged-space-a928c531.sha256")
     preserved_pages = 0
     for relative, expected in judged.items():
-        historical_copy = ROOT / ".trackio" / "logbook" / relative
-        if historical_copy.is_file():
-            if relative == "logbook.json":
-                # Navigation metadata is intentionally replaced; every page
-                # and reader-facing asset it referenced remains byte-identical.
-                continue
-            if sha256(historical_copy) != expected:
-                raise AssertionError(f"historical hash changed: {relative}")
-            preserved_pages += 1
+        if relative in {"README.md", "logbook.json"}:
+            # The landing page and navigation are intentionally superseded.
+            continue
+        historical_copy = historical_candidate(ROOT, relative)
+        if historical_copy is None:
+            continue
+        if sha256(historical_copy) != expected:
+            raise AssertionError(f"historical hash changed: {relative}")
+        preserved_pages += 1
     if preserved_pages < 19:
         raise AssertionError(f"only {preserved_pages} judged assets verified")
 

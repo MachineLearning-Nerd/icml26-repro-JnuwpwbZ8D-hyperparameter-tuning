@@ -29,6 +29,24 @@ class VisibilityTests(unittest.TestCase):
                 "repro/src/measure_theorem_signatures.py",
             )
 
+    def test_historical_candidate_supports_downloaded_space(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            published = root / "pages" / "historical.md"
+            published.parent.mkdir(parents=True)
+            published.write_text("published\n")
+            self.assertEqual(
+                AUDIT.historical_candidate(root, "pages/historical.md"),
+                published,
+            )
+            mirror = root / ".trackio" / "logbook" / "pages" / "historical.md"
+            mirror.parent.mkdir(parents=True)
+            mirror.write_text("mirror\n")
+            self.assertEqual(
+                AUDIT.historical_candidate(root, "pages/historical.md"),
+                mirror,
+            )
+
     def test_current_claim_fences_match_executed_functions(self) -> None:
         root = Path(__file__).resolve().parents[2]
         source = (root / "repro/src/measure_theorem_signatures.py").read_text()

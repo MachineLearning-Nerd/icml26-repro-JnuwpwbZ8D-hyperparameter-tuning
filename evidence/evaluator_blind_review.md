@@ -107,3 +107,11 @@ It reported `VERBATIM_EXECUTED_SOURCE_INLINE` for C1–C6, zero missing cells,
 118 verified candidate hashes, 19 preserved historical assets, and 18 passing
 tests. A negative unit test also confirms that a link-only claim page is
 rejected as not code-visible.
+
+The first literal Space download then failed closed because the audit resolved
+historical hashes only through the repository-internal `.trackio/logbook`
+mirror, which is not part of the text upload. The public historical pages were
+present and unchanged. The final audit resolves the mirror when available and
+otherwise verifies the actual published root path against the same immutable
+hash. Its dedicated test exercises both layouts; the post-overlay audit must
+pass before upload.

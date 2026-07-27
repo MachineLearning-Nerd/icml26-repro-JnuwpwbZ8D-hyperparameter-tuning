@@ -22,7 +22,7 @@
     {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"}
   ],
   "winning_experiment": "ddadaeaa-dbe5-4b85-9c93-adb4493157f3",
-  "current_candidate_experiment": "387a02fb-31fa-4fb9-a5fe-df96f9cf73e7",
+  "current_candidate_experiment": "83662604-8a4b-4d7d-9adf-b2f7fd312dc3",
   "total_formal_runtime_seconds": 130,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0

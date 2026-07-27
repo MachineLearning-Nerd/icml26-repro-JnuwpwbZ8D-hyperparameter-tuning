@@ -19,7 +19,7 @@
 The current gate runs the historical regression suite, C1 symbolic certificate,
 C1 falsification audit, C2–C6 symbolic/specialization certificates, the
 C2–C6 adversarial audit, six concrete theorem-signature experiments, an
-independent signature checker, and 18 unit tests. It exits nonzero on any mismatch.
+independent signature checker, and 19 unit tests. It exits nonzero on any mismatch.
 The negative controls reject a missing `p²` term, source-index mutations,
 finite-grid proxy evidence, missing bilevel existential structure, nonunique
 paths, a signed norm lift, an invalid negative-radius dual box, a circular
