@@ -81,7 +81,6 @@ def _group_lasso_instance(p: int, group_size: int, seed: int) -> dict:
         "validation_loss_max": max(losses),
     }
 
-
 def claim_5() -> dict:
     measurements = []
     for p, group_size in ((2, 2), (3, 2), (4, 2)):

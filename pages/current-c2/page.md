@@ -79,7 +79,6 @@ def _piecewise_polynomial_count(p: int, seed: int) -> int:
 
     return _patterns(losses, _random_alphas(seed + 1000, 6000, p), thresholds)
 
-
 def claim_2() -> dict:
     configs = ((2, 4, 2, 4), (3, 6, 4, 8), (4, 8, 8, 8))
     measurements = []

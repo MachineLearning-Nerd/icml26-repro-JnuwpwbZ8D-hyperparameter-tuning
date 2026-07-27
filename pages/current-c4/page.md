@@ -62,7 +62,6 @@ def _soft_threshold(value: float, threshold: float) -> float:
         return value + threshold
     return 0.0
 
-
 def claim_4() -> dict:
     regions = []
     for d in (3, 5, 7, 9):

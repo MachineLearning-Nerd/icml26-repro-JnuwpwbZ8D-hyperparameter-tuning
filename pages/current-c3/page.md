@@ -87,7 +87,6 @@ def _bilevel_count(p: int, d: int, seed: int) -> int:
 
     return _patterns(losses, _random_alphas(seed + 2000, 6000, p), thresholds)
 
-
 def claim_3() -> dict:
     measurements = []
     for p, d in ((2, 4), (3, 6), (4, 8)):

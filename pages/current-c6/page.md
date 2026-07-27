@@ -94,7 +94,6 @@ def _fused_dual(y: tuple[float, ...], alpha: tuple[float, ...]) -> tuple[tuple[f
             violation = max(violation, abs(grad))
     return tuple(u), violation
 
-
 def _fused_measurement(d: int, seed: int) -> dict:
     rng = random.Random(seed)
     y = tuple(rng.uniform(-1.5, 1.5) for _ in range(d))
@@ -120,7 +119,6 @@ def _fused_measurement(d: int, seed: int) -> dict:
         "cap_3_to_d_minus_1": 3 ** (d - 1),
         "max_kkt_violation": max_kkt,
     }
-
 
 def claim_6() -> dict:
     measurements = []
