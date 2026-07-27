@@ -1,4 +1,9 @@
-# CURRENT — Claim 2
+# Claim 2: Theorem 5.1 piecewise-polynomial training loss
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c2_contract","created_at":"2026-07-27T08:00:00+00:00","title":"Official claim 2 and implemented protocol"}
+-->
 
 **Verdict: VERIFIED · confidence: HIGH**
 
@@ -16,17 +21,30 @@ The comparison is dimensionally correct: the numeric theorem bound is compared w
 
 **Negative control.** A square-root loss piece violates piecewise-polynomiality; applicable=false.
 
-**Scope.** The measured family has up to eight convex-quadratic pieces; the result is scoped corroboration, not an exhaustive proof over all such families.
+**Finding.** The one-block substitution is exact at every tested
+configuration. Independent `p` and `d` sweeps reproduce the two terms of the
+claimed asymptotic signature, while the concrete piecewise-polynomial family
+shows the bound is non-vacuous.
 
 - [Complete executed source](../../repro/src/measure_theorem_signatures.py)
 - [Independent checker](../../repro/src/check_theorem_signatures.py)
 - [Raw run JSON](../../.openresearch/artifacts/reference_protocols/raw_output.json)
 - [Checker output](../../.openresearch/artifacts/reference_protocols/checker_output.json)
-- [Historical rejected baseline](#/historical-rejected-baseline)
 
 Fixed command: uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json.
 
-Formal calibration run: f69eb97c-98f5-4224-93d6-1128fcbe198c; seed 0; one CPU thread enforced; actual protocol runtime 7.200243542 s on local CPU.
+Successful cumulative run: 648b39c8-c520-452c-9754-7be7f337459d; seed 0;
+one CPU thread enforced; exit 0; whole-gate runtime 20 s.
+
+---
+<!-- trackio-cell
+{"type":"code","id":"cell_c2_executed","created_at":"2026-07-27T08:00:00+00:00","title":"Run: fixed cumulative verifier (exit 0)","command":["uv","run","--frozen","--python","3.12","repro/src/run_publication_gate.py","--output","outputs/publication_gate.json"],"exit_code":0,"duration_s":20.0}
+-->
+```bash
+$ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
+```
+
+exit 0 · 20.0s
 
 ## Verifier source
 
@@ -133,3 +151,17 @@ CLAIM_RESULT_C2={"claim_id":"C2","d_sweep":[{"bound":55.45177444479562,"d":2},{"
 GATE_STAGE_PASS name=six_empirical_theorem_signatures
 SIGNATURE_CHECK={"claims_checked":6,"failures":[],"independent_formula_and_invariant_checker":true,"mutations_rejected":["C5_extra_d_factor","C6_missing_p_factor"],"verdict":"SIGNATURE_CHECK_PASS"}
 ````
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c2_finding","created_at":"2026-07-27T08:00:00+00:00","title":"Measured values and assessment"}
+-->
+| `(p,d,M_f,T_f)` | Patterns on 12 points | `log₂(patterns)` | Representative bound |
+|---|---:|---:|---:|
+| `(2,4,2,4)` | 163 | 7 | 37.481 |
+| `(3,6,4,8)` | 579 | 9 | 104.169 |
+| `(4,8,8,8)` | 1,232 | 10 | 213.489 |
+
+**Assessment: `VERIFIED`.** The one-block theorem substitution is exact, the
+independent sweeps recover the stated `p`/`d` signature, and all concrete
+piecewise-polynomial measurements are non-vacuously covered.

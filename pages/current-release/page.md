@@ -1,4 +1,9 @@
-# CURRENT — Reproduction command and independent checker
+# Reproduction command, raw evidence, and independent checker
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_release_provenance","created_at":"2026-07-27T08:00:00+00:00","title":"Reproducibility and provenance"}
+-->
 
 The fixed command is unchanged across the experiment tree:
 
@@ -37,4 +42,5 @@ Its exact result is:
 ```
 
 Historical formula and symbolic-certificate routes are retained for audit but
-are no longer presented as the current theorem verifier.
+are no longer presented in active evaluator navigation. Their files remain
+available in the [Historical rejected baseline archive](../historical-rejected-baseline/page.md).

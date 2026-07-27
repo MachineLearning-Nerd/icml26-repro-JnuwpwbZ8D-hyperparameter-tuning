@@ -94,38 +94,40 @@ def main() -> None:
     args = parser.parse_args()
 
     logbook = json.loads((ROOT / "logbook.json").read_text())
+    assert logbook["schema_version"] == 2
+    assert logbook["paper"] == {"arxiv_id": "2602.02406"}
+    assert logbook["workspace"]["file"] == "workspace.json"
+    assert (ROOT / "workspace.json").is_file()
     root = logbook["root"]
     assert root["file"] == "pages/current-verification/page.md"
     titles = [child["title"] for child in root["children"]]
-    current_titles = [title for title in titles if title.startswith("CURRENT")]
-    historical_titles = [title for title in titles if title.startswith("Historical rejected baseline")]
-    assert len(current_titles) == 7
-    assert len(historical_titles) == 1
-    historical_archive = next(
-        child for child in root["children"]
-        if child["slug"] == "historical-rejected-baseline"
-    )
-    assert historical_archive["file"] == "pages/historical-rejected-baseline/page.md"
-    assert len(historical_archive["children"]) == 13
+    assert len(root["children"]) == 7
+    assert titles[:6] == [
+        "Claim 1: Thm 4.1 FOL pseudo-dimension bound",
+        "Claim 2: Thm 5.1 piecewise-polynomial training loss",
+        "Claim 3: Thm 6.1 bi-level validation loss",
+        "Claim 4: Thm 7.2 piecewise-rational path",
+        "Claim 5: Thm 8.1 weighted group LASSO",
+        "Claim 6: Thm 8.2 weighted fused LASSO",
+    ]
     assert all(
-        child["title"].startswith("Historical rejected baseline")
-        for child in historical_archive["children"]
+        child["slug"] != "historical-rejected-baseline"
+        for child in root["children"]
     )
 
     opened = [
         "README.md",
         "logbook.json",
         root["file"],
-        historical_archive["file"],
     ]
     overview = (ROOT / root["file"]).read_text()
     required_overview = (
-        "Previous live judged score: `6/12`",
-        "8–12/12",
-        "Visibility matrix",
-        "not a judge result",
-        "929165205a02428c2cc7207ddb0f2e187cf913d9",
-        "C5 numeric formula had an erroneous extra factor d",
+        "<!-- trackio-cell",
+        "schema",
+        "a1a1ea7f7af14cb570d5963f65f9f8e4c8166225",
+        "does not claim a new score",
+        "d+2p",
+        "Historical files remain byte-preserved",
     )
     assert all(token in overview for token in required_overview)
 
@@ -190,9 +192,13 @@ def main() -> None:
             "Raw run JSON",
             "Negative control",
             "Verifier source",
-            "Historical rejected baseline",
             "log₂(realized patterns)",
-            "f69eb97c-98f5-4224-93d6-1128fcbe198c",
+            "648b39c8-c520-452c-9754-7be7f337459d",
+            "<!-- trackio-cell",
+            '"type":"code"',
+            '"exit_code":0',
+            "exit 0 · 20.0s",
+            "**Assessment: `VERIFIED",
         )
         missing = [token for token in required if token not in page]
         if missing:
@@ -221,7 +227,7 @@ def main() -> None:
                 raise AssertionError(f"{relative} missing executed-output token: {token}")
         claim_checks[f"C{claim}"] = {
             "canonical_page": relative,
-            "code_visible": "EXECUTED_CLAIM_PROTOCOL_SOURCE_INLINE",
+            "code_visible": "NATIVE_EXECUTED_CLAIM_PROTOCOL_SOURCE_INLINE",
             "data_inline": True,
             "raw_link": True,
             "checker": True,
@@ -254,6 +260,7 @@ def main() -> None:
         "notebooks/theorem_certificates.py",
         "evidence/run_metadata.json",
         "evidence/judged-space-a928c531.sha256",
+        "workspace.json",
         ".openresearch/artifacts/reference_protocols/raw_output.json",
         ".openresearch/artifacts/reference_protocols/checker_output.json",
     ):
@@ -292,8 +299,8 @@ def main() -> None:
         line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
         if line
     ]
-    if len(allowlist) != 123 or len(set(allowlist)) != len(allowlist):
-        raise AssertionError("upload allowlist must contain 123 unique paths")
+    if len(allowlist) != 124 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain 124 unique paths")
     if allowlist != sorted(allowlist):
         raise AssertionError("upload allowlist is not sorted")
     for relative in allowlist:
@@ -308,7 +315,7 @@ def main() -> None:
             raise AssertionError(f"possible Hugging Face token in {relative}")
 
     candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
-    if len(candidate_manifest) != 122:
+    if len(candidate_manifest) != 123:
         raise AssertionError("candidate manifest must hash every upload except itself")
     for relative, expected in candidate_manifest.items():
         if relative not in allowlist:
@@ -321,6 +328,8 @@ def main() -> None:
     blind_review = (ROOT / "evidence/evaluator_blind_review.md").read_text()
     assert "release visibility PASS" in blind_review
     assert "zero missing paths" in blind_review
+    assert "schema v2" in blind_review
+    assert "active tree contains no historical child" in blind_review
 
     payload = {
         "canonical_entrypoint": root["file"],

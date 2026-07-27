@@ -1,45 +1,74 @@
 {
-  "schema_version": 1,
-  "title": "Repro - Provably Data-driven Multiple Hyper-parameter Tuning",
-  "emoji": "📐",
+  "schema_version": 2,
+  "title": "Reproduction: Provably Data-driven Multiple Hyper-parameter Tuning with Structured Loss Function",
+  "emoji": "🎯",
   "space_id": "DineshAI/JnuwpwbZ8D",
-  "paper": "2602.02406",
-  "tags": ["icml2026-repro", "paper-JnuwpwbZ8D"],
-  "updated_at": "2026-07-27T00:00:00+00:00",
+  "paper": {
+    "arxiv_id": "2602.02406"
+  },
+  "tags": [
+    "icml2026-repro",
+    "paper-JnuwpwbZ8D"
+  ],
+  "updated_at": "2026-07-27T08:00:00+00:00",
   "root": {
     "slug": "current-verification",
-    "title": "Current verification — arXiv:2602.02406",
+    "title": "Reproduction: Provably Data-driven Multiple Hyper-parameter Tuning with Structured Loss Function",
     "file": "pages/current-verification/page.md",
     "children": [
-      {"slug":"current-c1","title":"CURRENT — C1 FOL framework","file":"pages/current-c1/page.md","children":[]},
-      {"slug":"current-c2","title":"CURRENT — C2 training loss","file":"pages/current-c2/page.md","children":[]},
-      {"slug":"current-c3","title":"CURRENT — C3 validation loss","file":"pages/current-c3/page.md","children":[]},
-      {"slug":"current-c4","title":"CURRENT — C4 rational path","file":"pages/current-c4/page.md","children":[]},
-      {"slug":"current-c5","title":"CURRENT — C5 group LASSO","file":"pages/current-c5/page.md","children":[]},
-      {"slug":"current-c6","title":"CURRENT — C6 fused LASSO","file":"pages/current-c6/page.md","children":[]},
-      {"slug":"current-release","title":"CURRENT — Command, raw evidence, and checker","file":"pages/current-release/page.md","children":[]},
       {
-        "slug":"historical-rejected-baseline",
-        "title":"Historical rejected baseline — archive",
-        "file":"pages/historical-rejected-baseline/page.md",
-        "children":[
-          {"slug":"index","title":"Historical rejected baseline — Original index","file":"pages/index.md","children":[]},
-          {"slug":"claims-c1-c6","title":"Historical rejected baseline — Claims C1-C6","file":"pages/claims-c1-c6/page.md","children":[]},
-          {"slug":"tests-and-gate","title":"Historical rejected baseline — Tests and gate","file":"pages/tests-and-gate/page.md","children":[]},
-          {"slug":"methods","title":"Historical rejected baseline — Methods","file":"pages/methods/page.md","children":[]},
-          {"slug":"negative-controls","title":"Historical rejected baseline — Negative controls","file":"pages/negative-controls/page.md","children":[]},
-          {"slug":"conclusion","title":"Historical rejected baseline — Conclusion","file":"pages/conclusion/page.md","children":[]},
-          {"slug":"claim-c1-fol-framework","title":"Historical rejected baseline — C1","file":"pages/claim-c1-fol-framework/page.md","children":[]},
-          {"slug":"claim-c2-training-loss","title":"Historical rejected baseline — C2","file":"pages/claim-c2-training-loss/page.md","children":[]},
-          {"slug":"claim-c3-validation-loss","title":"Historical rejected baseline — C3","file":"pages/claim-c3-validation-loss/page.md","children":[]},
-          {"slug":"claim-c4-rational-path","title":"Historical rejected baseline — C4","file":"pages/claim-c4-rational-path/page.md","children":[]},
-          {"slug":"claim-c5-group-lasso","title":"Historical rejected baseline — C5","file":"pages/claim-c5-group-lasso/page.md","children":[]},
-          {"slug":"claim-c6-fused-lasso","title":"Historical rejected baseline — C6","file":"pages/claim-c6-fused-lasso/page.md","children":[]},
-          {"slug":"current-proof-certificates","title":"Historical rejected baseline — weak symbolic certificates","file":"pages/current-proof-certificates/page.md","children":[]}
-        ]
+        "slug": "current-c1",
+        "title": "Claim 1: Thm 4.1 FOL pseudo-dimension bound",
+        "file": "pages/current-c1/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-c2",
+        "title": "Claim 2: Thm 5.1 piecewise-polynomial training loss",
+        "file": "pages/current-c2/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-c3",
+        "title": "Claim 3: Thm 6.1 bi-level validation loss",
+        "file": "pages/current-c3/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-c4",
+        "title": "Claim 4: Thm 7.2 piecewise-rational path",
+        "file": "pages/current-c4/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-c5",
+        "title": "Claim 5: Thm 8.1 weighted group LASSO",
+        "file": "pages/current-c5/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-c6",
+        "title": "Claim 6: Thm 8.2 weighted fused LASSO",
+        "file": "pages/current-c6/page.md",
+        "children": []
+      },
+      {
+        "slug": "current-release",
+        "title": "Reproduction command, raw evidence, and independent checker",
+        "file": "pages/current-release/page.md",
+        "children": []
       }
     ]
   },
+  "traces": [],
+  "workspace": {
+    "file": "workspace.json",
+    "file_count": 0,
+    "total_size": 0,
+    "bucket_id": null
+  },
   "agent_view_tokens": 20000,
-  "revision": "reference-protocol-parity-candidate-2026-07-27"
+  "trace_view_tokens": 10,
+  "workspace_view_tokens": 8,
+  "revision": "schema-v2-native-current-only-2026-07-27"
 }

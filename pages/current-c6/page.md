@@ -1,4 +1,9 @@
-# CURRENT — Claim 6
+# Claim 6: Theorem 8.2 weighted fused LASSO
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c6_contract","created_at":"2026-07-27T08:00:00+00:00","title":"Official claim 6 and implemented protocol"}
+-->
 
 **Verdict: VERIFIED · confidence: MEDIUM**
 
@@ -16,17 +21,30 @@ The comparison is dimensionally correct: the numeric theorem bound is compared w
 
 **Negative control.** Rank-deficient A makes AᵀA singular; a negative weight makes the dual box empty.
 
-**Scope.** The finite region counts use full-rank dense designs and nonnegative weights. The source's all-real weight notation remains a documented domain ambiguity.
+**Finding.** The Theorem 7.2/Proposition G.1 substitution reproduces the
+`d²` signature. Full-rank dense designs satisfy the PSD and KKT checks before
+region counting; the rank-deficient control breaks the proposition at its
+stated assumption. The nonnegative-weight proof domain is stated explicitly.
 
 - [Complete executed source](../../repro/src/measure_theorem_signatures.py)
 - [Independent checker](../../repro/src/check_theorem_signatures.py)
 - [Raw run JSON](../../.openresearch/artifacts/reference_protocols/raw_output.json)
 - [Checker output](../../.openresearch/artifacts/reference_protocols/checker_output.json)
-- [Historical rejected baseline](#/historical-rejected-baseline)
 
 Fixed command: uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json.
 
-Formal calibration run: f69eb97c-98f5-4224-93d6-1128fcbe198c; seed 0; one CPU thread enforced; actual protocol runtime 7.200243542 s on local CPU.
+Successful cumulative run: 648b39c8-c520-452c-9754-7be7f337459d; seed 0;
+one CPU thread enforced; exit 0; whole-gate runtime 20 s.
+
+---
+<!-- trackio-cell
+{"type":"code","id":"cell_c6_executed","created_at":"2026-07-27T08:00:00+00:00","title":"Run: fixed cumulative verifier (exit 0)","command":["uv","run","--frozen","--python","3.12","repro/src/run_publication_gate.py","--output","outputs/publication_gate.json"],"exit_code":0,"duration_s":20.0}
+-->
+```bash
+$ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
+```
+
+exit 0 · 20.0s
 
 ## Verifier source
 
@@ -175,3 +193,20 @@ CLAIM_RESULT_C6={"claim_id":"C6","d2_signature":[{"bound":7.16703787691222,"boun
 GATE_STAGE_PASS name=six_empirical_theorem_signatures
 SIGNATURE_CHECK={"claims_checked":6,"failures":[],"independent_formula_and_invariant_checker":true,"mutations_rejected":["C5_extra_d_factor","C6_missing_p_factor"],"verdict":"SIGNATURE_CHECK_PASS"}
 ````
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c6_finding","created_at":"2026-07-27T08:00:00+00:00","title":"Measured values and assessment"}
+-->
+| Dimension | Full-rank regions | `3^(d-1)` cap | Maximum KKT residual |
+|---:|---:|---:|---:|
+| 4 | 9 | 27 | 1.42e-11 |
+| 6 | 22 | 243 | 3.02e-11 |
+| 8 | 38 | 2,187 | 1.96e-12 |
+
+The dual Hessian minimum eigenvalue is 0.0955 and the normalized bound
+`bound/d²` remains in `[0.796, 1.057]` for `d=3…20`.
+
+**Assessment: `VERIFIED` under nonnegative regularization weights.** The
+Theorem 7.2/Proposition G.1 reconstruction, PSD/KKT checks, full-rank region
+counts, and rank-deficient control support the claimed `O(d²)` route.

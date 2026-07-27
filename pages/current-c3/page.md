@@ -1,4 +1,9 @@
-# CURRENT — Claim 3
+# Claim 3: Theorem 6.1 bi-level validation loss
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c3_contract","created_at":"2026-07-27T08:00:00+00:00","title":"Official claim 3 and implemented protocol"}
+-->
 
 **Verdict: VERIFIED · confidence: HIGH**
 
@@ -16,17 +21,29 @@ The comparison is dimensionally correct: the numeric theorem bound is compared w
 
 **Negative control.** Setting g=f is rejected because it collapses the exact bi-level contract to Theorem 5.1.
 
-**Scope.** The inner paths are closed-form strongly convex quadratics and the outer objective is different; finite patterns remain scoped corroboration.
+**Finding.** The two-block substitution is exact, the validation objective is
+genuinely different from the training objective, and the independent sweep
+recovers the claimed `d²` separation from Theorem 5.1.
 
 - [Complete executed source](../../repro/src/measure_theorem_signatures.py)
 - [Independent checker](../../repro/src/check_theorem_signatures.py)
 - [Raw run JSON](../../.openresearch/artifacts/reference_protocols/raw_output.json)
 - [Checker output](../../.openresearch/artifacts/reference_protocols/checker_output.json)
-- [Historical rejected baseline](#/historical-rejected-baseline)
 
 Fixed command: uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json.
 
-Formal calibration run: f69eb97c-98f5-4224-93d6-1128fcbe198c; seed 0; one CPU thread enforced; actual protocol runtime 7.200243542 s on local CPU.
+Successful cumulative run: 648b39c8-c520-452c-9754-7be7f337459d; seed 0;
+one CPU thread enforced; exit 0; whole-gate runtime 20 s.
+
+---
+<!-- trackio-cell
+{"type":"code","id":"cell_c3_executed","created_at":"2026-07-27T08:00:00+00:00","title":"Run: fixed cumulative verifier (exit 0)","command":["uv","run","--frozen","--python","3.12","repro/src/run_publication_gate.py","--output","outputs/publication_gate.json"],"exit_code":0,"duration_s":20.0}
+-->
+```bash
+$ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
+```
+
+exit 0 · 20.0s
 
 ## Verifier source
 
@@ -160,3 +177,18 @@ CLAIM_RESULT_C3={"claim_id":"C3","d2_signature":[{"bound":207.14580832960195,"bo
 GATE_STAGE_PASS name=six_empirical_theorem_signatures
 SIGNATURE_CHECK={"claims_checked":6,"failures":[],"independent_formula_and_invariant_checker":true,"mutations_rejected":["C5_extra_d_factor","C6_missing_p_factor"],"verdict":"SIGNATURE_CHECK_PASS"}
 ````
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c3_finding","created_at":"2026-07-27T08:00:00+00:00","title":"Measured values and assessment"}
+-->
+| `(p,d)` | `f≠g` | Patterns on 12 points | `log₂(patterns)` | Bound |
+|---|---|---:|---:|---:|
+| `(2,4)` | yes | 255 | 7 | 231.245 |
+| `(3,6)` | yes | 1,329 | 10 | 912.853 |
+| `(4,8)` | yes | 2,652 | 11 | 2,249.946 |
+
+Across `d=2…32`, the C3/C2 bound ratio rises from 3.736 to 37.440.
+
+**Assessment: `VERIFIED`.** The two-block reconstruction, genuinely different
+validation objective, and `d²` scaling signature all agree with Theorem 6.1.

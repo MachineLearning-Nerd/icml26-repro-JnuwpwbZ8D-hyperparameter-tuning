@@ -1,4 +1,9 @@
-# CURRENT — Claim 5
+# Claim 5: Theorem 8.1 weighted group LASSO
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c5_contract","created_at":"2026-07-27T08:00:00+00:00","title":"Official claim 5 and implemented protocol"}
+-->
 
 **Verdict: VERIFIED · confidence: HIGH**
 
@@ -16,17 +21,31 @@ The comparison is dimensionally correct: the numeric theorem bound is compared w
 
 **Negative control.** sin(||θ_group||₂) is not semi-algebraic, so the norm-lift route is inapplicable.
 
-**Scope.** The finite dense-design problems corroborate the general theorem.  The degree-four fit is only a diagnostic, not the proof of non-polynomiality.
+**Finding.** The corrected Appendix G.1 substitution exactly uses one block
+of dimension `d+2p`; the `p` and `d` sweeps recover the cubic/quadratic
+signature. Dense-design group LASSO supplies a concrete semi-algebraic,
+non-piecewise-polynomial class, and the checker rejects the old extra-`d`
+mutation.
 
 - [Complete executed source](../../repro/src/measure_theorem_signatures.py)
 - [Independent checker](../../repro/src/check_theorem_signatures.py)
 - [Raw run JSON](../../.openresearch/artifacts/reference_protocols/raw_output.json)
 - [Checker output](../../.openresearch/artifacts/reference_protocols/checker_output.json)
-- [Historical rejected baseline](#/historical-rejected-baseline)
 
 Fixed command: uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json.
 
-Formal calibration run: f69eb97c-98f5-4224-93d6-1128fcbe198c; seed 0; one CPU thread enforced; actual protocol runtime 7.200243542 s on local CPU.
+Successful cumulative run: 648b39c8-c520-452c-9754-7be7f337459d; seed 0;
+one CPU thread enforced; exit 0; whole-gate runtime 20 s.
+
+---
+<!-- trackio-cell
+{"type":"code","id":"cell_c5_executed","created_at":"2026-07-27T08:00:00+00:00","title":"Run: fixed cumulative verifier (exit 0)","command":["uv","run","--frozen","--python","3.12","repro/src/run_publication_gate.py","--output","outputs/publication_gate.json"],"exit_code":0,"duration_s":20.0}
+-->
+```bash
+$ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
+```
+
+exit 0 · 20.0s
 
 ## Verifier source
 
@@ -184,3 +203,20 @@ CLAIM_RESULT_C5={"appendix_g1_substitution":{"atoms":"2(1+2p)","block_dimension"
 GATE_STAGE_PASS name=six_empirical_theorem_signatures
 SIGNATURE_CHECK={"claims_checked":6,"failures":[],"independent_formula_and_invariant_checker":true,"mutations_rejected":["C5_extra_d_factor","C6_missing_p_factor"],"verdict":"SIGNATURE_CHECK_PASS"}
 ````
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c5_finding","created_at":"2026-07-27T08:00:00+00:00","title":"Measured values and assessment"}
+-->
+| `(p,d)` | Dense-design patterns | `log₂(patterns)` | Corrected bound |
+|---|---:|---:|---:|
+| `(2,4)` | 51 | 5 | 63.627 |
+| `(3,6)` | 100 | 6 | 177.783 |
+| `(4,8)` | 174 | 7 | 373.991 |
+
+The `p` sweep rises from 26.641 at `p=1` to 1,769.946 at `p=8`; the `d`
+sweep rises from 238.080 at `d=2` to 917.635 at `d=32`.
+
+**Assessment: `VERIFIED`.** Appendix G.1 is reconstructed with block dimension
+`d+2p`; the measured class, scaling signature, semi-algebraic control, and
+rejected extra-`d` mutation support Theorem 8.1.

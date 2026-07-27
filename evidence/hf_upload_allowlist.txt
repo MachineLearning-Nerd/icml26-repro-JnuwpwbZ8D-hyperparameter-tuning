@@ -121,3 +121,4 @@ repro/tests/test_theorem_signatures.py
 source/icml2026.tex
 source/icml_appendix.tex
 uv.lock
+workspace.json

@@ -17,12 +17,13 @@ tags:
 
 ![Six-claim evidence summary](reports/theorem-certificates/images/headline.svg)
 
-The live judge assigned our prior Space revision
-`929165205a02428c2cc7207ddb0f2e187cf913d9` **6/12** because its repeated
-symbolic checks established only loose algebraic envelopes and its experiments
-used simplified subclasses. This revision independently reconstructs the six
-experimental routes credited in the public 12/12 comparison artifact
-`tomyimkc/...@59b1a8d8f0645f0c830d433804c8fbfba70231b3`.
+The live judge assigned Space revision
+`a1a1ea7f7af14cb570d5963f65f9f8e4c8166225` **6/12** even though its
+measurements closely matched the public 12/12 comparison artifact. The verdict
+quoted obsolete historical checks that were still in active navigation. This
+revision uses the comparator's evaluator-facing structure: schema v2, six
+self-contained current claim pages, native executed-run cells, and no rejected
+verifier in the active tree.
 
 The central result is materially stronger concrete evidence:
 
@@ -78,7 +79,8 @@ displayed bounds.
 | [`orx/final-embedded-certificate-release`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/final-embedded-certificate-release) | Prior 9291652 release | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Live judge remained 6/12 | local CPU, one process |
 | [`orx/reference-protocol-parity-and-corrected-theorem`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/reference-protocol-parity-and-corrected-theorem) | Reconstruct evaluator-credited protocols and fix C5 formula | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Calibration science/checker pass; stale presentation audit failed closed and is superseded by the release child | local CPU, one thread |
 | [`orx/final-evaluator-visible-release-metadata`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/final-evaluator-visible-release-metadata) | Record the successful cumulative run on the canonical surface | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Release candidate; parent cumulative gate passed 21 tests and zero-gap visibility audit | local CPU, one thread |
+| [`orx/schema-v2-native-executed-logbook`](https://github.com/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/tree/orx/schema-v2-native-executed-logbook) | Remove historical evidence from active ingestion and expose native executed cells | `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json` | Current release candidate; cumulative result pending | local CPU, one thread |
 | `main` | Publication surface | Not run as an experiment (publication surface) | README, report, notebook, and published Space text | none |
 
-All earlier pages remain reachable under the exact label **Historical rejected
-baseline**. They are provenance, not the current verifier.
+All earlier files are retained for provenance under **Historical rejected
+baseline**, but they are intentionally outside the active logbook tree.

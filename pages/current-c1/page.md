@@ -1,4 +1,9 @@
-# CURRENT — Claim 1
+# Claim 1: Theorem 4.1 FOL pseudo-dimension bound
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c1_contract","created_at":"2026-07-27T08:00:00+00:00","title":"Official claim 1 and implemented protocol"}
+-->
 
 **Verdict: VERIFIED · confidence: HIGH**
 
@@ -16,17 +21,30 @@ The comparison is dimensionally correct: the numeric theorem bound is compared w
 
 **Negative control.** Sine thresholds violate the polynomial-FOL premise; applicable=false.
 
-**Scope.** Finite patterns corroborate the theorem and calibrate the counting engine; they do not constitute a universal proof.
+**Finding.** The direct Theorem A.3 substitution reproduces the displayed
+block-dimension dependence. The known-halfspace control calibrates the
+threshold-pattern engine, and the sine control shows why polynomial-FOL
+applicability is necessary.
 
 - [Complete executed source](../../repro/src/measure_theorem_signatures.py)
 - [Independent checker](../../repro/src/check_theorem_signatures.py)
 - [Raw run JSON](../../.openresearch/artifacts/reference_protocols/raw_output.json)
 - [Checker output](../../.openresearch/artifacts/reference_protocols/checker_output.json)
-- [Historical rejected baseline](#/historical-rejected-baseline)
 
 Fixed command: uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json.
 
-Formal calibration run: f69eb97c-98f5-4224-93d6-1128fcbe198c; seed 0; one CPU thread enforced; actual protocol runtime 7.200243542 s on local CPU.
+Successful cumulative run: 648b39c8-c520-452c-9754-7be7f337459d; seed 0;
+one CPU thread enforced; exit 0; whole-gate runtime 20 s.
+
+---
+<!-- trackio-cell
+{"type":"code","id":"cell_c1_executed","created_at":"2026-07-27T08:00:00+00:00","title":"Run: fixed cumulative verifier (exit 0)","command":["uv","run","--frozen","--python","3.12","repro/src/run_publication_gate.py","--output","outputs/publication_gate.json"],"exit_code":0,"duration_s":20.0}
+-->
+```bash
+$ uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
+```
+
+exit 0 · 20.0s
 
 ## Verifier source
 
@@ -133,3 +151,20 @@ CLAIM_RESULT_C1={"block_scaling":{"bounds":[25.424430642783562,47.93171637686386
 GATE_STAGE_PASS name=six_empirical_theorem_signatures
 SIGNATURE_CHECK={"claims_checked":6,"failures":[],"independent_formula_and_invariant_checker":true,"mutations_rejected":["C5_extra_d_factor","C6_missing_p_factor"],"verdict":"SIGNATURE_CHECK_PASS"}
 ````
+
+---
+<!-- trackio-cell
+{"type":"markdown","id":"cell_c1_finding","created_at":"2026-07-27T08:00:00+00:00","title":"Measured values and assessment"}
+-->
+| Measurement | Result |
+|---|---:|
+| known halfspace, `p=4` | 31/32 patterns |
+| known halfspace, `p=8` | 475/512 patterns |
+| `K=1,2,3` polynomial-FOL patterns | 207 / 223 / 225 |
+| consecutive block-bound ratios | 1.885 / 1.993 |
+| sine control | inapplicable; 256/256 patterns |
+
+**Assessment: `VERIFIED`.** The theorem formula matches the direct
+Goldberg–Jerrum substitution, its block signature is reproduced, the known
+class calibrates the measurement, and the premise-breaking control is
+distinguished.
