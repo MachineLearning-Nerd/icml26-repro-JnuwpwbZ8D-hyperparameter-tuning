@@ -13,9 +13,14 @@
     {"run_id":"f1fd6e16-747d-445b-88e8-820084573158","purpose":"cumulative merge","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"57c82ea9-fdab-4f11-8963-d41cb3be076b","purpose":"winning symbolic witnesses","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"a982ff28-c284-492e-9ff8-aeb54b178592","purpose":"empirical theorem signatures and stale-manifest preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.953093041985994,"status":"failed closed after scientific checks passed"},
-    {"run_id":"480450c8-f8f1-4f6f-ad74-21b4dc490ab0","purpose":"cumulative empirical release gate","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.967978332977509,"tests_passed":16,"status":"done"}
+    {"run_id":"480450c8-f8f1-4f6f-ad74-21b4dc490ab0","purpose":"cumulative empirical release gate","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.967978332977509,"tests_passed":16,"status":"done"},
+    {"run_id":"c5a07209-45f9-4f06-a28f-2e9b7ac749e5","purpose":"final empirical signature release","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":3.0196,"tests_passed":16,"status":"done"}
   ],
-  "total_formal_runtime_seconds": 100,
+  "judge_evaluations": [
+    {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"}
+  ],
+  "current_candidate_experiment": "ddadaeaa-dbe5-4b85-9c93-adb4493157f3",
+  "total_formal_runtime_seconds": 110,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }

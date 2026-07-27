@@ -564,6 +564,11 @@ def main() -> None:
     payload = build_payload()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    for claim_id, claim in payload["claims"].items():
+        print(
+            f"CLAIM_RESULT_{claim_id}="
+            + json.dumps(claim, sort_keys=True, separators=(",", ":"))
+        )
     print("SIGNATURE_RESULT=" + json.dumps(payload, sort_keys=True))
     if not payload["all_empirical_checks_passed"]:
         raise SystemExit(1)

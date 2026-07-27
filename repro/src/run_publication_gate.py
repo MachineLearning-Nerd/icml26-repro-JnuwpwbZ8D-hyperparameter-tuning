@@ -12,6 +12,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def run_stage(name: str, command: list[str]) -> None:
+    displayed = ["python", *command[1:]] if command and command[0] == sys.executable else command
+    rendered = " ".join(displayed)
+    print(f"GATE_STAGE_START name={name} command={rendered}", flush=True)
+    subprocess.run(command, cwd=ROOT, check=True)
+    print(f"GATE_STAGE_PASS name={name}", flush=True)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=ROOT / "outputs" / "publication_gate.json")
@@ -24,29 +32,32 @@ def main() -> None:
     signature_output = ROOT / "outputs" / "theorem_signatures.json"
     signature_check_output = ROOT / "outputs" / "theorem_signatures_check.json"
     visibility_output = ROOT / "outputs" / "evaluator_visibility.json"
-    subprocess.run([sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)], cwd=ROOT, check=True)
-    subprocess.run([sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)], cwd=ROOT, check=True)
-    subprocess.run(
+    run_stage(
+        "historical_regression",
+        [sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)],
+    )
+    run_stage(
+        "claim1_symbolic_certificate",
+        [sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)],
+    )
+    run_stage(
+        "claim1_falsification_audit",
         [sys.executable, "repro/src/audit_claim1_falsification.py", "--output", str(claim1_falsification_output)],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "claims2_6_symbolic_certificates",
         [sys.executable, "repro/src/verify_claims2_6_proofs.py", "--output", str(specialization_output)],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "claims2_6_counterexample_audit",
         [sys.executable, "repro/src/audit_claims2_6_counterexamples.py", "--output", str(claims2_6_audit_output)],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "six_empirical_theorem_signatures",
         [sys.executable, "repro/src/measure_theorem_signatures.py", "--output", str(signature_output)],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "independent_signature_checker",
         [
             sys.executable,
             "repro/src/check_theorem_signatures.py",
@@ -55,20 +66,19 @@ def main() -> None:
             "--output",
             str(signature_check_output),
         ],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "evaluator_visibility_audit",
         [sys.executable, "repro/src/audit_evaluator_visibility.py", "--output", str(visibility_output)],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run(
+    run_stage(
+        "marimo_notebook_check",
         [sys.executable, "-m", "marimo", "check", "notebooks/theorem_certificates.py"],
-        cwd=ROOT,
-        check=True,
     )
-    subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"], cwd=ROOT, check=True)
+    run_stage(
+        "unit_tests",
+        [sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"],
+    )
     verification = json.loads(verifier_output.read_text())
     claim1 = json.loads(claim1_output.read_text())
     claim1_falsification = json.loads(claim1_falsification_output.read_text())

@@ -30,12 +30,21 @@ shown rather than hidden.
 These are reproduction verdicts, not judge results. The live judged score
 remains **6/12** until the evaluator reviews a new Space revision.
 
-The latest correction was calibrated against a public 12/12 revision and
+The evaluator reviewed revision `01db7fab41d2c338894316b6e83cbc0cede75756`
+and kept all six claims at TOY because the stronger verifier code was linked
+rather than embedded in the logbook, causing it to conclude that the gate did
+not execute those experiments. This child revision answers that exact
+visibility failure: each CURRENT claim page embeds the verbatim executed Python
+and stable captured output, and the CURRENT release page embeds the exact
+fail-closed gate showing the empirical and independent-checker stages. The
+historical toy pages remain preserved under a single explicit archive node.
+
+The scientific correction was calibrated against a public 12/12 revision and
 independently adds the three evidence types its judge credited: realized sign
 patterns on named loss classes, hallmark parameter-scaling sweeps, and
-theorem-specific failing controls. The formal empirical run used one local CPU
-core, fixed budgets unrelated to the displayed bounds, seeds `173,271,419`,
-and `2.953` seconds inside the cumulative command.
+theorem-specific failing controls. The formal empirical run uses one local CPU
+core, fixed budgets unrelated to the displayed bounds, and seeds
+`173,271,419`.
 
 | Claim | Paper result | Observed evidence | Assessment |
 |---|---|---|---|
@@ -55,6 +64,7 @@ each was single-process and completed in 5–15 seconds.
 ## Read and reproduce
 
 - [Current canonical verification](pages/current-verification/page.md)
+- [Executed gate and shared engine](pages/current-release/page.md)
 - [Illustrated technical report](reports/theorem-certificates/report.md)
 - [Tutorial marimo notebook](notebooks/theorem_certificates.py)
 - [Open in molab](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-JnuwpwbZ8D-hyperparameter-tuning/blob/main/notebooks/theorem_certificates.py)

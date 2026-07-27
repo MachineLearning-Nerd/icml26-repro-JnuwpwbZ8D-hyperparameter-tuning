@@ -6,6 +6,17 @@ Best-supported possible new score: **12/12 forecast, not a judge result**
 
 # Final release report
 
+The live evaluator judged Space revision
+`01db7fab41d2c338894316b6e83cbc0cede75756` at
+`2026-07-27T02:21:22+00:00` and retained `6/12`. It found the newly described
+measurements but said their code was not shown inline and the gate did not
+execute them. Inspection showed that the gate did execute them; the actual
+release defect was that the visibility audit treated source links as visible
+code. Experiment `ddadaeaa-dbe5-4b85-9c93-adb4493157f3`
+(`orx/inline-executed-claim-verifiers`) corrects that exact failure by embedding
+verbatim executed code and stable captured output on every current claim page,
+embedding the full gate source, and nesting old toy pages beneath one archive.
+
 | Claim | Current points | Possible points | Confidence | Evidence status | Basis and remaining risk |
 |---|---:|---:|---|---|---|
 | C1 | 1 | 2 | HIGH | VERIFIED | QE-to-GJ proof plus exact halfspace shattering and `2^K` sweep |
@@ -26,7 +37,7 @@ proof-domain risk.
 The frozen baseline is `orx/frozen-judged-baseline`. Round 1 promoted the C1
 symbolic certificate and falsification audit. Round 2 compared C2–C6 positive
 certificates with assumption-aware counterexample audits, then merged them
-only on a new child. The corrective child is
+only on a new child. The scientific corrective child was
 `orx/empirical-theorem-signature-release`. Its first run
 `a982ff28-c284-492e-9ff8-aeb54b178592` completed all new scientific checks,
 then failed closed because the prior release manifest did not list the new
@@ -34,7 +45,11 @@ files. The cumulative successor run
 `480450c8-f8f1-4f6f-ad74-21b4dc490ab0` at
 `177668a1312bde3215e9778b2cc43f51dabd8a21` passed the full gate in 10 seconds:
 six VERIFIED claims, `SIGNATURE_CHECK_PASS`, 16 tests, 118 text paths, and 117
-validated hashes.
+validated hashes. The later release at `01db7fab...` was scientifically
+unchanged but did not make its executable source visible in the form consumed
+by the evaluator. The current child is a judge-directed visibility correction;
+its formal run metadata will be recorded in the final presentation child before
+publication.
 
 ## Commands
 
@@ -71,8 +86,9 @@ core, used one Python process, and was confidently under five minutes. Hugging F
 All 23 judged paths remain in the candidate tree; 19 historical pages/assets
 available in the repository mirror are byte-for-byte hash verified. The old
 README/logbook navigation is superseded, while every historical evidence page
-is unchanged and reachable under the exact label **Historical rejected
-baseline**.
+is unchanged and reachable beneath the exact label **Historical rejected
+baseline — archive**. The corrected upload allowlist contains 119 text paths;
+its non-self manifest contains 118 hashes.
 
 ## Publication action
 

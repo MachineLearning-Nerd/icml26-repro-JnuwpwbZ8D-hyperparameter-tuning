@@ -59,3 +59,43 @@ failing applicability control. It also opened the new signature figure and
 confirmed that the pages distinguish finite corroboration from the symbolic
 universal proof. No cell in the visibility matrix was missing. The result
 remains **release visibility PASS**.
+
+## Live-judge failure of the link-only audit
+
+That conclusion was too optimistic. The live evaluator judged the intended
+Space revision `01db7fab41d2c338894316b6e83cbc0cede75756` at
+`2026-07-27T02:21:22+00:00` and retained all six TOY verdicts. For every claim,
+it found the stronger measurements described on the CURRENT page but stated
+that their code was not shown in the logbook and that the executed publication
+gate did not run them.
+
+The failure was in this audit: it marked `code_visible: true` when a claim page
+contained a source link. That does not meet the evaluator-visible evidence
+standard. The audit has been replaced with a stricter check that requires:
+
+1. a Python fence inline on every current claim page;
+2. byte-for-byte equality between that fence and the claim functions in the
+   source actually executed by the gate;
+3. the exact stable `CLAIM_RESULT_C*` JSON emitted during execution;
+4. the exact full publication-gate source inline on the CURRENT release page;
+5. explicit `GATE_STAGE_START` and `GATE_STAGE_PASS` records for the empirical
+   measurement and independent-checker stages.
+
+The unchanged toy pages are now nested beneath one **Historical rejected
+baseline — archive** node instead of appearing as twelve peers of the current
+verifiers. They remain reachable and byte-identical.
+
+## Repeated evaluator-blind review after the live failure
+
+Starting only from `README.md`, `logbook.json`, and the canonical current root,
+the reviewer first encounters the six CURRENT claims and CURRENT gate page. On
+each claim page it can read the executable claim function and captured result
+without following a source link. The CURRENT gate page shows that
+`run_publication_gate.py` executes `measure_theorem_signatures.py`, then passes
+the generated JSON to `check_theorem_signatures.py`, with `check=True` on both
+processes. The historical toy code is one level below the explicit archive
+warning.
+
+Reviewer conclusion: the specific visibility defect cited by the live judge is
+resolved in the candidate. Scientific verdicts remain unchanged; this is an
+evaluator-surface correction, not a claim that the score has increased.

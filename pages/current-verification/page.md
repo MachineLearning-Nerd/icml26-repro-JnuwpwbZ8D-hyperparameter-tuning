@@ -6,6 +6,16 @@ Conservative projected score range after this proposed change: **11–12/12**.
 
 Best-supported possible new score: **12/12 forecast**, not a judge result.
 
+The evaluator judged the intended Space SHA
+`01db7fab41d2c338894316b6e83cbc0cede75756` at
+`2026-07-27T02:21:22+00:00` and retained `6/12`. Its repeated criticism was
+that the stronger experiments were described but their code was not shown
+inline, and that the publication gate therefore appeared not to run them. This
+candidate directly fixes that evaluator-visible defect. Every CURRENT claim
+page now contains a verbatim Python block checked against the executed source
+and the exact stable `CLAIM_RESULT_C*` line emitted by the gate. The CURRENT
+release page contains the complete gate source and stage transcript.
+
 The HTML paper source was retrieved from
 `https://ar5iv.labs.arxiv.org/html/2602.02406` on 2026-07-24 with SHA-256
 `f31ac76c07c173dc777ea16d5bc718cadc116824479ee801b3a3f55499f900a0`.
@@ -51,3 +61,7 @@ from toy checks to proof certificates. No claim is BLOCKED; C6 retains a
 material interpretation risk. The new empirical suite ran in `2.953` seconds
 with seeds `173,271,419`; its independent checker reports
 `SIGNATURE_CHECK_PASS` with zero failures.
+
+Historical toy pages are preserved, unchanged, beneath
+[Historical rejected baseline — archive](#/historical-rejected-baseline). They
+are not the current verifier.

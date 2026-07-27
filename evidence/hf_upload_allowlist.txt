@@ -90,6 +90,7 @@ pages/current-c5/page.md
 pages/current-c6/page.md
 pages/current-release/page.md
 pages/current-verification/page.md
+pages/historical-rejected-baseline/page.md
 pyproject.toml
 reports/theorem-certificates/images/adversarial-audit.svg
 reports/theorem-certificates/images/checker-cases.svg

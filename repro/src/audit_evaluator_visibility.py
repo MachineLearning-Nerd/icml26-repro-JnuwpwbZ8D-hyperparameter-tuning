@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import re
@@ -29,6 +30,30 @@ def parse_manifest(path: Path) -> dict[str, str]:
     return rows
 
 
+def fenced_source(page: str, title: str) -> str:
+    pattern = re.compile(
+        rf"````python title={re.escape(title)}\n(.*?)\n````",
+        re.DOTALL,
+    )
+    matches = pattern.findall(page)
+    if len(matches) != 1:
+        raise AssertionError(f"expected one inline source block for {title}, got {len(matches)}")
+    return matches[0]
+
+
+def function_segments(source: str, names: tuple[str, ...]) -> str:
+    tree = ast.parse(source)
+    by_name = {
+        node.name: ast.get_source_segment(source, node)
+        for node in tree.body
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+    }
+    missing = [name for name in names if name not in by_name]
+    if missing:
+        raise AssertionError(f"executed source missing functions: {missing}")
+    return "\n\n".join(by_name[name] for name in names)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
@@ -41,9 +66,24 @@ def main() -> None:
     current_titles = [title for title in titles if title.startswith("CURRENT")]
     historical_titles = [title for title in titles if title.startswith("Historical rejected baseline")]
     assert len(current_titles) == 7
-    assert len(historical_titles) == 12
+    assert len(historical_titles) == 1
+    historical_archive = next(
+        child for child in root["children"]
+        if child["slug"] == "historical-rejected-baseline"
+    )
+    assert historical_archive["file"] == "pages/historical-rejected-baseline/page.md"
+    assert len(historical_archive["children"]) == 12
+    assert all(
+        child["title"].startswith("Historical rejected baseline")
+        for child in historical_archive["children"]
+    )
 
-    opened = ["README.md", "logbook.json", root["file"]]
+    opened = [
+        "README.md",
+        "logbook.json",
+        root["file"],
+        historical_archive["file"],
+    ]
     overview = (ROOT / root["file"]).read_text()
     required_overview = (
         "Previous live judged score: `6/12`",
@@ -53,6 +93,15 @@ def main() -> None:
     )
     assert all(token in overview for token in required_overview)
 
+    signature_source = (ROOT / "repro/src/measure_theorem_signatures.py").read_text()
+    inline_functions = {
+        1: ("claim_1",),
+        2: ("_piecewise_polynomial_count", "claim_2"),
+        3: ("_bilevel_count", "claim_3"),
+        4: ("_soft_threshold", "claim_4"),
+        5: ("_group_lasso_instance", "claim_5"),
+        6: ("_fused_dual", "_fused_measurement", "claim_6"),
+    }
     claim_checks: dict[str, dict[str, bool | str]] = {}
     for claim in range(1, 7):
         relative = f"pages/current-c{claim}/page.md"
@@ -71,9 +120,29 @@ def main() -> None:
         missing = [token for token in required if token not in page]
         if missing:
             raise AssertionError(f"{relative} missing {missing}")
+        displayed = fenced_source(page, "repro/src/measure_theorem_signatures.py")
+        expected = function_segments(signature_source, inline_functions[claim])
+        if displayed != expected:
+            raise AssertionError(f"{relative} inline source differs from executed functions")
+        artifact = json.loads(
+            (ROOT / f".openresearch/artifacts/claim_{claim}/signature_output.json").read_text()
+        )
+        stable_result = (
+            f"CLAIM_RESULT_C{claim}="
+            + json.dumps(artifact["claim"], sort_keys=True, separators=(",", ":"))
+        )
+        if stable_result not in page:
+            raise AssertionError(f"{relative} does not show its exact stable gate output")
+        for token in (
+            "GATE_STAGE_START name=six_empirical_theorem_signatures",
+            "GATE_STAGE_PASS name=six_empirical_theorem_signatures",
+            "````output",
+        ):
+            if token not in page:
+                raise AssertionError(f"{relative} missing executed-output token: {token}")
         claim_checks[f"C{claim}"] = {
             "canonical_page": relative,
-            "code_visible": True,
+            "code_visible": "VERBATIM_EXECUTED_SOURCE_INLINE",
             "data_inline": True,
             "raw_link": True,
             "checker": True,
@@ -81,6 +150,20 @@ def main() -> None:
             "exact_claim_tested": True,
             "reviewer_verdict": "VERIFIED",
         }
+
+    release_page = (ROOT / "pages/current-release/page.md").read_text()
+    displayed_gate = fenced_source(release_page, "repro/src/run_publication_gate.py")
+    executed_gate = (ROOT / "repro/src/run_publication_gate.py").read_text().rstrip()
+    if displayed_gate != executed_gate:
+        raise AssertionError("current release page does not embed the exact executed gate")
+    for token in (
+        "01db7fab41d2c338894316b6e83cbc0cede75756",
+        "six_empirical_theorem_signatures",
+        "independent_signature_checker",
+        "subprocess.run(command, cwd=ROOT, check=True)",
+    ):
+        if token not in release_page:
+            raise AssertionError(f"current release page missing judge-directed token: {token}")
 
     for required in (
         "reports/theorem-certificates/report.md",
@@ -129,8 +212,8 @@ def main() -> None:
         line for line in (ROOT / "evidence/hf_upload_allowlist.txt").read_text().splitlines()
         if line
     ]
-    if len(allowlist) != 118 or len(set(allowlist)) != len(allowlist):
-        raise AssertionError("upload allowlist must contain 118 unique paths")
+    if len(allowlist) != 119 or len(set(allowlist)) != len(allowlist):
+        raise AssertionError("upload allowlist must contain 119 unique paths")
     if allowlist != sorted(allowlist):
         raise AssertionError("upload allowlist is not sorted")
     for relative in allowlist:
@@ -145,7 +228,7 @@ def main() -> None:
             raise AssertionError(f"possible Hugging Face token in {relative}")
 
     candidate_manifest = parse_manifest(ROOT / "evidence/candidate_text_manifest.sha256")
-    if len(candidate_manifest) != 117:
+    if len(candidate_manifest) != 118:
         raise AssertionError("candidate manifest must hash every upload except itself")
     for relative, expected in candidate_manifest.items():
         if relative not in allowlist:

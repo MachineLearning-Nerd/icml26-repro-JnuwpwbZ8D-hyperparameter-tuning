@@ -22,6 +22,32 @@ class VisibilityTests(unittest.TestCase):
             manifest.write_text(f"{digest}  sample.txt\n")
             self.assertEqual(AUDIT.parse_manifest(manifest), {"sample.txt": digest})
 
+    def test_link_only_page_is_not_code_visible(self) -> None:
+        with self.assertRaises(AssertionError):
+            AUDIT.fenced_source(
+                "[Verifier source](../../repro/src/measure_theorem_signatures.py)",
+                "repro/src/measure_theorem_signatures.py",
+            )
+
+    def test_current_claim_fences_match_executed_functions(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        source = (root / "repro/src/measure_theorem_signatures.py").read_text()
+        functions = {
+            1: ("claim_1",),
+            2: ("_piecewise_polynomial_count", "claim_2"),
+            3: ("_bilevel_count", "claim_3"),
+            4: ("_soft_threshold", "claim_4"),
+            5: ("_group_lasso_instance", "claim_5"),
+            6: ("_fused_dual", "_fused_measurement", "claim_6"),
+        }
+        for claim, names in functions.items():
+            page = (root / f"pages/current-c{claim}/page.md").read_text()
+            displayed = AUDIT.fenced_source(
+                page,
+                "repro/src/measure_theorem_signatures.py",
+            )
+            self.assertEqual(displayed, AUDIT.function_segments(source, names))
+
 
 if __name__ == "__main__":
     unittest.main()
