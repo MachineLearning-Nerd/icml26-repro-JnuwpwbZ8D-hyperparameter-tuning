@@ -57,6 +57,6 @@ UNIVERSAL_PROOF_RESULT={"all_universal_proof_chains_passed": true, "claims": 6, 
 C1_AUDIT={"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true}
 ```
 
-Finite sweeps used as proof: **0**. The external QE and GJ theorems are trusted
-dependencies stated explicitly, not silently “verified” by examples.
-
+`finite_parameter_sweeps_used_as_proof: 0`. The external QE and GJ theorems
+are trusted dependencies stated explicitly, not silently “verified” by
+examples.
