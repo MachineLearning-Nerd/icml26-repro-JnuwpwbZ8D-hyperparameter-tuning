@@ -23,6 +23,7 @@ Navigation audit:
 
 - `schema_version` is 2 and the paper is identified by `arxiv_id`.
 - The active tree contains exactly six proof pages and one release page.
+- The active tree contains no historical child.
 - The earlier finite-grid/sign-pattern pages are not active verifiers.
 - Historical files remain preserved and reachable, but are outside the active
   tree.
