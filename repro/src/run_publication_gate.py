@@ -32,6 +32,8 @@ def main() -> None:
     signature_output = ROOT / "outputs" / "theorem_signatures.json"
     signature_check_output = ROOT / "outputs" / "theorem_signatures_check.json"
     visibility_output = ROOT / "outputs" / "evaluator_visibility.json"
+    universal_proof_output = ROOT / "outputs" / "universal_theorem_proofs.json"
+    universal_audit_output = ROOT / "outputs" / "universal_theorem_proofs_audit.json"
     run_stage(
         "historical_regression",
         [sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)],
@@ -51,6 +53,26 @@ def main() -> None:
     run_stage(
         "claims2_6_counterexample_audit",
         [sys.executable, "repro/src/audit_claims2_6_counterexamples.py", "--output", str(claims2_6_audit_output)],
+    )
+    run_stage(
+        "six_universal_theorem_proof_chains",
+        [
+            sys.executable,
+            "repro/src/verify_universal_theorem_chains.py",
+            "--output",
+            str(universal_proof_output),
+        ],
+    )
+    run_stage(
+        "independent_universal_proof_audit",
+        [
+            sys.executable,
+            "repro/src/audit_universal_theorem_chains.py",
+            "--input",
+            str(universal_proof_output),
+            "--output",
+            str(universal_audit_output),
+        ],
     )
     run_stage(
         "six_empirical_theorem_signatures",
@@ -87,6 +109,8 @@ def main() -> None:
     signatures = json.loads(signature_output.read_text())
     signature_check = json.loads(signature_check_output.read_text())
     visibility = json.loads(visibility_output.read_text())
+    universal_proofs = json.loads(universal_proof_output.read_text())
+    universal_audit = json.loads(universal_audit_output.read_text())
     passed = (
         verification["all_claims_passed"]
         and len(verification["claims"]) == 6
@@ -98,6 +122,10 @@ def main() -> None:
         and claims2_6_audit["verdict"] == "AUDIT_COMPLETE"
         and all(not row["falsification_succeeded"] for row in claims2_6_audit["claims"].values())
         and claims2_6_audit["claims"]["C6"]["status"] == "PROOF_DOMAIN_GAP"
+        and universal_proofs["all_universal_proof_chains_passed"]
+        and universal_proofs["finite_parameter_sweeps_used_as_proof"] == 0
+        and universal_audit["independent_audit_passed"]
+        and universal_audit["independent_checks"] == 42
         and signatures["all_empirical_checks_passed"]
         and signature_check["verdict"] == "SIGNATURE_CHECK_PASS"
         and visibility["verdict"] == "EVALUATOR_VISIBLE_GATE_PASS"
@@ -117,6 +145,13 @@ def main() -> None:
             "seed": signatures["seed"],
             "protocol": signatures["protocol"],
             "thread_cap": signatures["thread_cap"],
+        },
+        "universal_theorem_proofs": {
+            "claims": universal_proofs["claim_count"],
+            "mutations_rejected": universal_proofs["total_mutations_rejected"],
+            "independent_checks": universal_audit["independent_checks"],
+            "finite_sweeps_used_as_proof": 0,
+            "audit_passed": universal_audit["independent_audit_passed"],
         },
         "publication_gate_passed": passed,
     }
