@@ -7,8 +7,8 @@
 - Exact fixed command:
   `uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json`
 - Seeds: proof checks are deterministic; empirical checks use `173,271,419`
-- Winning scientific SHA: `bf9dcf4efcc687d1010e81d68c1f65f98a23c023`
-- Winning run: `57c82ea9-fdab-4f11-8963-d41cb3be076b`
+- Winning scientific SHA: `177668a1312bde3215e9778b2cc43f51dabd8a21`
+- Winning run: `480450c8-f8f1-4f6f-ad74-21b4dc490ab0`
 - Empirical stage runtime: 2.953 seconds, local CPU, one Python process on a host exposing 8 logical CPUs
 - Hugging Face `cpu-upgrade`: not used; every formal task was confidently under five minutes and single-core
 - Recorded formal CPU runtime through the measurement preflight: 90 seconds across nine runs, including two fail-closed fixture/manifest checks
@@ -19,7 +19,7 @@
 The current gate runs the historical regression suite, C1 symbolic certificate,
 C1 falsification audit, C2–C6 symbolic/specialization certificates, the
 C2–C6 adversarial audit, six concrete theorem-signature experiments, an
-independent signature checker, and 15 unit tests. It exits nonzero on any mismatch.
+independent signature checker, and 16 unit tests. It exits nonzero on any mismatch.
 The negative controls reject a missing `p²` term, source-index mutations,
 finite-grid proxy evidence, missing bilevel existential structure, nonunique
 paths, a signed norm lift, an invalid negative-radius dual box, a circular

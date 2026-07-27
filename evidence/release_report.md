@@ -29,8 +29,12 @@ certificates with assumption-aware counterexample audits, then merged them
 only on a new child. The corrective child is
 `orx/empirical-theorem-signature-release`. Its first run
 `a982ff28-c284-492e-9ff8-aeb54b178592` completed all new scientific checks,
-with `SIGNATURE_CHECK_PASS` and a measured 2.953-second empirical stage, then
-failed closed because the prior release manifest did not list the new files.
+then failed closed because the prior release manifest did not list the new
+files. The cumulative successor run
+`480450c8-f8f1-4f6f-ad74-21b4dc490ab0` at
+`177668a1312bde3215e9778b2cc43f51dabd8a21` passed the full gate in 10 seconds:
+six VERIFIED claims, `SIGNATURE_CHECK_PASS`, 16 tests, 118 text paths, and 117
+validated hashes.
 
 ## Commands
 
@@ -59,7 +63,7 @@ report and notebook are under `reports/theorem-certificates/` and `notebooks/`.
 The immutable judged manifest is
 `evidence/judged-space-a928c531.sha256`.
 
-Nine formal local CPU runs consumed approximately 90 seconds total, including
+Ten formal local CPU runs consumed approximately 100 seconds total, including
 two expected fail-closed release/fixture checks. Each was estimated at one
 core, used one Python process, and was confidently under five minutes. Hugging Face
 `cpu-upgrade` was therefore not used. Local and Hugging Face compute cost: $0.

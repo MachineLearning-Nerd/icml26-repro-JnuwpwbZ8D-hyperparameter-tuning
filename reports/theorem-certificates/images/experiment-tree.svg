@@ -6,7 +6,7 @@
 <rect x="145" y="160" width="270" height="70" rx="14" fill="#dbeafe" stroke="#2563eb"/><text x="280" y="191" font-size="17" font-weight="700">Positive certificates</text><text x="280" y="214" font-size="14">C1 then C2–C6</text>
 <rect x="585" y="160" width="270" height="70" rx="14" fill="#ffedd5" stroke="#ea580c"/><text x="720" y="191" font-size="17" font-weight="700">Adversarial audits</text><text x="720" y="214" font-size="14">counterexample candidates</text>
 <path d="M280 230v45h220M720 230v45H500v25" stroke="#64748b" stroke-width="3" fill="none"/>
-<rect x="340" y="300" width="320" height="60" rx="14" fill="#dcfce7" stroke="#16a34a"/><text x="500" y="327" font-size="17" font-weight="700">Empirical release · 15 tests</text><text x="500" y="349" font-size="13">symbolic parent + named-class signatures</text>
+<rect x="340" y="300" width="320" height="60" rx="14" fill="#dcfce7" stroke="#16a34a"/><text x="500" y="327" font-size="17" font-weight="700">Empirical release · 16 tests</text><text x="500" y="349" font-size="13">symbolic parent + named-class signatures</text>
 <path d="M500 360v35" stroke="#64748b" stroke-width="3"/>
 <text x="500" y="416" font-size="16" fill="#334155">Release candidate: pages, report, notebook, manifests, blind traversal</text>
 </g>

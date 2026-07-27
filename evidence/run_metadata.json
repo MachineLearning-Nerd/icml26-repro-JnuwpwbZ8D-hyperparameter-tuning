@@ -12,9 +12,10 @@
     {"run_id":"ae4c9c1d-864e-41c8-aa24-dfbda3320141","purpose":"C2-C6 counterexample audits","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"f1fd6e16-747d-445b-88e8-820084573158","purpose":"cumulative merge","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
     {"run_id":"57c82ea9-fdab-4f11-8963-d41cb3be076b","purpose":"winning symbolic witnesses","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"status":"done"},
-    {"run_id":"a982ff28-c284-492e-9ff8-aeb54b178592","purpose":"empirical theorem signatures and stale-manifest preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.953093041985994,"status":"failed closed after scientific checks passed"}
+    {"run_id":"a982ff28-c284-492e-9ff8-aeb54b178592","purpose":"empirical theorem signatures and stale-manifest preflight","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.953093041985994,"status":"failed closed after scientific checks passed"},
+    {"run_id":"480450c8-f8f1-4f6f-ad74-21b4dc490ab0","purpose":"cumulative empirical release gate","backend":"local","estimated_cores":1,"cpu_upgrade_flavor":null,"runtime_seconds":10,"empirical_stage_seconds":2.967978332977509,"tests_passed":16,"status":"done"}
   ],
-  "total_formal_runtime_seconds": 90,
+  "total_formal_runtime_seconds": 100,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }
