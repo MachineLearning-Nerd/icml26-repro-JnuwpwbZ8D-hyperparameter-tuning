@@ -456,7 +456,7 @@ def c6() -> dict[str, object]:
             "Fenchel conjugacy turns alpha_i*|z_i| into the dual box |u_i|<=alpha_i",
             "full column rank makes (A^T A)^(-1) well-defined",
             "the dual is an mp-QP and its optimizer is piecewise affine",
-            "each of p coordinates is lower-active, free, or upper-active: at most 3^p regions",
+            "each of p coordinates has three states: lower-active, free, or upper-active, giving at most 3^p regions",
             "the recovered primal path is piecewise affine with degree one",
             "quadratic validation has one degree-two value form",
             "Theorem 7.2 gives O(p log(2*3^p*2))=O(p^2)=O(d^2)",
