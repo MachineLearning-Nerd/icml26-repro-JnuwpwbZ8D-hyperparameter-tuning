@@ -76,8 +76,8 @@ reported as a domain ambiguity rather than silently ignored.
 
 The currently recorded live score is 6/12 for Space revision
 `a1a1ea7f7af14cb570d5963f65f9f8e4c8166225`. That judgment called all six
-routes toy evidence. This page reports the evidence and does not claim a new
-score before a later revision is judged.
+routes toy evidence. This page reports the evidence and does not claim a new score
+before a later revision is judged.
 
 Historical files remain byte-preserved for provenance but are deliberately
 excluded from active evaluator navigation. They can be inspected through the
