@@ -1,52 +1,58 @@
-# Claim 4 — Theorem 7.2 direct rational-path bound
+# Claim 4 — Theorem 7.2
 
 ---
 <!-- trackio-cell
-{"type":"markdown","id":"cell_universal_c4","created_at":"2026-07-27T12:00:00+00:00","title":"Claim 4 proof certificate"}
+{"type":"markdown","id":"cell_c4_boundary_20260803","created_at":"2026-08-03T01:00:04+00:00","title":"Exact unique-path logarithmic-boundary falsification"}
 -->
 
-**Verdict: `VERIFIED` · confidence: `HIGH`**
+**Verdict: `FALSIFIED AS PRINTED` · confidence: `HIGH`**
 
-## Exact claim, quantifiers, and assumptions
+## Literal claim and source
 
-For every fixed `x`, every `α`, and every threshold `t`, assume the lower-level
-argmin is the singleton `θ*(x,α)`, the path is piecewise rational with
-`(M_path,T_path,Δ_path)`, the tuning objective is piecewise rational with
-`(M_k,T_k,Δ_k)`, and denominators do not vanish on their declared regions.
+Theorem 7.2 at `source/icml2026.tex:553-555` states
 
-Then
-
-`Pdim(L)=O(p log(M_total Δ_total))`,
+`Pdim(L)=O(p log(M_total Delta_total))`,
 
 where `M_total=M_path+T_path(M_k+T_k)` and
-`Δ_total=Δ_k Δ_path`.
+`Delta_total=Delta_k Delta_path`.
 
-## Machine-checked proof chain
+## Assumption-satisfying counterexample
 
-The GJ algorithm first locates the path form using `M_path` predicates. For
-each of `T_path` path forms it locates the objective region using
-`T_path M_k` predicates, then compares one of `T_path T_k` composed rational
-values with `t`. Composition multiplies the declared degree bounds. Thus the
-predicate and degree complexities are exactly the displayed `M_total` and
-`Δ_total`; applying Goldberg--Jerrum directly yields the theorem. No
-quantifier-elimination step or `d`-dimensional quantified block appears.
+Use `alpha,theta in [-1,1]^p`, coordinate instances `x_i=e_i`, and
 
-## Fail-sensitive controls
+- training objective `f_x(alpha,theta)=||theta-alpha||_2^2/(4p)`;
+- tuning objective `k_x(alpha,theta)=<theta,x>/p`.
 
-Rejected mutations: allow nonunique argmin; allow zero denominator; omit the
-value-form predicates; reintroduce quantifier elimination.
+The bounded training objective has the unique minimizer `theta*=alpha` for
+every `alpha`, exactly satisfying Assumption 7.1. The optimizer path has one
+affine piece: `M_path=0,T_path=1,Delta_path=1`. The tuning objective also has
+one affine piece: `M_k=0,T_k=1,Delta_k=1`. Hence
 
-## Executed evidence
+`M_total=0+1*(0+1)=1` and `Delta_total=1*1=1`.
 
-- [Exact raw C4 proof JSON](../../.openresearch/artifacts/universal_proofs/C4.json)
-- [Primary verifier](../../repro/src/verify_universal_theorem_chains.py)
-- [Independent auditor](../../repro/src/audit_universal_theorem_chains.py)
+The printed RHS is zero. Yet the induced loss is
+`ell_alpha(x)=<alpha,x>/p`, and the same universal choice
+`alpha_i=2y_i-1` pseudo-shatters all `p` coordinate instances at threshold
+zero. Thus `Pdim(L)>=p>0`, contradicting the printed theorem for every `p>=1`.
+
+## Fail-sensitive control and rerun evidence
+
+The guarded control `p log_2(1+M_total Delta_total)=p` is compatible with the
+witness. The older nonunique-path candidate is not used; this witness has a
+unique affine path and no denominator.
+
+`finite_sweeps_used_as_proof: 0`.
+
+- [Raw exact evidence](../../.openresearch/artifacts/log_boundary_counterexamples/raw_output.json)
+- [Independent checker output](../../.openresearch/artifacts/log_boundary_counterexamples/independent_check.json)
+- [Method](../../.openresearch/artifacts/log_boundary_counterexamples/method.md)
+- [Source audit](../../.openresearch/artifacts/log_boundary_counterexamples/source_audit.md)
+- [Limitations](../../.openresearch/artifacts/log_boundary_counterexamples/limitations.md)
+- [Primary verifier](../../repro/src/audit_log_boundary_counterexamples.py)
+- [Independent verifier](../../repro/src/check_log_boundary_counterexamples.py)
+- [Retained path-accounting audit](../../.openresearch/artifacts/universal_proofs/C4.json)
 
 ```output
-C4={"composition_degree_accounting_complete":true,"predicate_accounting_complete":true,"quantifier_elimination_bypassed":true,"unique_path_assumption_audited":true,"finite_parameter_sweeps_used_as_proof":0,"mutations_rejected":4,"verdict":"VERIFIED"}
-C4_AUDIT={"derivation_edges_complete":true,"exact_checks_fail_closed":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true}
+C4_COMPLEXITY={"M_path":0,"T_path":1,"Delta_path":1,"M_k":0,"T_k":1,"Delta_k":1,"M_total":1,"Delta_total":1,"printed_rhs_factor":0,"pdim_lower_bound":"p"}
+LOG_BOUNDARY_CHECK={"c4_total_complexities_recomputed":true,"c4_total_degree_recomputed":true,"labelings_recomputed":510,"verdict":"INDEPENDENT_CHECK_PASS"}
 ```
-
-Limitation: this result is conditional on Assumption 7.1. A nonunique path is a
-rejected assumption violation, not evidence for the theorem.
-

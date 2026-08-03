@@ -10,51 +10,57 @@
     "icml2026-repro",
     "paper-JnuwpwbZ8D"
   ],
-  "updated_at": "2026-07-27T12:00:00+00:00",
+  "updated_at": "2026-08-03T01:00:00+00:00",
   "root": {
     "slug": "universal-proof-index",
     "title": "Reproduction: Provably Data-driven Multiple Hyper-parameter Tuning with Structured Loss Function",
     "file": "pages/universal-proof-index/page.md",
     "children": [
       {
+        "slug": "executive-summary",
+        "title": "Executive summary",
+        "file": "pages/executive-summary/page.md",
+        "children": []
+      },
+      {
         "slug": "universal-proof-c1",
-        "title": "Claim 1: Theorem 4.1 universal FOL proof",
+        "title": "Claim 1: Theorem 4.1 logarithmic-boundary falsification",
         "file": "pages/universal-proof-c1/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-c2",
-        "title": "Claim 2: Theorem 5.1 training-loss proof",
+        "title": "Claim 2: Theorem 5.1 training-loss proof audit",
         "file": "pages/universal-proof-c2/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-c3",
-        "title": "Claim 3: Theorem 6.1 bilevel proof",
+        "title": "Claim 3: Theorem 6.1 bilevel proof audit",
         "file": "pages/universal-proof-c3/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-c4",
-        "title": "Claim 4: Theorem 7.2 rational-path proof",
+        "title": "Claim 4: Theorem 7.2 logarithmic-boundary falsification",
         "file": "pages/universal-proof-c4/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-c5",
-        "title": "Claim 5: Theorem 8.1 group LASSO proof",
+        "title": "Claim 5: Theorem 8.1 group LASSO proof audit",
         "file": "pages/universal-proof-c5/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-c6",
-        "title": "Claim 6: Theorem 8.2 fused LASSO proof",
+        "title": "Claim 6: Theorem 8.2 fused LASSO proof audit",
         "file": "pages/universal-proof-c6/page.md",
         "children": []
       },
       {
         "slug": "universal-proof-release",
-        "title": "Fixed run, independent audit, and visibility matrix",
+        "title": "Conclusion",
         "file": "pages/universal-proof-release/page.md",
         "children": []
       }
@@ -70,5 +76,5 @@
   "agent_view_tokens": 20000,
   "trace_view_tokens": 10,
   "workspace_view_tokens": 8,
-  "revision": "universal-proof-certificates-2026-07-27"
+  "revision": "exact-log-boundary-falsifications-2026-08-03"
 }

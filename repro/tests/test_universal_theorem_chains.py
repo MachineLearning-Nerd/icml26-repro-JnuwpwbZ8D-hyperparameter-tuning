@@ -23,6 +23,8 @@ class UniversalTheoremChainTests(unittest.TestCase):
         self.assertEqual(result["claim_count"], 6)
         self.assertEqual(result["finite_parameter_sweeps_used_as_proof"], 0)
         self.assertGreaterEqual(result["total_mutations_rejected"], 24)
+        self.assertEqual(result["claims"]["C1"]["verdict"], "FALSIFIED_AS_PRINTED")
+        self.assertEqual(result["claims"]["C4"]["verdict"], "FALSIFIED_AS_PRINTED")
 
     def test_each_claim_has_quantifiers_dependencies_and_controls(self) -> None:
         result = PRIMARY.certificate()

@@ -40,6 +40,22 @@ def nonunique_path_candidate() -> dict:
     }
 
 
+def log_boundary_path_candidate() -> dict:
+    """A unique affine path makes the unguarded printed C4 bound zero."""
+    return {
+        "candidate": "unique one-piece affine path and affine tuning loss",
+        "classification": "ASSUMPTION_SATISFYING_COUNTEREXAMPLE",
+        "training_objective": "||theta-alpha||_2^2/(4p)",
+        "unique_path": "theta*=alpha",
+        "tuning_objective": "<theta,x>/p",
+        "M_total": 1,
+        "Delta_total": 1,
+        "printed_rhs_factor": 0,
+        "pdim_lower_bound": "p",
+        "reason": "The coordinate class pseudo-shatters p points while log(M_total*Delta_total)=log(1)=0.",
+    }
+
+
 def signed_norm_lift() -> dict:
     """The source's nu>=0 constraint selects the norm for every real weight."""
     rows = []
@@ -111,9 +127,9 @@ def main() -> None:
                 "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE",
             },
             "C4": {
-                "falsification_succeeded": False,
-                "candidate": nonunique_path_candidate(),
-                "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE",
+                "falsification_succeeded": True,
+                "candidate": log_boundary_path_candidate(),
+                "status": "FALSIFIED_AS_PRINTED",
             },
             "C5": {
                 "falsification_succeeded": False,

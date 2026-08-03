@@ -1,23 +1,16 @@
 {
-  "route": "assumption-satisfying falsification audit",
-  "exact_claim_restatement": "Theorem 4.1 main-source lines 390-400, with fixed K, uses D_plus in the log(M) term and D_plain in the log(Delta) term.",
-  "candidates": [
-    {
-      "candidate": "appendix product upper index M rather than K",
-      "result": "REJECTED_AS_COUNTEREXAMPLE",
-      "reason": "This is an ill-typed local proof transcription when M differs from K, while the theorem and invoked QE lemma both use K."
-    },
-    {
-      "candidate": "judge paraphrase uses D_plus in the second term",
-      "result": "REJECTED_AS_COUNTEREXAMPLE",
-      "reason": "For d_k>=1, D_plus>=D_plain, so the paraphrase is a looser upper bound rather than a contradiction."
-    },
-    {
-      "candidate": "remove the p^2 degree contribution",
-      "result": "VALID_NEGATIVE_CONTROL_ONLY",
-      "reason": "It contradicts the QE-to-GJ derivation as p grows, but it is not the paper's claim."
-    }
-  ],
-  "falsification_succeeded": false,
-  "main_claim_status": "VERIFIED_BY_SYMBOLIC_CERTIFICATE"
+  "route": "assumption-satisfying logarithmic-boundary counterexample",
+  "exact_claim_restatement": "Theorem 4.1 at source/icml2026.tex:390-400 has unguarded log(M) and log(Delta) terms.",
+  "witness": {
+    "class": "ell_alpha(x)=<alpha,x>/p on alpha in [-1,1]^p",
+    "instances": "x_i=e_i with thresholds zero",
+    "fol": "(exists theta in R) [<alpha,x>/p-t >= 0]",
+    "complexity": "K=1, d_1=1, M=1, Delta=1",
+    "shattering": "for every y in {0,1}^p choose alpha_i=2y_i-1"
+  },
+  "printed_rhs_factor": 0,
+  "pdim_lower_bound": "p",
+  "corrected_control": "log_2(1+M) is one and restores a positive order-p term",
+  "falsification_succeeded": true,
+  "main_claim_status": "FALSIFIED_AS_PRINTED"
 }

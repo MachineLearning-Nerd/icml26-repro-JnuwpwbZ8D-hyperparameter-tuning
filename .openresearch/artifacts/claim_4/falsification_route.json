@@ -1,1 +1,12 @@
-{"route":"nonunique-path search","falsification_succeeded":false,"result":"The two-minimizer polynomial is rejected because Assumption 7.1 explicitly requires uniqueness.","remaining_risk":"No claim is made outside the unique-path domain."}
+{
+  "route": "assumption-satisfying logarithmic-boundary counterexample",
+  "falsification_succeeded": true,
+  "status": "FALSIFIED_AS_PRINTED",
+  "training_objective": "||theta-alpha||_2^2/(4p)",
+  "unique_path": "theta*=alpha",
+  "tuning_objective": "<theta,x>/p",
+  "complexity": "M_path=0, T_path=1, Delta_path=1, M_k=0, T_k=1, Delta_k=1, hence M_total=Delta_total=1",
+  "pdim_lower_bound": "p on coordinate instances at threshold zero",
+  "printed_rhs_factor": 0,
+  "corrected_control": "log_2(1+M_total*Delta_total)=1"
+}

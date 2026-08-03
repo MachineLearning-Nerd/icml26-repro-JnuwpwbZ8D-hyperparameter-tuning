@@ -21,16 +21,12 @@ def main() -> None:
     assert "\\prod_{k = 1}^K (d_k + 1)" in source
     assert "\\prod_{k = 1}^K d_k" in source
     assert "\\prod_{k = 1}^M (d_k + 1)" in appendix
-    # The judge paraphrase's D_plus degree term is always no smaller.
-    for dims in ((1,), (2, 3), (1, 4, 7)):
-        d_plus = 1
-        d_plain = 1
-        for dimension in dims:
-            d_plus *= dimension + 1
-            d_plain *= dimension
-        assert d_plus >= d_plain
-    assert result["falsification_succeeded"] is False
-    assert result["main_claim_status"] == "VERIFIED_BY_SYMBOLIC_CERTIFICATE"
+    assert "A FOL $\\Phi$ is a \\emph{polynomial}" in source
+    assert "\\log M + p^2" in source
+    assert result["witness"]["complexity"] == "K=1, d_1=1, M=1, Delta=1"
+    assert result["printed_rhs_factor"] == 0
+    assert result["falsification_succeeded"] is True
+    assert result["main_claim_status"] == "FALSIFIED_AS_PRINTED"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print("CLAIM1_FALSIFICATION_AUDIT=" + json.dumps(result, sort_keys=True))

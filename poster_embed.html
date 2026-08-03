@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Reproduction poster built with Chenruishuo/posterly, commit f27eedbb54598aa31e48ba12b653bc06aed8c6cf. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="generator" content="posterly">
+<title>Two exact logarithmic-boundary falsifications</title>
+<style>
+:root { --ink:#17213b; --navy:#173f64; --blue:#246b98; --cyan:#dff4f4; --gold:#d08a24; --paper:#fff; --line:#bfd0dd; --muted:#526477; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); background:var(--cyan); font-family:Inter,"Source Sans 3",Arial,sans-serif; }
+.poster { min-height:620px; padding:30px 36px 27px; border-top:14px solid var(--navy); background:var(--paper); }
+.eyebrow { color:var(--blue); font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+h1 { max-width:1120px; margin:9px 0 7px; font-size:36px; line-height:1.04; }
+.subtitle { margin:0; color:var(--muted); font-size:17px; line-height:1.35; }
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0 16px; }
+.metric { min-height:91px; padding:15px 17px; color:var(--paper); background:var(--navy); border-bottom:5px solid var(--gold); border-radius:9px; font-size:13px; line-height:1.3; }
+.metric b { display:block; margin-bottom:3px; font-size:26px; line-height:1.05; }
+.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+.card { min-height:180px; padding:17px 18px; color:var(--ink); background:#fffaf0; border:1px solid var(--line); border-radius:9px; text-decoration:none; line-height:1.42; }
+.card strong { display:block; margin-bottom:7px; color:var(--navy); font-size:18px; line-height:1.15; }
+.card em { color:var(--blue); font-style:normal; font-weight:800; }
+.pill { display:inline-block; margin-top:10px; padding:5px 9px; color:var(--navy); background:var(--cyan); border-radius:99px; font-size:11px; font-weight:800; }
+.foot { margin-top:18px; color:var(--muted); font-size:12px; line-height:1.35; }
+@media (max-width:850px) { .metrics { grid-template-columns:repeat(2,1fr); } .cards { grid-template-columns:1fr; } h1 { font-size:29px; } }
+</style>
+</head>
+<body>
+<main class="poster">
+  <div class="eyebrow">ICML 2026 · exact CPU theory reproduction</div>
+  <h1>At unit complexity, two printed pseudo-dimension bounds collapse to zero</h1>
+  <p class="subtitle">A single affine coordinate family satisfies every stated assumption, pseudo-shatters p points, and exposes the missing positive logarithmic guards in Theorems 4.1 and 7.2.</p>
+  <section class="metrics">
+    <div class="metric"><b>2 exact</b>literal theorem falsifications</div>
+    <div class="metric"><b>Pdim ≥ p</b>universal algebraic witness</div>
+    <div class="metric"><b>510 / 510</b>diagnostic labelings independently recomputed</div>
+    <div class="metric"><b>USD 0</b>one local CPU process</div>
+  </section>
+  <section class="cards">
+    <a class="card" data-logbook-target="universal-proof-c1"><strong>Theorem 4.1</strong><em>K=1, d₁=1, M=Δ=1.</em> A valid one-atom FOL gives a zero printed RHS while coordinate thresholds realize every labeling.<span class="pill">Claim 1 · falsified ↗</span></a>
+    <a class="card" data-logbook-target="universal-proof-c4"><strong>Theorem 7.2</strong><em>Unique θ*=α path.</em> One affine path and one affine tuning piece give M_total=Δ_total=1, again collapsing the RHS.<span class="pill">Claim 4 · falsified ↗</span></a>
+    <a class="card" data-logbook-target="universal-proof-release"><strong>Fail-sensitive control</strong><em>log₂(1+z)</em> restores an order-p term compatible with the exact lower bound; the checker imports no primary code.<span class="pill">Conclusion and rerun ↗</span></a>
+  </section>
+  <div class="foot">OpenReview JnuwpwbZ8D · arXiv 2602.02406 · exact algebraic witness · independent source and complexity checker · no GPU or Hub Job · poster workflow: Chenruishuo/posterly.</div>
+</main>
+</body>
+</html>

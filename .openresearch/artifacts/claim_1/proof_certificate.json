@@ -11,7 +11,8 @@
   },
   "derived_log_bound": "log(I*Delta_QE) <= D_plus*log(M) + c_qe*p*D_plain*log(Delta) + c_degree*D_plain*log(Delta)",
   "coefficient_witness": "For p>=1, c_degree*p*D_plain*log(Delta) <= c_degree*p^2*D_plain*log(Delta). Thus C=max(1,c_qe+c_degree) multiplies the two displayed target terms.",
-  "conclusion": "Pdim = O(p*D_plus*log(M) + p^2*D_plain*log(Delta))",
+  "conclusion": "The derivation is valid only away from the zero-log boundary. As printed, M=Delta=1 makes the displayed expression zero and an affine coordinate class falsifies it.",
+  "superseded_verdict": "FALSIFIED_AS_PRINTED",
   "source_transcription_audit": {
     "main_theorem": "matches certificate",
     "appendix_lines_42_43": "uses M instead of K as the product upper index and Delta_f instead of Delta; treated as local transcription errors because Theorem 2.5 and the main theorem use K and Delta",

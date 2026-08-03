@@ -22,7 +22,8 @@
     {"run_id":"c43d6308-5846-404a-b75e-c4846409effb","purpose":"successful cumulative reference-protocol publication gate","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one computational thread enforced on an 8-logical-CPU host","cpu_upgrade_flavor":null,"runtime_seconds":20,"empirical_stage_seconds":4.693270540999947,"tests_passed":21,"candidate_hashes_verified":122,"visibility_missing_cells":0,"status":"done","git_sha":"859f229a2b477b163662c2f77ff7961b8619b240"},
     {"run_id":"6f49f0a3-8229-4f24-b123-46e2647deaee","purpose":"universal proof auditor fail-closed token calibration","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process","cpu_upgrade_flavor":null,"runtime_seconds":5,"independent_checks_passed":41,"independent_checks_total":42,"status":"failed closed","git_sha":"3c1a327"},
     {"run_id":"c770032c-5645-4361-ad63-ef92d9af17c7","purpose":"universal proof science pass and stale-manifest preflight","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process","cpu_upgrade_flavor":null,"runtime_seconds":10,"universal_claims_passed":6,"proof_mutations_rejected":24,"independent_checks_passed":42,"status":"failed closed after proof checks; stale candidate hash","git_sha":"a406224"},
-    {"run_id":"b811b0bc-da4c-4575-a4ea-36fd5022d707","purpose":"winning universal proof calibration","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process","cpu_upgrade_flavor":null,"runtime_seconds":10,"universal_claims_passed":6,"proof_mutations_rejected":24,"independent_checks_passed":42,"finite_sweeps_used_as_proof":0,"tests_passed":24,"visibility_missing_cells":0,"status":"done","git_sha":"67466cf191c493f0ebb67928866fa40e3a674668"}
+    {"run_id":"b811b0bc-da4c-4575-a4ea-36fd5022d707","purpose":"winning universal proof calibration","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process","cpu_upgrade_flavor":null,"runtime_seconds":10,"universal_claims_passed":6,"proof_mutations_rejected":24,"independent_checks_passed":42,"finite_sweeps_used_as_proof":0,"tests_passed":24,"visibility_missing_cells":0,"status":"done","git_sha":"67466cf191c493f0ebb67928866fa40e3a674668"},
+    {"run_id":"boundary-gate-20260803T003633Z","purpose":"exact C1/C4 logarithmic-boundary release gate","backend":"local","estimated_cores":1,"actual_cpu_allocation":"one Python process","cpu_upgrade_flavor":null,"runtime_seconds":1.45,"exact_falsifications":["C1","C4"],"diagnostic_labelings_recomputed":510,"proof_mutations_rejected":24,"independent_checks_passed":42,"finite_sweeps_used_as_proof":0,"tests_passed":27,"visibility_missing_cells":0,"candidate_hashes_verified":157,"status":"done"}
   ],
   "judge_evaluations": [
     {"space_sha":"01db7fab41d2c338894316b6e83cbc0cede75756","judged_at":"2026-07-27T02:21:22+00:00","score":"6/12","finding":"stronger experiments described but executable source not shown inline"},
@@ -30,9 +31,9 @@
     {"space_sha":"929165205a02428c2cc7207ddb0f2e187cf913d9","judged_at":"2026-07-27T05:20:08+00:00","score":"6/12","finding":"symbolic checks are loose arithmetic envelopes; experiments remain simplified and small"},
     {"space_sha":"07c62929ab36548b82a2b36c40fda22c1e96086e","judged_at":"2026-07-27T08:34:33+00:00","score":"6/12","finding":"all six remain toy; finite sign-pattern sweeps and small instances do not verify universal pseudo-dimension theorems"}
   ],
-  "winning_experiment": "a9536f99-d79f-4ada-9ac1-84163ecd2d03",
-  "current_candidate_experiment": "408973bd-f73b-4034-914b-ecebae4bc74a",
-  "total_formal_runtime_seconds": 205,
+  "winning_experiment": "boundary-gate-20260803T003633Z",
+  "current_candidate_experiment": "boundary-gate-20260803T003633Z",
+  "total_formal_runtime_seconds": 206.45,
   "local_cost_usd": 0,
   "hugging_face_cost_usd": 0
 }

@@ -15,8 +15,12 @@ fixed quantifier-block count `K`, quantified dimensions `d_k`, at most `M`
 atomic polynomials, maximum degree `Delta`, and `p` real free parameters. The
 second displayed product is `prod d_k`, not `prod(d_k+1)`.
 
-The appendix proof contains two local notation errors: its products use `M` as
+Neither the theorem nor its proof supplies a positive guard for `log(M)` or
+`log(Delta)`. Definition 3.1 does not require each quantified variable to occur
+in an atomic polynomial, so a one-block vacuous quantifier is within scope.
+
+The appendix proof also contains two local notation errors: its products use `M` as
 the upper index instead of `K`, and one occurrence says `Delta_f` instead of
 `Delta`. The certificate rejects those transcriptions and follows the main
-theorem plus the preceding quantifier-elimination theorem. This is an error
-audit, not evidence that the main theorem is false.
+theorem plus the preceding quantifier-elimination theorem. Those transcription
+errors are separate from the decisive missing-log-guard falsification.

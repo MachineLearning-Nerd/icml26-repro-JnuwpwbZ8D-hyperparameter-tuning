@@ -1,0 +1,30 @@
+{
+  "algebraic_cases": {
+    "label_0_has_negative_numerator": true,
+    "label_1_has_positive_numerator": true,
+    "positive_p_preserves_sign": true
+  },
+  "committed_sha256": "889deeffe92bb14cfc9d53c48b22374befa129770ad601d418203e2320f53650",
+  "complexity_checks": {
+    "c1_M_Delta_are_one": true,
+    "c1_printed_factor_zero": true,
+    "c4_printed_factor_zero": true,
+    "c4_total_complexities_recomputed": true,
+    "c4_total_degree_recomputed": true
+  },
+  "corrected_control_checks": {
+    "control_compatible": true,
+    "guarded_c1_positive": true,
+    "guarded_c4_positive": true
+  },
+  "independent_checker_imports_primary": false,
+  "labelings_recomputed": 510,
+  "paper": "JnuwpwbZ8D",
+  "primary_sha256": "889deeffe92bb14cfc9d53c48b22374befa129770ad601d418203e2320f53650",
+  "source_checks": {
+    "c1_printed_unguarded_logs": true,
+    "c4_printed_unguarded_log": true,
+    "c4_unique_path_required": true
+  },
+  "verdict": "INDEPENDENT_CHECK_PASS"
+}

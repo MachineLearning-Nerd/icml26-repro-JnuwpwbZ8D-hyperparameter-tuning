@@ -101,14 +101,16 @@ def main() -> None:
     root = logbook["root"]
     assert root["file"] == "pages/universal-proof-index/page.md"
     titles = [child["title"] for child in root["children"]]
-    assert len(root["children"]) == 7
-    assert titles[:6] == [
-        "Claim 1: Theorem 4.1 universal FOL proof",
-        "Claim 2: Theorem 5.1 training-loss proof",
-        "Claim 3: Theorem 6.1 bilevel proof",
-        "Claim 4: Theorem 7.2 rational-path proof",
-        "Claim 5: Theorem 8.1 group LASSO proof",
-        "Claim 6: Theorem 8.2 fused LASSO proof",
+    assert len(root["children"]) == 8
+    assert titles == [
+        "Executive summary",
+        "Claim 1: Theorem 4.1 logarithmic-boundary falsification",
+        "Claim 2: Theorem 5.1 training-loss proof audit",
+        "Claim 3: Theorem 6.1 bilevel proof audit",
+        "Claim 4: Theorem 7.2 logarithmic-boundary falsification",
+        "Claim 5: Theorem 8.1 group LASSO proof audit",
+        "Claim 6: Theorem 8.2 fused LASSO proof audit",
+        "Conclusion",
     ]
     assert all(
         child["slug"] != "historical-rejected-baseline"
@@ -119,19 +121,44 @@ def main() -> None:
         "README.md",
         "logbook.json",
         root["file"],
+        "pages/executive-summary/page.md",
+        "poster_embed.html",
     ]
     overview = (ROOT / root["file"]).read_text()
     required_overview = (
         "<!-- trackio-cell",
-        "All six claims have current `VERIFIED` proof certificates",
-        "b811b0bc-da4c-4575-a4ea-36fd5022d707",
-        "42 / 42",
-        "Finite parameter sweeps used as proof",
-        "does not claim a new score",
-        "d+2p",
-        "Historical rejected baseline",
+        "| Executive summary |",
+        "| Claim 1 |",
+        "| Claim 4 |",
+        "| Conclusion |",
     )
     assert all(token in overview for token in required_overview)
+    executive = (ROOT / "pages/executive-summary/page.md").read_text()
+    for token in ("pinned", "Scope & cost", "poster_embed.html", "510", "6/12"):
+        if token not in executive:
+            raise AssertionError(f"executive summary missing {token}")
+    poster = (ROOT / "poster_embed.html").read_text()
+    for token in ("Chenruishuo/posterly", "Claim 1", "Claim 4", "510 / 510"):
+        if token not in poster:
+            raise AssertionError(f"poster missing {token}")
+    boundary = json.loads(
+        (ROOT / ".openresearch/artifacts/log_boundary_counterexamples/raw_output.json").read_text()
+    )
+    boundary_check = json.loads(
+        (ROOT / ".openresearch/artifacts/log_boundary_counterexamples/independent_check.json").read_text()
+    )
+    assert boundary["claims"]["C1"]["verdict"] == "FALSIFIED_AS_PRINTED"
+    assert boundary["claims"]["C4"]["verdict"] == "FALSIFIED_AS_PRINTED"
+    assert boundary["finite_sweeps_used_as_proof"] == 0
+    assert boundary_check["verdict"] == "INDEPENDENT_CHECK_PASS"
+    opened.extend(
+        [
+            ".openresearch/artifacts/log_boundary_counterexamples/raw_output.json",
+            ".openresearch/artifacts/log_boundary_counterexamples/independent_check.json",
+            "repro/src/audit_log_boundary_counterexamples.py",
+            "repro/src/check_log_boundary_counterexamples.py",
+        ]
+    )
     primary_source = (ROOT / "repro/src/verify_universal_theorem_chains.py").read_text()
     audit_source = (ROOT / "repro/src/audit_universal_theorem_chains.py").read_text()
     assert "finite_parameter_sweeps_used_as_proof" in primary_source
@@ -146,23 +173,35 @@ def main() -> None:
         relative = f"pages/universal-proof-c{claim}/page.md"
         page = (ROOT / relative).read_text()
         opened.append(relative)
-        required = (
-            "Verdict: `VERIFIED",
-            "Exact claim, quantifiers, and assumptions",
-            "Machine-checked proof chain",
-            "Fail-sensitive controls",
-            "Executed evidence",
-            "finite_parameter_sweeps_used_as_proof",
-            "<!-- trackio-cell",
-            f"C{claim}_AUDIT=",
-        )
+        if claim in (1, 4):
+            required = (
+                "Verdict: `FALSIFIED AS PRINTED`",
+                "Assumption-satisfying counterexample",
+                "Fail-sensitive control",
+                "Raw exact evidence",
+                "Independent verifier",
+                "finite_sweeps_used_as_proof",
+                "<!-- trackio-cell",
+            )
+        else:
+            required = (
+                "Verdict: `VERIFIED",
+                "Exact claim, quantifiers, and assumptions",
+                "Machine-checked proof chain",
+                "Fail-sensitive controls",
+                "Executed evidence",
+                "finite_parameter_sweeps_used_as_proof",
+                "<!-- trackio-cell",
+                f"C{claim}_AUDIT=",
+            )
         missing = [token for token in required if token not in page]
         if missing:
             raise AssertionError(f"{relative} missing {missing}")
         raw_relative = f".openresearch/artifacts/universal_proofs/C{claim}.json"
         raw = json.loads((ROOT / raw_relative).read_text())
         assert raw["claim_id"] == f"C{claim}"
-        assert raw["verdict"] == "VERIFIED"
+        expected_verdict = "FALSIFIED_AS_PRINTED" if claim in (1, 4) else "VERIFIED"
+        assert raw["verdict"] == expected_verdict
         assert raw["finite_parameter_sweeps_used_as_proof"] == 0
         assert len(raw["mutations_rejected"]) == 4
         assert all(value is True for value in raw["exact_checks"].values())
@@ -178,17 +217,17 @@ def main() -> None:
             "checker": True,
             "control": True,
             "exact_claim_tested": True,
-            "reviewer_verdict": "VERIFIED",
+            "reviewer_verdict": expected_verdict,
         }
 
     release_page = (ROOT / "pages/universal-proof-release/page.md").read_text()
     for token in (
-        "b811b0bc-da4c-4575-a4ea-36fd5022d707",
-        "67466cf191c493f0ebb67928866fa40e3a674668",
-        "independent_audit_passed",
-        "finite_sweeps_used_as_proof",
-        "24 tests",
-        "Visibility matrix",
+        "Claims 1 and 4",
+        "Blind-review ceiling",
+        "2/2",
+        "1/2",
+        "run_publication_gate.py",
+        "6/12",
     ):
         if token not in release_page:
             raise AssertionError(f"current release page missing judge-directed token: {token}")

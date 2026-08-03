@@ -18,7 +18,7 @@ EXPECTED = {
     "C1": {
         "anchors": ("Theorem 4.1", "Appendix A.3", "B"),
         "quantifier_tokens": ("every fixed instance", "every threshold", "uniformly", "fixed K"),
-        "steps": ("QE converts", "I <=", "Delta_QE", "GJ algorithm", "Pdim <=", "expand logs", "p>=1"),
+        "steps": ("QE converts", "I <=", "Delta_QE", "GJ algorithm", "Pdim <=", "expand logs", "p>=1", "M=Delta=1"),
         "controls": ("replace_K", "uniformity", "p_squared", "QE_degree"),
     },
     "C2": {
@@ -36,7 +36,7 @@ EXPECTED = {
     "C4": {
         "anchors": ("Assumption 7.1", "Theorem 7.2", "Appendix F"),
         "quantifier_tokens": ("every fixed x", "every alpha", "every threshold"),
-        "steps": ("path region", "k-region", "value forms", "M_total", "degree", "Goldberg-Jerrum", "obtain"),
+        "steps": ("path region", "k-region", "value forms", "M_total", "degree", "Goldberg-Jerrum", "obtain", "M_total=Delta_total=1"),
         "controls": ("nonunique", "denominator", "value", "quantifier"),
     },
     "C5": {
@@ -76,7 +76,15 @@ def audit_claim(claim_id: str, row: dict[str, object]) -> dict[str, bool]:
             bool(row["exact_checks"])
             and all(value is True for value in row["exact_checks"].values())
         ),
-        "final_verdict_exact": row["verdict"] == "VERIFIED",
+        "final_verdict_exact": row["verdict"]
+        == {
+            "C1": "FALSIFIED_AS_PRINTED",
+            "C2": "VERIFIED",
+            "C3": "VERIFIED",
+            "C4": "FALSIFIED_AS_PRINTED",
+            "C5": "VERIFIED",
+            "C6": "VERIFIED",
+        }[claim_id],
     }
 
 

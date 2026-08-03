@@ -16,9 +16,12 @@ F, G.1, G.2.
 
 Audited source issues:
 
-1. The Appendix B product upper index `M` is inconsistent with the main
+1. The C1 and C4 displayed bounds omit a positive guard around logarithmic
+   complexity. Allowed unit-complexity affine classes therefore make their
+   right-hand sides zero despite pseudo-dimension at least `p`.
+2. The Appendix B product upper index `M` is inconsistent with the main
    quantifier-elimination theorem's `K`; the certificate uses `K`.
-2. The exact Theorem 4.1 degree term uses `prod(d_k)`, while the imported judge
+3. The exact Theorem 4.1 degree term uses `prod(d_k)`, while the imported judge
    paraphrase uses the larger `prod(d_k+1)`.
-3. Theorem 8.2 prints `alpha in R^p`, while its dual-box proof needs
+4. Theorem 8.2 prints `alpha in R^p`, while its dual-box proof needs
    nonnegative regularization weights.

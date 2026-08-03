@@ -1,62 +1,56 @@
-# Claim 1 — Theorem 4.1 universal FOL bound
+# Claim 1 — Theorem 4.1
 
 ---
 <!-- trackio-cell
-{"type":"markdown","id":"cell_universal_c1","created_at":"2026-07-27T12:00:00+00:00","title":"Claim 1 proof certificate"}
+{"type":"markdown","id":"cell_c1_boundary_20260803","created_at":"2026-08-03T01:00:02+00:00","title":"Exact logarithmic-boundary falsification"}
 -->
 
-**Verdict: `VERIFIED` · confidence: `HIGH`**
+**Verdict: `FALSIFIED AS PRINTED` · confidence: `HIGH`**
 
-## Exact claim, quantifiers, and assumptions
+## Literal claim and source
 
-For every fixed instance `x` and threshold `t`, uniformly over
-`α∈[α_min,α_max]^p`, assume the threshold predicate is a polynomial FOL with a
-fixed number `K` of quantified blocks of dimensions `d₁,…,d_K`, at most `M`
-atoms, and degree at most `Δ`. Theorem 4.1 bounds the pseudo-dimension by
+Theorem 4.1 at `source/icml2026.tex:390-400` states
 
-`O(p A log M + p² B log Δ)`, where
-`A=∏(d_k+1)` and `B=∏d_k`.
+`Pdim(F)=O(p prod(d_k+1) log M + p^2 prod(d_k) log Delta)`.
 
-This is the exact main-source statement at `source/icml2026.tex:390`. The judge
-paraphrase replaces `B` by the larger `A` in the second term. Since
-`B≤A` for `d_k≥1`, the exact theorem implies that looser paraphrase; this is
-not a contradiction.
+The generated claim uses the larger `prod(d_k+1)` in its second term, but that
+does not affect this witness because both logarithms vanish.
 
-## Machine-checked proof chain
+## Assumption-satisfying counterexample
 
-1. Basu--Pollack--Roy Algorithm 14.8 turns the FOL into an equivalent
-   quantifier-free formula.
-2. Its atom count satisfies
-   `I ≤ M^A Δ^(c p B)` and its degree satisfies `Δ_QE≤Δ^(c'B)`.
-3. The quantifier-free Boolean formula is a Goldberg--Jerrum algorithm with
-   predicate complexity `I` and degree `Δ_QE`.
-4. Bartlett et al. Theorem 3.3 gives
-   `Pdim ≤ C p log(I Δ_QE)`.
-5. Expanding the log gives
-   `pA log M + (c p²B+c'pB)logΔ`.
-6. Because `p≥1`, the lower-order `pB logΔ` term is absorbed by the
-   `p²B logΔ` term.
+For every `p>=1`, set `A=[-1,1]^p`, let `x_i=e_i`, and define
+`ell_alpha(x)=<alpha,x>/p`. For arbitrary `x,t`, its threshold predicate is
 
-The certificate also detects, and does not propagate, the Appendix typo that
-uses upper product index `M` instead of `K`.
+`(exists theta in R) [<alpha,x>/p-t >= 0]`.
 
-## Fail-sensitive controls
+Definition 3.1 does not require a quantified variable to occur in an atom, so
+this is a valid fixed one-block polynomial FOL with
+`K=1`, `d_1=1`, `M=1`, and `Delta=1`. The printed RHS is therefore zero.
 
-All four mutations are rejected: replace `K` by `M`; drop uniformity in
-`x,t`; drop the `p²` degree term; omit the QE degree from the GJ degree.
+At thresholds `t_i=0`, every label vector `y in {0,1}^p` is realized by
+`alpha_i=2y_i-1`, because
 
-## Executed evidence
+`I[ell_alpha(e_i)>=0] = I[(2y_i-1)/p>=0] = y_i`.
 
-- [Exact raw C1 proof JSON](../../.openresearch/artifacts/universal_proofs/C1.json)
-- [Primary verifier source](../../repro/src/verify_universal_theorem_chains.py)
-- [Independent auditor source](../../repro/src/audit_universal_theorem_chains.py)
-- [Independent audit JSON](../../.openresearch/artifacts/universal_proofs/independent_audit.json)
+Thus `Pdim(F)>=p>0` for every `p>=1`, contradicting the identically zero
+printed bound. This is a family of exact counterexamples, not a finite sweep.
+
+## Fail-sensitive control and rerun evidence
+
+Replacing the boundary term by `log_2(1+M)` yields `p`, which is compatible
+with the exact lower bound. This control shows that the missing positive log
+guard—and not the affine construction—is decisive.
+
+- [Raw exact evidence](../../.openresearch/artifacts/log_boundary_counterexamples/raw_output.json)
+- [Independent checker output](../../.openresearch/artifacts/log_boundary_counterexamples/independent_check.json)
+- [Method](../../.openresearch/artifacts/log_boundary_counterexamples/method.md)
+- [Source audit](../../.openresearch/artifacts/log_boundary_counterexamples/source_audit.md)
+- [Limitations](../../.openresearch/artifacts/log_boundary_counterexamples/limitations.md)
+- [Primary verifier](../../repro/src/audit_log_boundary_counterexamples.py)
+- [Independent verifier](../../repro/src/check_log_boundary_counterexamples.py)
+- [Retained derivation audit](../../.openresearch/artifacts/universal_proofs/C1.json)
 
 ```output
-UNIVERSAL_PROOF_RESULT={"all_universal_proof_chains_passed": true, "claims": 6, "finite_sweeps_used_as_proof": 0, "mutations_rejected": 24, "verdicts": {"C1": "VERIFIED", "C2": "VERIFIED", "C3": "VERIFIED", "C4": "VERIFIED", "C5": "VERIFIED", "C6": "VERIFIED"}}
-C1_AUDIT={"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true}
+LOG_BOUNDARY_COUNTEREXAMPLES={"claims":{"C1":"FALSIFIED_AS_PRINTED","C4":"FALSIFIED_AS_PRINTED"},"finite_sweeps_used_as_proof":0,"labelings_checked":510,"verdict":"LITERAL_FALSIFICATION_AS_PRINTED"}
+LOG_BOUNDARY_CHECK={"labelings_recomputed":510,"independent_checker_imports_primary":false,"verdict":"INDEPENDENT_CHECK_PASS"}
 ```
-
-`finite_parameter_sweeps_used_as_proof: 0`. The external QE and GJ theorems
-are trusted dependencies stated explicitly, not silently “verified” by
-examples.

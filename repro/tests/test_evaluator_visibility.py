@@ -68,14 +68,18 @@ class VisibilityTests(unittest.TestCase):
                 f".openresearch/artifacts/universal_proofs/C{claim}.json",
                 page,
             )
-            self.assertIn(
-                "repro/src/verify_universal_theorem_chains.py",
-                page,
-            )
-            self.assertIn(
-                "repro/src/audit_universal_theorem_chains.py",
-                page,
-            )
+            if claim in (1, 4):
+                self.assertIn("repro/src/audit_log_boundary_counterexamples.py", page)
+                self.assertIn("repro/src/check_log_boundary_counterexamples.py", page)
+            else:
+                self.assertIn(
+                    "repro/src/verify_universal_theorem_chains.py",
+                    page,
+                )
+                self.assertIn(
+                    "repro/src/audit_universal_theorem_chains.py",
+                    page,
+                )
 
 
 if __name__ == "__main__":

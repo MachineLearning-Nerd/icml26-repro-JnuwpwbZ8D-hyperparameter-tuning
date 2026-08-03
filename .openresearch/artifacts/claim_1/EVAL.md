@@ -1,11 +1,14 @@
-# C1 — Theorem 4.1 symbolic certificate
+# C1 — Theorem 4.1 boundary audit
 
-Verdict: **VERIFIED**
+Verdict: **FALSIFIED AS PRINTED**
 
-The exact main-source contract is reconstructed from the stated
-quantifier-elimination and GJ lemmas. The symbolic checker proves the displayed
-big-O form, an independent implementation covers 384 parameter/constant
-combinations, and all three targeted mutations are rejected.
+The prior symbolic derivation omitted the allowed boundary `M=Delta=1`, where
+both printed logarithms vanish. The affine coordinate class has a one-atom,
+degree-one FOL representation and pseudo-shatters `p` instances, so its
+pseudo-dimension is at least `p` while the printed expression is zero.
+
+- Exact joint C1/C4 evidence: [`../log_boundary_counterexamples/raw_output.json`](../log_boundary_counterexamples/raw_output.json)
+- Independent checker: [`../log_boundary_counterexamples/independent_check.json`](../log_boundary_counterexamples/independent_check.json)
 
 - Raw result: [`raw_output.json`](raw_output.json)
 - Contract: [`claim_contract.json`](claim_contract.json)
@@ -15,5 +18,5 @@ combinations, and all three targeted mutations are rejected.
 - Limitations: [`limitations.md`](limitations.md)
 - Falsification route: [`falsification_route.json`](falsification_route.json)
 
-The historical formula-substitution verifier is superseded for C1. It remains
-preserved as **Historical rejected baseline** evidence.
+The older proof certificate is retained as a derivation audit but its
+`VERIFIED` conclusion is superseded by the assumption-satisfying counterexample.

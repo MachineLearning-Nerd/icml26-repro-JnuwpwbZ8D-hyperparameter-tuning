@@ -20,6 +20,13 @@ class CounterexampleAuditTests(unittest.TestCase):
         result = AUDIT.nonunique_path_candidate()
         self.assertEqual(len(result["minimizers"]), 2)
 
+    def test_unique_log_boundary_candidate_falsifies_printed_c4(self) -> None:
+        result = AUDIT.log_boundary_path_candidate()
+        self.assertEqual(result["classification"], "ASSUMPTION_SATISFYING_COUNTEREXAMPLE")
+        self.assertEqual(result["M_total"], 1)
+        self.assertEqual(result["Delta_total"], 1)
+        self.assertEqual(result["printed_rhs_factor"], 0)
+
     def test_signed_group_lift_is_exact(self) -> None:
         result = AUDIT.signed_norm_lift()
         self.assertEqual(result["classification"], "REJECTED_AS_COUNTEREXAMPLE")

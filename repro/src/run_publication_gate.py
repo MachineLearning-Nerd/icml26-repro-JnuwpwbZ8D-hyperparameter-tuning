@@ -25,12 +25,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=ROOT / "outputs" / "publication_gate.json")
     args = parser.parse_args()
     verifier_output = ROOT / "outputs" / "verification.json"
-    claim1_output = ROOT / "outputs" / "claim1_proof.json"
-    claim1_falsification_output = ROOT / "outputs" / "claim1_falsification.json"
-    specialization_output = ROOT / "outputs" / "claims2_6_proofs.json"
-    claims2_6_audit_output = ROOT / "outputs" / "claims2_6_counterexample_audit.json"
-    signature_output = ROOT / "outputs" / "theorem_signatures.json"
-    signature_check_output = ROOT / "outputs" / "theorem_signatures_check.json"
+    boundary_output = ROOT / "outputs" / "log_boundary_counterexamples.json"
+    boundary_check_output = ROOT / "outputs" / "log_boundary_counterexamples_check.json"
     visibility_output = ROOT / "outputs" / "evaluator_visibility.json"
     universal_proof_output = ROOT / "outputs" / "universal_theorem_proofs.json"
     universal_audit_output = ROOT / "outputs" / "universal_theorem_proofs_audit.json"
@@ -39,23 +35,29 @@ def main() -> None:
         [sys.executable, "repro/src/verify_hyperparameters.py", "--output", str(verifier_output)],
     )
     run_stage(
-        "claim1_symbolic_certificate",
-        [sys.executable, "repro/src/verify_claim1_proof.py", "--output", str(claim1_output)],
+        "claims_1_and_4_log_boundary_counterexamples",
+        [
+            sys.executable,
+            "repro/src/audit_log_boundary_counterexamples.py",
+            "--output",
+            str(boundary_output),
+            "--max-p",
+            "8",
+        ],
     )
     run_stage(
-        "claim1_falsification_audit",
-        [sys.executable, "repro/src/audit_claim1_falsification.py", "--output", str(claim1_falsification_output)],
+        "independent_log_boundary_checker",
+        [
+            sys.executable,
+            "repro/src/check_log_boundary_counterexamples.py",
+            "--input",
+            str(boundary_output),
+            "--output",
+            str(boundary_check_output),
+        ],
     )
     run_stage(
-        "claims2_6_symbolic_certificates",
-        [sys.executable, "repro/src/verify_claims2_6_proofs.py", "--output", str(specialization_output)],
-    )
-    run_stage(
-        "claims2_6_counterexample_audit",
-        [sys.executable, "repro/src/audit_claims2_6_counterexamples.py", "--output", str(claims2_6_audit_output)],
-    )
-    run_stage(
-        "six_universal_theorem_proof_chains",
+        "six_source_exact_theorem_chain_audits",
         [
             sys.executable,
             "repro/src/verify_universal_theorem_chains.py",
@@ -64,7 +66,7 @@ def main() -> None:
         ],
     )
     run_stage(
-        "independent_universal_proof_audit",
+        "independent_theorem_chain_audit",
         [
             sys.executable,
             "repro/src/audit_universal_theorem_chains.py",
@@ -72,21 +74,6 @@ def main() -> None:
             str(universal_proof_output),
             "--output",
             str(universal_audit_output),
-        ],
-    )
-    run_stage(
-        "six_empirical_theorem_signatures",
-        [sys.executable, "repro/src/measure_theorem_signatures.py", "--output", str(signature_output)],
-    )
-    run_stage(
-        "independent_signature_checker",
-        [
-            sys.executable,
-            "repro/src/check_theorem_signatures.py",
-            "--input",
-            str(signature_output),
-            "--output",
-            str(signature_check_output),
         ],
     )
     run_stage(
@@ -102,32 +89,23 @@ def main() -> None:
         [sys.executable, "-m", "unittest", "discover", "-s", "repro/tests", "-v"],
     )
     verification = json.loads(verifier_output.read_text())
-    claim1 = json.loads(claim1_output.read_text())
-    claim1_falsification = json.loads(claim1_falsification_output.read_text())
-    specializations = json.loads(specialization_output.read_text())
-    claims2_6_audit = json.loads(claims2_6_audit_output.read_text())
-    signatures = json.loads(signature_output.read_text())
-    signature_check = json.loads(signature_check_output.read_text())
+    boundary = json.loads(boundary_output.read_text())
+    boundary_check = json.loads(boundary_check_output.read_text())
     visibility = json.loads(visibility_output.read_text())
     universal_proofs = json.loads(universal_proof_output.read_text())
     universal_audit = json.loads(universal_audit_output.read_text())
     passed = (
         verification["all_claims_passed"]
         and len(verification["claims"]) == 6
-        and claim1["verdict"] == "VERIFIED"
-        and len(claim1["mutations_rejected"]) == 3
-        and claim1_falsification["falsification_succeeded"] is False
-        and claim1_falsification["main_claim_status"] == "VERIFIED_BY_SYMBOLIC_CERTIFICATE"
-        and specializations["all_exact_claims_verified"]
-        and claims2_6_audit["verdict"] == "AUDIT_COMPLETE"
-        and all(not row["falsification_succeeded"] for row in claims2_6_audit["claims"].values())
-        and claims2_6_audit["claims"]["C6"]["status"] == "PROOF_DOMAIN_GAP"
+        and boundary["classification"] == "LITERAL_FALSIFICATION_AS_PRINTED"
+        and boundary["claims"]["C1"]["verdict"] == "FALSIFIED_AS_PRINTED"
+        and boundary["claims"]["C4"]["verdict"] == "FALSIFIED_AS_PRINTED"
+        and boundary["finite_sweeps_used_as_proof"] == 0
+        and boundary_check["verdict"] == "INDEPENDENT_CHECK_PASS"
         and universal_proofs["all_universal_proof_chains_passed"]
         and universal_proofs["finite_parameter_sweeps_used_as_proof"] == 0
         and universal_audit["independent_audit_passed"]
         and universal_audit["independent_checks"] == 42
-        and signatures["all_empirical_checks_passed"]
-        and signature_check["verdict"] == "SIGNATURE_CHECK_PASS"
         and visibility["verdict"] == "EVALUATOR_VISIBLE_GATE_PASS"
         and visibility["missing_cells"] == 0
     )
@@ -136,15 +114,14 @@ def main() -> None:
         "tests_passed": True,
         "claims_passed": len(verification["claims"]),
         "current_exact_claims": {
-            "C1": claim1["verdict"],
-            **{claim: result["verdict"] for claim, result in specializations["claims"].items()},
+            claim: result["verdict"]
+            for claim, result in universal_proofs["claims"].items()
         },
-        "empirical_theorem_signatures": {
-            "claims": len(signatures["claims"]),
-            "checker": signature_check["verdict"],
-            "seed": signatures["seed"],
-            "protocol": signatures["protocol"],
-            "thread_cap": signatures["thread_cap"],
+        "log_boundary_counterexamples": {
+            "claims": ["C1", "C4"],
+            "checker": boundary_check["verdict"],
+            "labelings_recomputed": boundary_check["labelings_recomputed"],
+            "finite_sweeps_used_as_proof": 0,
         },
         "universal_theorem_proofs": {
             "claims": universal_proofs["claim_count"],

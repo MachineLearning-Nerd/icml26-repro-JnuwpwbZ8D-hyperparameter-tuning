@@ -1,1 +1,62 @@
-{"claims":{"C1":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true},"C2":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true},"C3":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true},"C4":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true},"C5":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true},"C6":{"derivation_edges_complete":true,"exact_checks_fail_closed":true,"final_verdict_exact":true,"four_distinct_fail_sensitive_controls":true,"no_finite_sweep_used_as_proof":true,"quantifier_manifest_complete":true,"source_anchor_complete":true}},"finite_parameter_sweeps_used_as_proof":0,"independent_audit_passed":true,"independent_checks":42,"primary_sha256":"319646ba003cdc157489e56c8688a46f9c069de7bef1ea01a5af4a2936791744"}
+{
+  "claims": {
+    "C1": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    },
+    "C2": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    },
+    "C3": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    },
+    "C4": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    },
+    "C5": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    },
+    "C6": {
+      "derivation_edges_complete": true,
+      "exact_checks_fail_closed": true,
+      "final_verdict_exact": true,
+      "four_distinct_fail_sensitive_controls": true,
+      "no_finite_sweep_used_as_proof": true,
+      "quantifier_manifest_complete": true,
+      "source_anchor_complete": true
+    }
+  },
+  "finite_parameter_sweeps_used_as_proof": 0,
+  "independent_audit_passed": true,
+  "independent_checks": 42,
+  "primary_sha256": "f845904f49eafa63f36edd56d53a257aa9ed0320e0c889c3800166ed52d26848"
+}

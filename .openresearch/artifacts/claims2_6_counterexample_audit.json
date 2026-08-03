@@ -36,16 +36,19 @@
     },
     "C4": {
       "candidate": {
-        "candidate": "two-minimizer polynomial path",
-        "classification": "ASSUMPTION_VIOLATION_NOT_COUNTEREXAMPLE",
-        "minimizers": [
-          -1.0,
-          1.0
-        ],
-        "reason": "Assumption 7.1 explicitly requires a singleton argmin for every alpha."
+        "candidate": "unique one-piece affine path and affine tuning loss",
+        "classification": "ASSUMPTION_SATISFYING_COUNTEREXAMPLE",
+        "training_objective": "||theta-alpha||_2^2/(4p)",
+        "unique_path": "theta*=alpha",
+        "tuning_objective": "<theta,x>/p",
+        "M_total": 1,
+        "Delta_total": 1,
+        "printed_rhs_factor": 0,
+        "pdim_lower_bound": "p",
+        "reason": "The coordinate class pseudo-shatters p points while log(M_total*Delta_total)=log(1)=0."
       },
-      "falsification_succeeded": false,
-      "status": "NO_ASSUMPTION_SATISFYING_COUNTEREXAMPLE"
+      "falsification_succeeded": true,
+      "status": "FALSIFIED_AS_PRINTED"
     },
     "C5": {
       "candidate": {

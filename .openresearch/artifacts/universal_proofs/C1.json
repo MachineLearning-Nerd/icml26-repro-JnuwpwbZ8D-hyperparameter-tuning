@@ -1,1 +1,40 @@
-{"claim_id":"C1","exact_checks":{"appendix_K_vs_M_typo_not_propagated":true,"log_product_expansion_complete":true,"lower_order_degree_term_absorbed_using_p_ge_1":true,"qe_and_gj_dependencies_explicit":true,"quantifier_manifest_complete":true},"finite_parameter_sweeps_used_as_proof":0,"mutations_rejected":["replace_K_by_M_in_QE_products","drop_uniformity_in_x_and_t","drop_p_squared_degree_term","omit_QE_degree_from_GJ_degree"],"proof_chain":["QE converts Phi_(x,t) to an equivalent quantifier-free formula","I <= M^A * Delta^(c*p*B), A=prod(d_k+1), B=prod(d_k)","Delta_QE <= Delta^(c_prime*B)","the quantifier-free Boolean formula is evaluated by a GJ algorithm","Pdim <= C*p*log(I*Delta_QE)","expand logs to p*A*log(M)+(c*p^2*B+c_prime*p*B)*log(Delta)","p>=1 absorbs p*B*log(Delta) into p^2*B*log(Delta)"],"quantifiers":["for every fixed instance x","for every threshold t in R","uniformly over alpha in a p-dimensional box","for fixed K quantifier blocks with dimensions d_1,...,d_K"],"source_anchor":"main Theorem 4.1; Appendix A.3 and B","trusted_results":["Basu-Pollack-Roy Algorithm 14.8 quantifier-elimination complexity","Bartlett et al. Theorem 3.3 Goldberg-Jerrum pseudo-dimension bound"],"verdict":"VERIFIED"}
+{
+  "claim_id": "C1",
+  "source_anchor": "main Theorem 4.1; Appendix A.3 and B",
+  "quantifiers": [
+    "for every fixed instance x",
+    "for every threshold t in R",
+    "uniformly over alpha in a p-dimensional box",
+    "for fixed K quantifier blocks with dimensions d_1,...,d_K"
+  ],
+  "trusted_results": [
+    "Basu-Pollack-Roy Algorithm 14.8 quantifier-elimination complexity",
+    "Bartlett et al. Theorem 3.3 Goldberg-Jerrum pseudo-dimension bound"
+  ],
+  "proof_chain": [
+    "QE converts Phi_(x,t) to an equivalent quantifier-free formula",
+    "I <= M^A * Delta^(c*p*B), A=prod(d_k+1), B=prod(d_k)",
+    "Delta_QE <= Delta^(c_prime*B)",
+    "the quantifier-free Boolean formula is evaluated by a GJ algorithm",
+    "Pdim <= C*p*log(I*Delta_QE)",
+    "expand logs to p*A*log(M)+(c*p^2*B+c_prime*p*B)*log(Delta)",
+    "p>=1 absorbs p*B*log(Delta) into p^2*B*log(Delta)",
+    "at M=Delta=1 the printed expression is zero but the affine coordinate class has Pdim at least p"
+  ],
+  "exact_checks": {
+    "quantifier_manifest_complete": true,
+    "qe_and_gj_dependencies_explicit": true,
+    "log_product_expansion_complete": true,
+    "lower_order_degree_term_absorbed_using_p_ge_1": true,
+    "appendix_K_vs_M_typo_not_propagated": true,
+    "missing_positive_log_guard_detected": true
+  },
+  "mutations_rejected": [
+    "replace_K_by_M_in_QE_products",
+    "drop_uniformity_in_x_and_t",
+    "drop_p_squared_degree_term",
+    "omit_QE_degree_from_GJ_degree"
+  ],
+  "finite_parameter_sweeps_used_as_proof": 0,
+  "verdict": "FALSIFIED_AS_PRINTED"
+}

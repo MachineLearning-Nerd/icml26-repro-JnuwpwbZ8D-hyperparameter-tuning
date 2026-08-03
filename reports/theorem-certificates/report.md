@@ -1,4 +1,4 @@
-# Why the earlier reproduction stayed at 6/12—and what now changed
+# Why the earlier reproduction stayed at 6/12—and the exact boundary defect
 
 ![Headline evidence](images/headline.svg)
 
@@ -31,22 +31,24 @@ Four substantive gaps emerged:
 4. C6's printed all-real domain and nonnegative dual-box proof were not made
    sufficiently prominent.
 
-There was also a presentation problem: roughly 30k evaluator tokens were
-dominated by duplicated weak certificate code. The new navigation leads with
-six compact claim runs and moves the rejected route into history.
+The decisive new audit checks the smallest allowed complexity before accepting
+the asymptotic simplification. That exposes exact counterexamples to C1 and C4.
 
 ## Implementation
 
 ![Proof pipeline](images/proof-pipeline.svg)
 
-The fixed command now reconstructs six Appendix-to-theorem proof graphs, then
-hands their JSON to a separately implemented fail-closed checker:
+The fixed command constructs the shared C1/C4 affine counterexample, hands it
+to a separately implemented fail-closed checker, and then audits all six
+Appendix-to-theorem proof graphs:
 
 ```bash
 uv run --frozen --python 3.12 repro/src/run_publication_gate.py --output outputs/publication_gate.json
 ```
 
-The primary verifier records the exact source anchors, quantifier order,
+For `ell_alpha(x)=<alpha,x>/p`, coordinate thresholds realize every labeling.
+C1 has `M=Delta=1`; C4 has `M_total=Delta_total=1`; both printed expressions
+are zero. The primary verifier records the exact source anchors, quantifier order,
 assumptions, atom/degree profile, trusted external theorem, algebraic
 domination witness, and four negative mutations per claim. The independent
 auditor imports no primary code; it reads the JSON as an untrusted proof
@@ -59,21 +61,25 @@ Boolean value `true`.
 
 | Claim | Strongest proof evidence | Assessment |
 |---|---|---|
-| C1 | QE atom/degree bounds → QFF GJ complexity → exact log expansion; `K/M` typo detected | VERIFIED · HIGH |
+| C1 | one-atom affine FOL; `M=Delta=1`; exact pseudo-shattering witness | FALSIFIED AS PRINTED · HIGH |
 | C2 | exact `∀θ` threshold formula and two universal algebraic domination witnesses | VERIFIED · HIGH |
 | C3 | exact `∀θ∃θ'` order, complete atom count, and universal `d²` witnesses | VERIFIED · HIGH |
-| C4 | direct GJ predicate/degree accounting; absence of QE is itself audited | VERIFIED · HIGH |
+| C4 | unique affine path; `M_total=Delta_total=1`; exact pseudo-shattering witness | FALSIFIED AS PRINTED · HIGH |
 | C5 | exact nonnegative norm lift and universal coefficient certificate for `p³d+p²d²` | VERIFIED · HIGH |
 | C6 | Fenchel dual box → mp-QP path → `3^p` states → `O(d²)` on `α≥0` | VERIFIED · MEDIUM |
 
-Formal output: 6/6 chains, 24/24 rejected proof mutations, 42/42 independent
-checks, 24/24 cumulative tests, and zero finite sweeps used as proof.
+Formal output: two exact falsifications, four retained conditional proof
+audits, 24/24 rejected proof mutations, 42/42 independent chain checks, 510
+independently recomputed diagnostic labelings, and zero finite sweeps used as
+proof.
 
 ## Controls and limits
 
 ![Adversarial controls](images/adversarial-audit.svg)
 
-The controls target necessary proof steps: source index and uniformity for C1;
+The decisive control replaces each unguarded boundary logarithm with
+`log_2(1+z)`, restoring an order-`p` term compatible with the witness. Other
+controls target necessary proof steps: source index and uniformity for C1;
 quantifier and domain guard for C2; quantifier order and nonempty argmin for
 C3; uniqueness and denominators for C4; nonnegative norm lifts for C5; and
 rank, weight domain, three-state counting, and `p=d-1` for C6.
@@ -88,13 +94,8 @@ sense for nonnegative radii.
 
 ![Experiment tree](images/experiment-tree.svg)
 
-Winning run `b811b0bc-da4c-4575-a4ea-36fd5022d707` at
-`67466cf191c493f0ebb67928866fa40e3a674668` passed the unchanged publication
-command on one local CPU core in 10 seconds. The first preflight failed at
-41/42 because C6 encoded all three states without the literal audit token;
-the second passed the science and stopped on a stale manifest hash. The third
-passed the proof, tests, historical subset, and visibility gates.
-
-Previous live judged score: 6/12. Conservative projected range: 10–12/12.
-Best-supported possible score: 12/12 forecast only. No score increase is
-claimed until the live evaluator records it.
+The current deterministic route runs on one local CPU process in 1.45 seconds
+at USD 0. Previous live judged score: 6/12. The outcome-blind ceiling is
+8/12 because C1/C4 now have complete exact falsifications while C2/C3/C5/C6
+retain their one-point conditional proof audits. No score increase is claimed
+until the live evaluator records it.

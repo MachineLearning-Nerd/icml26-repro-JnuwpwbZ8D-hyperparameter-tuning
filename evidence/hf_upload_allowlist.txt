@@ -70,6 +70,11 @@
 .openresearch/artifacts/claim_6/source_audit.md
 .openresearch/artifacts/claims2_6_counterexample_audit.json
 .openresearch/artifacts/claims2_6_symbolic_witnesses.json
+.openresearch/artifacts/log_boundary_counterexamples/independent_check.json
+.openresearch/artifacts/log_boundary_counterexamples/limitations.md
+.openresearch/artifacts/log_boundary_counterexamples/method.md
+.openresearch/artifacts/log_boundary_counterexamples/raw_output.json
+.openresearch/artifacts/log_boundary_counterexamples/source_audit.md
 .openresearch/artifacts/reference_protocols/checker_output.json
 .openresearch/artifacts/reference_protocols/raw_output.json
 .openresearch/artifacts/theorem_signatures/checker_output.json
@@ -106,6 +111,7 @@ pages/current-c6/page.md
 pages/current-proof-certificates/page.md
 pages/current-release/page.md
 pages/current-verification/page.md
+pages/executive-summary/page.md
 pages/historical-rejected-baseline/page.md
 pages/universal-proof-c1/page.md
 pages/universal-proof-c2/page.md
@@ -115,7 +121,10 @@ pages/universal-proof-c5/page.md
 pages/universal-proof-c6/page.md
 pages/universal-proof-index/page.md
 pages/universal-proof-release/page.md
+poster_embed.html
 pyproject.toml
+release/publish_text_allowlist.py
+release/verify_published_space.py
 reports/theorem-certificates/images/adversarial-audit.svg
 reports/theorem-certificates/images/checker-cases.svg
 reports/theorem-certificates/images/experiment-tree.svg
@@ -126,7 +135,9 @@ reports/theorem-certificates/report.md
 repro/src/audit_claim1_falsification.py
 repro/src/audit_claims2_6_counterexamples.py
 repro/src/audit_evaluator_visibility.py
+repro/src/audit_log_boundary_counterexamples.py
 repro/src/audit_universal_theorem_chains.py
+repro/src/check_log_boundary_counterexamples.py
 repro/src/check_theorem_signatures.py
 repro/src/embed_symbolic_certificates.py
 repro/src/measure_theorem_signatures.py
@@ -140,6 +151,7 @@ repro/tests/test_claims2_6_counterexamples.py
 repro/tests/test_claims2_6_proofs.py
 repro/tests/test_evaluator_visibility.py
 repro/tests/test_hyperparameters.py
+repro/tests/test_log_boundary_counterexamples.py
 repro/tests/test_theorem_signatures.py
 repro/tests/test_universal_theorem_chains.py
 source/icml2026.tex

@@ -1,1 +1,1 @@
-{"premise":"The cited GJ theorem applied directly to the unique piecewise-rational path","counts":{"M_total":"M_path+T_path(M_k+T_k)","Delta_total":"Delta_k Delta_path"},"conclusion":"Pdim=O(p log(M_total Delta_total))"}
+{"premise":"The cited GJ theorem applied directly to the unique piecewise-rational path","counts":{"M_total":"M_path+T_path(M_k+T_k)","Delta_total":"Delta_k Delta_path"},"conclusion":"The derivation misses the M_total=Delta_total=1 boundary, where the printed RHS is zero.","superseded_verdict":"FALSIFIED_AS_PRINTED"}
